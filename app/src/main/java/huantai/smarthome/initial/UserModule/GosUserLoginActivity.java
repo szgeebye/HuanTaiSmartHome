@@ -50,7 +50,7 @@ import cn.jpush.android.api.JPushInterface;
 @SuppressLint("HandlerLeak")
 public class GosUserLoginActivity extends GosUserModuleBaseActivity implements OnClickListener {
 
-
+//test
 	GosPushManager gosPushManager;
 
 	/** The et Name */
