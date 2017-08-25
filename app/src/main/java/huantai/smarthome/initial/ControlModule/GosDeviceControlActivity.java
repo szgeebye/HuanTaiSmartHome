@@ -5,16 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
-import huantai.smarthome.initial.CommonModule.GosBaseActivity;
-import huantai.smarthome.initial.R;
-
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 
 import org.json.JSONException;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import huantai.smarthome.initial.CommonModule.GosBaseActivity;
+import huantai.smarthome.initial.R;
+import huantai.smarthome.utils.ConvertUtil;
 
 public class GosDeviceControlActivity extends GosBaseActivity {
 
@@ -31,7 +36,13 @@ public class GosDeviceControlActivity extends GosBaseActivity {
 	private static final String KUOZHAN = "kuozhan";
 	private byte[] SEND_BROAD = {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x15};
 
+	private Button btn_send;
 
+//	@ViewInject(R.id.tv_msg)
+	private TextView tv_msg;
+	private final int RETURN_MSG=1;
+
+	private String msg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +50,39 @@ public class GosDeviceControlActivity extends GosBaseActivity {
 		initDevice();
 		setActionBar(true, true, device.getProductName());
 		initView();
+		//开启广播
+		btn_send=(Button)findViewById(R.id.btn_send);
+		tv_msg = (TextView) findViewById(R.id.tv_msg);
+		btn_send.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				initBroadreceive();
+			}
+		});
+		initStatusListener();
+	}
+
+
+	/**
+	 * description:设置设备状态监听
+	 * auther：joahluo
+	 * time：2017/6/27 16:27
+	 */
+	private void initStatusListener() {
+		//设置设备状态监听
+		device.setListener(mListener);
+		//通知设备上报数据
+		initBroadreceive();
+	}
+
+
+	/**
+	 * description：开启广播监听
+	 * auther：joahluo
+	 * time：2017/6/27 14:30
+	 */
+	private void initBroadreceive() {
+		//TODO: 发送状态同步广播给服务器
 		try {
 			sendJson(KUOZHAN, SEND_BROAD);
 		} catch (JSONException e) {
@@ -83,5 +127,30 @@ public class GosDeviceControlActivity extends GosBaseActivity {
 		device.write(hashMap, 0);
 		Log.i("==", hashMap.toString());
 	}
+
+
+	/**
+	 * description:获取设备状态
+	 * auther：joahluo
+	 * time：2017/6/27 15:53
+	 */
+	GizWifiDeviceListener mListener = new GizWifiDeviceListener() {
+		@Override
+		public void didReceiveData(GizWifiErrorCode result, GizWifiDevice device, ConcurrentHashMap<String, Object> dataMap, int sn) {
+			if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
+				// 已定义的设备数据点，有布尔、数值和枚举型数据
+				if (dataMap.get("data") != null) {
+					ConcurrentHashMap<String, Object> map = (ConcurrentHashMap<String, Object>) dataMap.get("data");
+					// 获得kuozhan类型数据
+					String msg = ConvertUtil.byteStringToHexString((byte[]) map.get("kuozhan"));
+					Log.i("ListenerMsg",msg);
+					tv_msg.setText(msg);
+					System.out.println("接收到数据："+msg);
+				}
+			}
+
+		}
+
+	};
 
 }
