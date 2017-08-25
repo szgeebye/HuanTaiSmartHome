@@ -438,7 +438,7 @@ public class GosDeploy {
 		GradientDrawable drawable = new GradientDrawable();
 		drawable.setShape(GradientDrawable.RECTANGLE);
 
-		int navigationBarColor = context.getResources().getColor(R.color.yellow);
+		int navigationBarColor = context.getResources().getColor(R.color.text_blue);
 
 		String NavigationBarColor_FromMap = infoMap.get(NavigationBarColor_Key).toString();
 		if (!TextUtils.isEmpty(NavigationBarColor_FromMap)) {

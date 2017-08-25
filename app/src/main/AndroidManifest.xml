@@ -8,6 +8,11 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
 
+
+    <!-- xutils-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <!-- 极光推送 -->
     <permission
         android:name="huantai.smarthome.initial.permission.JPUSH_MESSAGE"

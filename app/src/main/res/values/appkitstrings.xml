@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GOpenSourceAppKit</string>
+    <string name="app_name">环泰智能家居</string>
 
     <!-- 用户模块 -->
 
 
     <!-- UserLoginActivity -->
-    <string name="app_company">机智云账号登录</string>
+    <string name="app_company">环泰智能家居登录</string>
     <string name="name_hint">请输入手机号</string>
     <string name="password_hint">请输入登录密码</string>
     <string name="name_digits">0123456789</string>

@@ -5,6 +5,8 @@ import java.util.TimerTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.BuildConfig;
+import org.xutils.x;
 
 import com.gizwits.gizwifisdk.api.GizWifiSDK;
 import com.gizwits.gizwifisdk.enumration.GizEventType;
@@ -147,6 +149,8 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		x.Ext.init(getApplication());
+		x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
 		setTheme(R.style.AppTheme);
 		if (!this.isTaskRoot()) {// 判断此activity是不是任务控件的源Activity，“非”也就是说是被系统重新实例化出来的
 			Intent mainIntent = getIntent();
