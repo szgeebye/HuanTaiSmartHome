@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/xuewenliao/Desktop/AndroidProject/HuanTaiSmartHome/lib-vpi/build/intermediates/res/merged/debug/color/vpi__light_theme.xml",
+        "source": "/Users/xuewenliao/Desktop/AndroidProject/HuanTaiSmartHome/lib-vpi/src/main/res/color/vpi__light_theme.xml"
+    },
+    {
+        "merged": "/Users/xuewenliao/Desktop/AndroidProject/HuanTaiSmartHome/lib-vpi/build/intermediates/res/merged/debug/color/vpi__dark_theme.xml",
+        "source": "/Users/xuewenliao/Desktop/AndroidProject/HuanTaiSmartHome/lib-vpi/src/main/res/color/vpi__dark_theme.xml"
+    }
+]
