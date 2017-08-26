@@ -95,13 +95,13 @@ public class WXEntryActivity extends GosBaseActivity implements
 						Log.i(TAG, "openid = " + openid);
 						Log.i(TAG, "access_token = " + access_token);
 
-						GosUserLoginActivity.gizThirdAccountType = GizThirdAccountType.GizThirdWeChat;
-						GosUserLoginActivity.thirdToken = access_token;
-						GosUserLoginActivity.thirdUid = openid;
+//						GosUserLoginActivity.gizThirdAccountType = GizThirdAccountType.GizThirdWeChat;
+//						GosUserLoginActivity.thirdToken = access_token;
+//						GosUserLoginActivity.thirdUid = openid;
 
 						Message msg = new Message();
-						msg.what = GosUserLoginActivity.handler_key.THRED_LOGIN
-								.ordinal();
+//						msg.what = GosUserLoginActivity.handler_key.THRED_LOGIN
+//								.ordinal();
 
 						if (baseHandler != null) {
 							baseHandler.sendMessage(msg);

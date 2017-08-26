@@ -44,4 +44,5 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.0.5'
     compile 'org.xutils:xutils:3.5.0'
     compile project(':lib-vpi')
+    compile 'com.google.code.gson:gson:2.8.1'
 }

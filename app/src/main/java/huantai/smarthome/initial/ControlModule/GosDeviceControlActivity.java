@@ -134,7 +134,7 @@ public class GosDeviceControlActivity extends GosBaseActivity {
 	 * auther：joahluo
 	 * time：2017/6/27 15:53
 	 */
-	GizWifiDeviceListener mListener = new GizWifiDeviceListener() {
+	private GizWifiDeviceListener mListener = new GizWifiDeviceListener() {
 		@Override
 		public void didReceiveData(GizWifiErrorCode result, GizWifiDevice device, ConcurrentHashMap<String, Object> dataMap, int sn) {
 			if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
