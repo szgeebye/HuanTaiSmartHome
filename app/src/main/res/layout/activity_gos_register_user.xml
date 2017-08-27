@@ -23,7 +23,7 @@
             android:src="@drawable/phone" />
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/et_name"
             style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -64,15 +64,8 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/sms" />
-
         <EditText
-            android:id="@+id/etCode"
+            android:id="@+id/et_Code"
             style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -85,6 +78,14 @@
             android:textColor="@color/black"
             android:textColorHint="@color/text_gray_light"
             android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/sms" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -103,7 +104,7 @@
             android:src="@drawable/login_password" />
 
         <EditText
-            android:id="@+id/etPsw"
+            android:id="@+id/et_psw"
             style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -127,7 +128,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnRrgister"
+        android:id="@+id/btn_register"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="40dp"
