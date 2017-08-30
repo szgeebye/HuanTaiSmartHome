@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.ConfigModule.GosModeListActivity.ModeListAdapter;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.NetUtils;
+import huantai.smarthome.utils.NetUtils;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RationaleListener;

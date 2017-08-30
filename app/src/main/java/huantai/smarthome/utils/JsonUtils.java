@@ -3,7 +3,7 @@
  * @charset UTF-8
  * @author xiongxunxiang
  */
-package huantai.smarthome.initial.utils;
+package huantai.smarthome.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +27,9 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import huantai.smarthome.utils.HTTPSTrustManager;
+import huantai.smarthome.utils.TrustAllSSLSocketFactory;
+
 /**
  * @description 更多移动开发内容请关注： http://blog.csdn.net/xiong_it
  * @charset UTF-8
@@ -47,7 +50,7 @@ public class JsonUtils {
 
 		SchemeRegistry registry = new SchemeRegistry();
 		registry.register(new Scheme("http", PlainSocketFactory .getSocketFactory(), 80));
-		registry.register(new Scheme("https", TrustAllSSLSocketFactory .getDefault(), 443));
+		registry.register(new Scheme("https", TrustAllSSLSocketFactory.getDefault(), 443));
 		ClientConnectionManager manager = new ThreadSafeClientConnManager( param, registry);
 		DefaultHttpClient client = new DefaultHttpClient(manager, param);
 

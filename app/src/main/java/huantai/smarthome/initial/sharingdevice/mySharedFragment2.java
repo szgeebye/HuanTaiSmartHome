@@ -7,7 +7,7 @@ import com.gizwits.gizwifisdk.enumration.GizDeviceSharingStatus;
 
 import huantai.smarthome.initial.CommonModule.GosConstant;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.DateUtil;
+import huantai.smarthome.utils.DateUtil;
 
 import android.content.Context;
 import android.content.SharedPreferences;

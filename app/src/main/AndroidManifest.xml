@@ -124,7 +124,7 @@
         </activity>
         <activity android:name=".ConfigModule.GosCheckDeviceWorkWiFiActivity" >
         </activity>
-        <activity android:name=".ControlModule.GosDeviceControlActivity" >
+        <activity android:name="huantai.smarthome.control.GosDeviceControlActivity" >
         </activity>
         <activity android:name=".ConfigModule.GosModeListActivity" >
         </activity>
@@ -146,6 +146,12 @@
         <activity android:name=".sharingdevice.messageCenterActivity"></activity>
         <activity android:name=".sharingdevice.deviceSharedMessageActivity"></activity>
         <activity android:name=".sharingdevice.gosZxingDeviceSharingActivity"></activity>
+        <!--主界面入口-->
+        <activity
+            android:name="huantai.smarthome.control.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
 
         <!-- 极光推送 -->
         <!-- Required SDK 核心功能 -->

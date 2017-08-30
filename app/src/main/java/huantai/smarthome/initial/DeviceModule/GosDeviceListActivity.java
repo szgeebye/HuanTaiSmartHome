@@ -34,17 +34,18 @@ import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.gizwits.gizwifisdk.listener.GizDeviceSharingListener;
 
+import huantai.smarthome.control.MainActivity;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.CommonModule.TipsDialog;
 import huantai.smarthome.initial.ConfigModule.GosAirlinkChooseDeviceWorkWiFiActivity;
 import huantai.smarthome.initial.ConfigModule.GosCheckDeviceWorkWiFiActivity;
-import huantai.smarthome.initial.ControlModule.GosDeviceControlActivity;
+import huantai.smarthome.control.GosDeviceControlActivity;
 import huantai.smarthome.initial.PushModule.GosPushManager;
 
 import huantai.smarthome.initial.R;
 import huantai.smarthome.initial.SettingsModule.GosSettiingsActivity;
 import huantai.smarthome.initial.sharingdevice.gosZxingDeviceSharingActivity;
-import huantai.smarthome.initial.utils.NetUtils;
+import huantai.smarthome.utils.NetUtils;
 import huantai.smarthome.initial.view.SlideListView2;
 import huantai.smarthome.initial.view.VerticalSwipeRefreshLayout;
 
@@ -205,7 +206,8 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 				break;
 
 			case TOCONTROL:
-				intent = new Intent(GosDeviceListActivity.this, GosDeviceControlActivity.class);
+//				intent = new Intent(GosDeviceListActivity.this, GosDeviceControlActivity.class);
+				intent = new Intent(GosDeviceListActivity.this, MainActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putParcelable("GizWifiDevice", (GizWifiDevice) msg.obj);
 				intent.putExtras(bundle);
@@ -300,8 +302,8 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 
 		// 设置ActionBar
-		// setActionBar(true, true, R.string.devicelist_title);
-		// actionBar.setIcon(R.drawable.button_refresh);
+//		 setActionBar(true, true, R.string.devicelist_title);
+//		 actionBar.setIcon(R.drawable.button_refresh);
 
 
 

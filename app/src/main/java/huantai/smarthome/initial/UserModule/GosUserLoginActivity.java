@@ -1,41 +1,18 @@
 package huantai.smarthome.initial.UserModule;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xutils.BuildConfig;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import com.gizwits.gizwifisdk.api.GizWifiSDK;
-import com.gizwits.gizwifisdk.enumration.GizEventType;
-import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-
 import huantai.smarthome.bean.UserBackInfo;
 import huantai.smarthome.bean.UserData;
-import huantai.smarthome.initial.GosApplication;
 
-import huantai.smarthome.initial.CommonModule.GosBaseActivity;
-import huantai.smarthome.initial.CommonModule.GosDeploy;
-import huantai.smarthome.initial.CommonModule.TipsDialog;
 import huantai.smarthome.initial.DeviceModule.GosDeviceListActivity;
-import huantai.smarthome.initial.DeviceModule.GosMainActivity;
-import huantai.smarthome.initial.PushModule.GosPushManager;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.ThirdAccountModule.BaseUiListener;
-import huantai.smarthome.initial.utils.Encryption;
-import huantai.smarthome.initial.view.DotView;
+import huantai.smarthome.utils.Encryption;
 
 import com.google.gson.Gson;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -44,19 +21,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
 
 
 @SuppressLint("HandlerLeak")

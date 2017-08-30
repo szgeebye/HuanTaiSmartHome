@@ -1,4 +1,4 @@
-package huantai.smarthome.initial.utils;
+package huantai.smarthome.utils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

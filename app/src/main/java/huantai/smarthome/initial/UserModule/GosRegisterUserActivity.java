@@ -1,11 +1,5 @@
 package huantai.smarthome.initial.UserModule;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.gizwits.gizwifisdk.api.GizWifiSDK;
-import com.gizwits.gizwifisdk.enumration.GizUserAccountType;
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.google.gson.Gson;
 
 import cn.bmob.sms.BmobSMS;
@@ -14,13 +8,10 @@ import cn.bmob.sms.listener.RequestSMSCodeListener;
 import cn.bmob.sms.listener.VerifySMSCodeListener;
 import huantai.smarthome.bean.UserBackInfo;
 import huantai.smarthome.bean.UserData;
-import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.Encryption;
+import huantai.smarthome.utils.Encryption;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,11 +19,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 

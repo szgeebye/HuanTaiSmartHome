@@ -6,7 +6,7 @@ import com.gizwits.gizwifisdk.listener.GizDeviceSharingListener;
 
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.DateUtil;
+import huantai.smarthome.utils.DateUtil;
 
 import android.content.Intent;
 import android.os.Bundle;

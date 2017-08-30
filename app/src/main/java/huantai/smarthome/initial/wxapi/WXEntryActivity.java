@@ -2,12 +2,10 @@ package huantai.smarthome.initial.wxapi;
 
 import org.json.JSONObject;
 
-import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
 import com.gizwits.gizwifisdk.log.SDKLog;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
-import huantai.smarthome.initial.UserModule.GosUserLoginActivity;
-import huantai.smarthome.initial.utils.JsonUtils;
+import huantai.smarthome.utils.JsonUtils;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;

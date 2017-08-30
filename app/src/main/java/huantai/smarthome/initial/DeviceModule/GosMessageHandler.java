@@ -8,7 +8,7 @@ import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.CommonModule.GosConstant;
 import huantai.smarthome.initial.ConfigModule.GosCheckDeviceWorkWiFiActivity;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.NetUtils;
+import huantai.smarthome.utils.NetUtils;
 
 import android.app.Notification;
 import android.app.NotificationManager;

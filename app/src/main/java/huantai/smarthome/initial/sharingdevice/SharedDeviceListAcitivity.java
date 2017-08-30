@@ -17,7 +17,7 @@ import huantai.smarthome.initial.CommonModule.NoScrollViewPager;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.initial.sharingdevice.ViewPagerIndicator.PageChangeListener;
 import huantai.smarthome.initial.sharingdevice.mySharedFragment2.myadapter;
-import huantai.smarthome.initial.utils.DateUtil;
+import huantai.smarthome.utils.DateUtil;
 
 import android.content.Context;
 import android.content.SharedPreferences;

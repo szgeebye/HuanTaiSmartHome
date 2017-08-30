@@ -2,7 +2,7 @@ package huantai.smarthome.initial.ConfigModule;
 
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.CommonModule.WifiAutoConnectManager;
-import huantai.smarthome.initial.utils.NetUtils;
+import huantai.smarthome.utils.NetUtils;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

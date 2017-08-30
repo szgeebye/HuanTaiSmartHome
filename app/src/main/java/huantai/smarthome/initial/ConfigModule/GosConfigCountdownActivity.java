@@ -10,7 +10,7 @@ import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import huantai.smarthome.initial.CommonModule.WifiAutoConnectManager;
 import huantai.smarthome.initial.CommonModule.WifiAutoConnectManager.WifiCipherType;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.NetUtils;
+import huantai.smarthome.utils.NetUtils;
 import huantai.smarthome.initial.view.RoundProgressBar;
 
 import android.annotation.SuppressLint;

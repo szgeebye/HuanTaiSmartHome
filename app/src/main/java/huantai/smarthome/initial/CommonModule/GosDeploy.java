@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 
 import huantai.smarthome.initial.R;
-import huantai.smarthome.initial.utils.AssetsUtils;
+import huantai.smarthome.utils.AssetsUtils;
 
 import android.content.Context;
 import android.graphics.Color;

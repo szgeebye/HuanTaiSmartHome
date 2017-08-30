@@ -1,4 +1,4 @@
-package huantai.smarthome.initial.utils;
+package huantai.smarthome.utils;
 
 import java.io.Serializable;
 import java.text.DateFormat;

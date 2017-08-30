@@ -424,4 +424,9 @@
     <string name="renameremark">修改共享信息别名</string>
     <string name="moudlechoose">您选择了xx模组</string>
 
+    <!--fragmentString-->
+    <string name="tab_menu_alert">家</string>
+    <string name="tab_menu_profile">设备</string>
+    <string name="tab_menu_pay">视频</string>
+    <string name="tab_menu_setting">我的</string>
 </resources>
