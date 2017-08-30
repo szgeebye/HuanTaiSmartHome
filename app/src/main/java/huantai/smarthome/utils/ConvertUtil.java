@@ -1,9 +1,9 @@
 package huantai.smarthome.utils;
 
 /**
- * 作者：Jacky
- * 邮箱：550997728@qq.com
- * 时间：2017/6/21 14:03
+ * description:数据转换Util
+ * auther：luojie
+ * time：2017/8/30 16:39
  */
 public class ConvertUtil {
           //java 合并两个byte数组
