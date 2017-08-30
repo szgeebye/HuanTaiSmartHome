@@ -503,11 +503,11 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 	//初始化绑定 FIXME
 	private void initbind() {
-		startBind(uid, token, "A020A62F1A8D", GosDeploy.setAppID(), GosDeploy.setAppSecret());
-		startBind(uid, token, "5CCF7F16685A", GosDeploy.setAppID(), GosDeploy.setAppSecret());
-		startBind(uid, token, "5CCF7F391EB9", GosDeploy.setAppID(), GosDeploy.setAppSecret());
-		startBind(uid, token, "A020A62EDB98", GosDeploy.setAppID(), GosDeploy.setAppSecret());
-		startBind("123456", "47kPV9t3EVDmm2NM2QCFt4");
+//		startBind(uid, token, "A020A62F1A8D", GosDeploy.setAppID(), GosDeploy.setAppSecret());
+//		startBind(uid, token, "5CCF7F16685A", GosDeploy.setAppID(), GosDeploy.setAppSecret());
+//		startBind(uid, token, "5CCF7F391EB9", GosDeploy.setAppID(), GosDeploy.setAppSecret());
+//		startBind(uid, token, "A020A62EDB98", GosDeploy.setAppID(), GosDeploy.setAppSecret());
+//		startBind("123456", "47kPV9t3EVDmm2NM2QCFt4");
 	}
 
 	//绑定设备 FIXME
