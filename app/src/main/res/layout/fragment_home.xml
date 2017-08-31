@@ -1,32 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical">
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/bg_white"
+android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/bg_topbar">
-        <TextView
-            android:id="@+id/tv_hometopbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="家"
-            android:textColor="@color/text_topbar"
-            android:textSize="18sp" />
-    </RelativeLayout>
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="48dp"
+android:background="@color/bg_topbar">
+<TextView
+android:id="@+id/tv_hometopbar"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_centerInParent="true"
+android:gravity="center"
+android:text="家"
+android:textColor="@color/text_topbar"
+android:textSize="18sp" />
+</RelativeLayout>
 
     <TextView
-        android:id="@+id/txt_home"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="呵呵"
-        android:textColor="@color/text_yellow"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_black"
+        android:text="Mac" />
+
+    <TextView
+        android:id="@+id/tvMAC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_black"/>
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_black"
+        android:text="null"
+        />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_black"
+        android:text="send" />
+<!--<TextView-->
+<!--android:id="@+id/txt_home"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:gravity="center"-->
+<!--android:text="呵呵"-->
+<!--android:textColor="@color/text_yellow"-->
+<!--android:textSize="20sp" />-->
+
+
 
 </LinearLayout>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/MAC"-->
+        <!--/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tvMAC"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_msg"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="null"-->
+        <!--/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/btn_send"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="send" />-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="100dp"-->
+        <!--android:gravity="center">-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/MAC"-->
+          <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tvMAC"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+           <!--/>-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+        <!--<TextView-->
+            <!--android:id="@+id/tv_msg"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="null"-->
+            <!--/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_send"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="send"/>-->
+    <!--</LinearLayout>-->
+
+
+<!--</LinearLayout>-->
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/bg_white"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@color/bg_topbar">-->
+        <!--<TextView-->
+            <!--android:id="@+id/tv_hometopbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="家"-->
+            <!--android:textColor="@color/text_topbar"-->
+            <!--android:textSize="18sp" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/txt_home"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:text="呵呵"-->
+        <!--android:textColor="@color/text_yellow"-->
+        <!--android:textSize="20sp" />-->
+
+<!--</LinearLayout>-->

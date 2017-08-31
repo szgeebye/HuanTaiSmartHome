@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import huantai.smarthome.control.DeviceFragment;
 import huantai.smarthome.control.GosDeviceControlActivity;
 import huantai.smarthome.control.HomeFragment;
+import huantai.smarthome.control.MainActivity;
 import huantai.smarthome.control.MineFragment;
 import huantai.smarthome.control.VideoFragment;
 
@@ -52,16 +53,16 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (position) {
-            case GosDeviceControlActivity.PAGE_ONE:
+            case MainActivity.PAGE_ONE:
                 fragment = homeFragment;
                 break;
-            case GosDeviceControlActivity.PAGE_TWO:
+            case MainActivity.PAGE_TWO:
                 fragment = DeviceFragment;
                 break;
-            case GosDeviceControlActivity.PAGE_THREE:
+            case MainActivity.PAGE_THREE:
                 fragment = VideoFragment;
                 break;
-            case GosDeviceControlActivity.PAGE_FOUR:
+            case MainActivity.PAGE_FOUR:
                 fragment = MineFragment;
                 break;
         }

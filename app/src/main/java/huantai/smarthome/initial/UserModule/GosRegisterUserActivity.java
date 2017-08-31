@@ -259,6 +259,21 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 			 */
 				Thread rThread = new Thread(new registerThread());
 				rThread.start();
+				class registerThread implements Runnable{
+
+					@Override
+					public void run() {
+						Gson gson = new Gson();
+						String jsonSend = gson.toJson(new UserData(name, psw));
+						RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
+						params.addHeader("Content-type","application/x-www-form-urlencoded");
+						params.setCharset("UTF-8");
+						params.setAsJsonContent(true);
+						params.setBodyContent(jsonSend);
+
+						x.http().post(params, callback);
+					}
+				}
 
 				handler.sendEmptyMessage(handler_key.REGISTER.ordinal());
 				break;
