@@ -1,13 +1,5 @@
 package huantai.smarthome.initial.UserModule;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.gizwits.gizwifisdk.api.GizWifiSDK;
-import com.gizwits.gizwifisdk.enumration.GizUserAccountType;
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-import com.google.gson.Gson;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -24,17 +16,25 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.gizwits.gizwifisdk.api.GizWifiSDK;
+import com.gizwits.gizwifisdk.enumration.GizUserAccountType;
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.google.gson.Gson;
 
 import org.xutils.BuildConfig;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import huantai.smarthome.bean.UserBackInfo;
 import huantai.smarthome.bean.UserData;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.R;
+import huantai.smarthome.utils.ToastUtil;
 
 @SuppressLint("HandlerLeak")
 public class GosRegisterUserActivity extends GosUserModuleBaseActivity
@@ -107,8 +107,8 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 
 					break;
 				case TOAST:
-					Toast.makeText(GosRegisterUserActivity.this,
-							msg.obj.toString(), toastTime).show();
+					ToastUtil.ToastShow(GosRegisterUserActivity.this,
+							msg.obj.toString());
 					String successfulText = (String) getText(R.string.register_successful);
 //					Thread rThread = new Thread(new registerThread());
 //					rThread.start();
@@ -226,8 +226,8 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 			case R.id.btnGetCode:
 				name = etName.getText().toString();
 				if (TextUtils.isEmpty(name)) {
-					Toast.makeText(GosRegisterUserActivity.this,
-							R.string.toast_name_wrong, toastTime).show();
+					ToastUtil.ToastShow(GosRegisterUserActivity.this,
+							"请输入登录账号");
 					return;
 				}
 				Message msg = new Message();
@@ -241,24 +241,24 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 				code = etCode.getText().toString();
 				psw = etPsw.getText().toString();
 				if (TextUtils.isEmpty(name)) {
-					Toast.makeText(GosRegisterUserActivity.this,
-							R.string.toast_name_wrong, toastTime).show();
+					ToastUtil.ToastShow(GosRegisterUserActivity.this,
+							"请输入登录账号");
 					return;
 				}
 				if (code.length() != 6) {
-					Toast.makeText(GosRegisterUserActivity.this,
-							R.string.no_getcode, toastTime).show();
+					ToastUtil.ToastShow(GosRegisterUserActivity.this,
+							"验证码无效");
 					return;
 				}
 				if (TextUtils.isEmpty(psw)) {
-					Toast.makeText(GosRegisterUserActivity.this,
-							R.string.toast_psw_wrong, toastTime).show();
+					ToastUtil.ToastShow(GosRegisterUserActivity.this,
+							"请输入密码");
 					return;
 				}
 			/*
 			 * if (psw.length() < 6) {
-			 * Toast.makeText(GosRegisterUserActivity.this,
-			 * R.string.toast_psw_short, toastTime).show(); return; }
+			 * ToastUtil.ToastShow(GosRegisterUserActivity.this,
+			 * R.string.toast_psw_short); return; }
 			 */
 //				register();
 
@@ -324,11 +324,13 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 		@Override
 		public void onCancelled(CancelledException cex) {
 
+			Log.i("server","onCancelled");
 		}
 
 		@Override
 		public void onFinished() {
 
+			Log.i("server","onFinished");
 		}
 	};
 
@@ -547,20 +549,20 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 //			handler_key key = handler_key.values()[msg.what];
 //			switch (key){
 //				case SENDCOOD:
-//					Toast.makeText(GosRegisterUserActivity.this, "验证码发送成功", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosRegisterUserActivity.this, "验证码发送成功", Toast.LENGTH_SHORT).show();
 //					break;
 //				case VERFYCOOD:
-//					Toast.makeText(GosRegisterUserActivity.this, "验证码验证成功", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosRegisterUserActivity.this, "验证码验证成功", Toast.LENGTH_SHORT).show();
 //					break;
 //				case REGISTER_SUCCESS:
-//					Toast.makeText(GosRegisterUserActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosRegisterUserActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
 //					finish();
 //					break;
 //				case REGISTER_FAIL:
-//					Toast.makeText(GosRegisterUserActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosRegisterUserActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
 //					break;
 //				case CONNECT_FAIL:
-//					Toast.makeText(GosRegisterUserActivity.this, "服务器异常，请稍后重试", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosRegisterUserActivity.this, "服务器异常，请稍后重试", Toast.LENGTH_SHORT).show();
 //					break;
 //			}
 //		}
@@ -606,17 +608,17 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 //				smsCode = et_Code.getText().toString();
 //				psw = et_psw.getText().toString();
 //			if (TextUtils.isEmpty(phoneNumber)) {
-//				Toast.makeText(GosRegisterUserActivity.this,
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
 //						R.string.toast_name_wrong, Toast.LENGTH_SHORT).show();
 //				return;
 //			}
 //			if (smsCode.length() != 6) {
-//				Toast.makeText(GosRegisterUserActivity.this,
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
 //						R.string.no_getcode, Toast.LENGTH_SHORT).show();
 //				return;
 //			}
 //			if (TextUtils.isEmpty(psw)) {
-//				Toast.makeText(GosRegisterUserActivity.this,
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
 //						R.string.toast_psw_wrong, Toast.LENGTH_SHORT).show();
 //				return;
 //			}
@@ -819,8 +821,8 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 //
 //				break;
 //			case TOAST:
-//				Toast.makeText(GosRegisterUserActivity.this,
-//						msg.obj.toString(), toastTime).show();
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
+//						msg.obj.toString());
 //				String successfulText = (String) getText(R.string.register_successful);
 //
 //				if (msg.obj.toString().equals(successfulText)) {
@@ -930,8 +932,8 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 //		case R.id.btnGetCode:
 //			name = etName.getText().toString();
 //			if (TextUtils.isEmpty(name)) {
-//				Toast.makeText(GosRegisterUserActivity.this,
-//						R.string.toast_name_wrong, toastTime).show();
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
+//						R.string.toast_name_wrong);
 //				return;
 //			}
 //			Message msg = new Message();
@@ -945,24 +947,24 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 //			code = etCode.getText().toString();
 //			psw = etPsw.getText().toString();
 //			if (TextUtils.isEmpty(name)) {
-//				Toast.makeText(GosRegisterUserActivity.this,
-//						R.string.toast_name_wrong, toastTime).show();
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
+//						R.string.toast_name_wrong);
 //				return;
 //			}
 //			if (code.length() != 6) {
-//				Toast.makeText(GosRegisterUserActivity.this,
-//						R.string.no_getcode, toastTime).show();
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
+//						R.string.no_getcode);
 //				return;
 //			}
 //			if (TextUtils.isEmpty(psw)) {
-//				Toast.makeText(GosRegisterUserActivity.this,
-//						R.string.toast_psw_wrong, toastTime).show();
+//				ToastUtil.ToastShow(GosRegisterUserActivity.this,
+//						R.string.toast_psw_wrong);
 //				return;
 //			}
 //			/*
 //			 * if (psw.length() < 6) {
-//			 * Toast.makeText(GosRegisterUserActivity.this,
-//			 * R.string.toast_psw_short, toastTime).show(); return; }
+//			 * ToastUtil.ToastShow(GosRegisterUserActivity.this,
+//			 * R.string.toast_psw_short); return; }
 //			 */
 //			handler.sendEmptyMessage(handler_key.REGISTER.ordinal());
 //			break;
