@@ -26,6 +26,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.xutils.BuildConfig;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -111,17 +112,17 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 					String successfulText = (String) getText(R.string.register_successful);
 //					Thread rThread = new Thread(new registerThread());
 //					rThread.start();
-//					if (msg.obj.toString().equals(successfulText)) {
-//						// spf.edit().putString("UserName", name).commit();
-//						// spf.edit().putString("PassWord", psw).commit();
+					if (msg.obj.toString().equals(successfulText)) {
+						// spf.edit().putString("UserName", name).commit();
+						// spf.edit().putString("PassWord", psw).commit();
 //						// TODO: 2017/8/31 提交用户名密码
-////						Thread registerThread = new Thread(new registerThread());
-////						registerThread.start();
-//
-//
-//						isclean = true;
-//						finish();
-//					}
+						Thread registerThread = new Thread(new registerThread());
+						registerThread.start();
+
+
+						isclean = true;
+						finish();
+					}
 					break;
 				case SENDSUCCESSFUL:
 					etName.setEnabled(false);
@@ -160,6 +161,8 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 		setContentView(R.layout.activity_gos_register_user);
 		// 设置ActionBar
 		setActionBar(true, true, R.string.register);
+		x.Ext.init(getApplication());
+		x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
 		initView();
 		initEvent();
 	}
@@ -257,28 +260,78 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 			 * Toast.makeText(GosRegisterUserActivity.this,
 			 * R.string.toast_psw_short, toastTime).show(); return; }
 			 */
-				Thread rThread = new Thread(new registerThread());
-				rThread.start();
-				class registerThread implements Runnable{
+//				register();
 
-					@Override
-					public void run() {
-						Gson gson = new Gson();
-						String jsonSend = gson.toJson(new UserData(name, psw));
-						RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
-						params.addHeader("Content-type","application/x-www-form-urlencoded");
-						params.setCharset("UTF-8");
-						params.setAsJsonContent(true);
-						params.setBodyContent(jsonSend);
 
-						x.http().post(params, callback);
-					}
-				}
 
 				handler.sendEmptyMessage(handler_key.REGISTER.ordinal());
 				break;
 		}
 	}
+//	private void register(){
+//		Thread rThread = new Thread(new registerThread());
+//		rThread.start();
+//	}
+
+	class registerThread implements Runnable{
+
+		@Override
+		public void run() {
+			Gson gson = new Gson();
+			String jsonSend = gson.toJson(new UserData(name, psw));
+			RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
+			params.addHeader("Content-type","application/x-www-form-urlencoded");
+			params.setCharset("UTF-8");
+			params.setAsJsonContent(true);
+			params.setBodyContent(jsonSend);
+
+			x.http().post(params, callback);
+		}
+	}
+
+
+	private  Callback.CommonCallback<String> callback = new Callback.CommonCallback<String>() {
+		@Override
+		public void onSuccess(String result) {
+
+
+			//获取到数据
+			String jsonBack = result;
+			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
+			//处理数据
+			boolean info = userBackInfo.success;
+			if (info) {
+//				Message msg = new Message();
+//				msg.what = handler_key.REGISTER_SUCCESS.ordinal();
+//				handler.sendMessage(msg);
+				Log.i("server","REGISTER_SUCCESS");
+			} else {
+//				Message msg = new Message();
+//				msg.what = handler_key.REGISTER_FAIL.ordinal();
+//				handler.sendMessage(msg);
+				Log.i("server","REGISTER_FAIL");
+			}
+		}
+
+		@Override
+		public void onError(Throwable ex, boolean isOnCallback) {
+//			Message msg = new Message();
+//			msg.what = handler_key.CONNECT_FAIL.ordinal();
+//			handler.sendMessage(msg);
+			Log.i("server","CONNECT_FAIL");
+		}
+
+		@Override
+		public void onCancelled(CancelledException cex) {
+
+		}
+
+		@Override
+		public void onFinished() {
+
+		}
+	};
+
 
 	/** 手机验证码回调 */
 	@Override
@@ -340,61 +393,61 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 	 * 向服务器发送用户名和密码
 	 */
 
-		class registerThread implements Runnable{
+//		class registerThread implements Runnable{
+//
+//		@Override
+//		public void run() {
+//			Gson gson = new Gson();
+//			String jsonSend = gson.toJson(new UserData(name, psw));
+//			RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
+//			params.addHeader("Content-type","application/x-www-form-urlencoded");
+//			params.setCharset("UTF-8");
+//			params.setAsJsonContent(true);
+//			params.setBodyContent(jsonSend);
+//
+//			x.http().post(params, callback);
+//		}
+//	}
 
-		@Override
-		public void run() {
-			Gson gson = new Gson();
-			String jsonSend = gson.toJson(new UserData(name, psw));
-			RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
-			params.addHeader("Content-type","application/x-www-form-urlencoded");
-			params.setCharset("UTF-8");
-			params.setAsJsonContent(true);
-			params.setBodyContent(jsonSend);
-
-			x.http().post(params, callback);
-		}
-	}
-
-		private  Callback.CommonCallback<String> callback = new Callback.CommonCallback<String>() {
-		@Override
-		public void onSuccess(String result) {
-			//获取到数据
-			String jsonBack = result;
-			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
-			//处理数据
-			boolean info = userBackInfo.success;
-			if (info) {
-//				Message msg = new Message();
-//				msg.what = handler_key.REGISTER_SUCCESS.ordinal();
-//				handler.sendMessage(msg);
-				Log.i("server","REGISTER_SUCCESS");
-			} else {
-//				Message msg = new Message();
-//				msg.what = handler_key.REGISTER_FAIL.ordinal();
-//				handler.sendMessage(msg);
-				Log.i("server","REGISTER_FAIL");
-			}
-		}
-
-		@Override
-		public void onError(Throwable ex, boolean isOnCallback) {
-//			Message msg = new Message();
-//			msg.what = handler_key.CONNECT_FAIL.ordinal();
-//			handler.sendMessage(msg);
-			Log.i("server","CONNECT_FAIL");
-		}
-
-		@Override
-		public void onCancelled(CancelledException cex) {
-
-		}
-
-		@Override
-		public void onFinished() {
-
-		}
-	};
+//		private  Callback.CommonCallback<String> callback = new Callback.CommonCallback<String>() {
+//		@Override
+//		public void onSuccess(String result) {
+//			//获取到数据
+//			String jsonBack = result;
+//			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
+//			//处理数据
+//			boolean info = userBackInfo.success;
+//			if (info) {
+////				Message msg = new Message();
+////				msg.what = handler_key.REGISTER_SUCCESS.ordinal();
+////				handler.sendMessage(msg);
+//				Log.i("server","REGISTER_SUCCESS");
+//			} else {
+////				Message msg = new Message();
+////				msg.what = handler_key.REGISTER_FAIL.ordinal();
+////				handler.sendMessage(msg);
+//				Log.i("server","REGISTER_FAIL");
+//			}
+//		}
+//
+//		@Override
+//		public void onError(Throwable ex, boolean isOnCallback) {
+////			Message msg = new Message();
+////			msg.what = handler_key.CONNECT_FAIL.ordinal();
+////			handler.sendMessage(msg);
+//			Log.i("server","CONNECT_FAIL");
+//		}
+//
+//		@Override
+//		public void onCancelled(CancelledException cex) {
+//
+//		}
+//
+//		@Override
+//		public void onFinished() {
+//
+//		}
+//	};
 
 }
 
