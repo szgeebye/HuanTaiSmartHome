@@ -526,14 +526,14 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		@Override
 		public void run() {
 			Gson gson = new Gson();
-			String jsonSend = gson.toJson(new UserData(etName.getText().toString(), etPsw.getText().toString()));
-			RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
+//			String jsonSend = gson.toJson(new UserData(etName.getText().toString(), etPsw.getText().toString()));
+			RequestParams params = new RequestParams("http://39.108.151.208:9000/user/login/"+etName.getText().toString()+"/");
 			params.addHeader("Content-type","application/x-www-form-urlencoded");
 			params.setCharset("UTF-8");
-			params.setAsJsonContent(true);
-			params.setBodyContent(jsonSend);
+//			params.setAsJsonContent(true);
+//			params.setBodyContent(jsonSend);
 
-			x.http().post(params, callback);
+			x.http().get(params, callback);
 		}
 	}
 
