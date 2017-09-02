@@ -4,7 +4,7 @@
     <item>
         <bitmap
             android:id="@+id/bitmap_splash"
-            android:src="@drawable/mydefault" >
+            android:src="@drawable/mydefault0" >
         </bitmap>
     </item>
    <!--   <item android:top="100dp">

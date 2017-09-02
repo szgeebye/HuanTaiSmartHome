@@ -33,6 +33,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.xutils.BuildConfig;
+import org.xutils.x;
+
 public class GosBaseActivity extends FragmentActivity {
 
 	/** 设备热点默认密码 */
@@ -71,6 +74,10 @@ public class GosBaseActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		//初始化xutils3.5
+		x.Ext.init(getApplication());
+		x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
+		x.view().inject(this);
 		/**
 		 * 设置为竖屏
 		 */

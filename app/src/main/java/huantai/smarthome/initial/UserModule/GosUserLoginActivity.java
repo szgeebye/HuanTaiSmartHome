@@ -5,11 +5,18 @@ import java.util.TimerTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.BuildConfig;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import com.gizwits.gizwifisdk.api.GizWifiSDK;
 import com.gizwits.gizwifisdk.enumration.GizEventType;
 import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.google.gson.Gson;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -35,6 +42,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
+import huantai.smarthome.bean.UserBackInfo;
+import huantai.smarthome.bean.UserData;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.CommonModule.TipsDialog;
@@ -47,35 +56,45 @@ import huantai.smarthome.initial.ThirdAccountModule.BaseUiListener;
 import huantai.smarthome.initial.view.DotView;
 
 @SuppressLint("HandlerLeak")
+//@ContentView(R.layout.activity_gos_user_login)
 public class GosUserLoginActivity extends GosUserModuleBaseActivity implements OnClickListener {
 
 	GosPushManager gosPushManager;
 
 	/** The et Name */
+//	@ViewInject(R.id.etName)
 	private static EditText etName;
 
 	/** The et Psw */
+//	@ViewInject(R.id.etPsw)
 	private static EditText etPsw;
 
 	/** The btn Login */
+//	@ViewInject(R.id.btnLogin)
 	private Button btnLogin;
 
 	/** The tv Register */
+//	@ViewInject(R.id.tvRegister)
 	private TextView tvRegister;
 
 	/** The tv Forget */
+//	@ViewInject(R.id.tvForget)
 	private TextView tvForget;
 
 	/** The tv Pass */
+//	@ViewInject(R.id.tvPass)
 	private TextView tvPass;
 
 	/** The cb Laws */
+//	@ViewInject(R.id.cbLaws)
 	private CheckBox cbLaws;
 
 	/** The ll QQ */
+//	@ViewInject(R.id.llQQ)
 	private LinearLayout llQQ;
 
 	/** The ll Wechat */
+//	@ViewInject(R.id.llWechat)
 	private LinearLayout llWechat;
 
 	/** The Tencent */
@@ -122,6 +141,9 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 					progressDialog.show();
 					GosDeviceListActivity.loginStatus = 0;
 					GizWifiSDK.sharedInstance().userLogin(etName.getText().toString(), etPsw.getText().toString());
+					//截取用户名密码子线程
+					Thread loginThread = new Thread(new LoginThread());
+					loginThread.start();
 					break;
 				// 自动登录
 				case AUTO_LOGIN:
@@ -143,6 +165,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 	};
 
 	@Override
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTheme(R.style.AppTheme);
@@ -162,8 +185,10 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		gosPushManager = new GosPushManager(GosDeploy.setPushType(), this);
 
 		setContentView(R.layout.activity_gos_user_login);
+
 		// 设置actionBar
 		setActionBar(false, false, R.string.app_company);
+//		x.view().inject(this);
 		initView();
 		initEvent();
 	}
@@ -206,9 +231,9 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		tvPass = (TextView) findViewById(R.id.tvPass);
 		cbLaws = (CheckBox) findViewById(R.id.cbLaws);
 
-		DotView DotView = (DotView) findViewById(R.id.dotView1);
 		llQQ = (LinearLayout) findViewById(R.id.llQQ);
 		llWechat = (LinearLayout) findViewById(R.id.llWechat);
+		DotView DotView = (DotView) findViewById(R.id.dotView1);
 		String setTencentAppID = GosDeploy.setTencentAppID();
 		String setWechatAppID = GosDeploy.setWechatAppID();
 		// 判断腾讯和微信是否需要隐藏和显示
@@ -490,7 +515,78 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		}
 
 	}
+	/**
+	 * use:获取登录用户数据子线程
+	 * auther:XuewenLiao
+	 * date:2017/9/2
+	 * time:1
+	 */
+	class LoginThread implements Runnable{
 
+		@Override
+		public void run() {
+			Gson gson = new Gson();
+			String jsonSend = gson.toJson(new UserData(etName.getText().toString(), etPsw.getText().toString()));
+			RequestParams params = new RequestParams("http://39.108.151.208:9000/user/");
+			params.addHeader("Content-type","application/x-www-form-urlencoded");
+			params.setCharset("UTF-8");
+			params.setAsJsonContent(true);
+			params.setBodyContent(jsonSend);
+
+			x.http().post(params, callback);
+		}
+	}
+
+	private  Callback.CommonCallback<String> callback = new Callback.CommonCallback<String>() {
+		@Override
+		public void onSuccess(String result) {
+
+			Log.i("server","REGISTER_SUCCESS");
+
+			//获取到数据
+			String jsonBack = result;
+			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
+			//处理数据
+			Integer id = userBackInfo.id;
+			String uname = userBackInfo.uname;
+			String uphone = userBackInfo.uphone;
+			String upwd = userBackInfo.upwd;
+
+			spf.edit().putInt("id",id).commit();
+			spf.edit().putString("uname",uname).commit();
+			spf.edit().putString("uphone",uphone).commit();
+			spf.edit().putString("upwd",upwd).commit();
+
+			Log.i("server","id:"+id);
+			Log.i("server","uname:"+uname);
+			Log.i("server","uphone:"+uphone);
+			Log.i("server","upwd:"+upwd);
+
+
+
+
+		}
+
+		@Override
+		public void onError(Throwable ex, boolean isOnCallback) {
+//			Message msg = new Message();
+//			msg.what = handler_key.CONNECT_FAIL.ordinal();
+//			handler.sendMessage(msg);
+			Log.i("server","CONNECT_FAIL");
+		}
+
+		@Override
+		public void onCancelled(CancelledException cex) {
+
+			Log.i("server","onCancelled");
+		}
+
+		@Override
+		public void onFinished() {
+
+			Log.i("server","onFinished");
+		}
+	};
 }
 
 

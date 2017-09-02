@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import org.xutils.BuildConfig;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.Timer;
@@ -82,7 +83,7 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 		/** 提示信息 */
 		TOAST,
 
-		/** 手机验证码发送成功. */
+		/** 手机验证码发送成功. */ 
 		SENDSUCCESSFUL,
 
 		/**
@@ -115,7 +116,13 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 					if (msg.obj.toString().equals(successfulText)) {
 						// spf.edit().putString("UserName", name).commit();
 						// spf.edit().putString("PassWord", psw).commit();
-//						// TODO: 2017/8/31 提交用户名密码
+
+						/**
+						 * auther:XuewenLiao
+						 * date:2017/9/2
+						 * time:3
+						 */
+//						// 提交用户名密码
 						Thread registerThread = new Thread(new registerThread());
 						registerThread.start();
 
@@ -161,8 +168,8 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 		setContentView(R.layout.activity_gos_register_user);
 		// 设置ActionBar
 		setActionBar(true, true, R.string.register);
-		x.Ext.init(getApplication());
-		x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
+//		x.Ext.init(getApplication());
+//		x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
 		initView();
 		initEvent();
 	}
@@ -236,7 +243,7 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 				handler.sendMessage(msg);
 				break;
 
-			case R.id.btnRrgister://TODO: 2017/8/31
+			case R.id.btnRrgister:
 				name = etName.getText().toString();
 				code = etCode.getText().toString();
 				psw = etPsw.getText().toString();
@@ -273,6 +280,12 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 //		rThread.start();
 //	}
 
+	/**
+	 * use:向后台发注册数据子线程
+	 * auther:XuewenLiao
+	 * date:2017/9/2
+	 * time:3
+	 */
 	class registerThread implements Runnable{
 
 		@Override
@@ -294,23 +307,24 @@ public class GosRegisterUserActivity extends GosUserModuleBaseActivity
 		@Override
 		public void onSuccess(String result) {
 
+			Log.i("server","REGISTER_SUCCESS");
 
 			//获取到数据
-			String jsonBack = result;
-			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
+//			String jsonBack = result;
+//			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
 			//处理数据
-			boolean info = userBackInfo.success;
-			if (info) {
+//			boolean info = userBackInfo.success;
+//			if (info) {、
 //				Message msg = new Message();
 //				msg.what = handler_key.REGISTER_SUCCESS.ordinal();
 //				handler.sendMessage(msg);
-				Log.i("server","REGISTER_SUCCESS");
-			} else {
-//				Message msg = new Message();
+//				Log.i("server","REGISTER_SUCCESS");
+//			} else {
+//				Mess、age msg = new Message();
 //				msg.what = handler_key.REGISTER_FAIL.ordinal();
 //				handler.sendMessage(msg);
-				Log.i("server","REGISTER_FAIL");
-			}
+//				Log.i("server","REGISTER_FAIL");
+//			}、
 		}
 
 		@Override
