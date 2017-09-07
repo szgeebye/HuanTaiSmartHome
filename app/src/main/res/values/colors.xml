@@ -42,4 +42,20 @@
     <color name="text_topbar">#694E42</color>
     <color name="div_white">#E5E5E5</color>
 
+    <!--itemcolor-->
+    <color name="light_blue_100">#B3E5FC</color>
+    <color name="light_blue_300">#4FC3F7</color>
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="light_blue_900">#01579B</color>
+
+    <color name="green_100">#C8E6C9</color>
+    <color name="green_300">#81C784</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="green_900">#1B5E20</color>
+    <color name="layoutitem_bg_white">#f4f7f5</color>
+    <color name="view_gray">#7a7c7b</color>
+    <color name="view_yellow">#f4dd98</color>
+
+    <color name="home_actionbar">#d4cac1</color>
+
 </resources>

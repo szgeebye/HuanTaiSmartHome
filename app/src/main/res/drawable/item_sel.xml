@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 填充的颜色 -->
+    <solid android:color="@color/layoutitem_bg_white"
+        android:shape="rectangle"
+        />
+    <!-- 设置按钮的四个角为弧形 -->
+    <!-- android:radius 弧形的半径 -->
+    <corners android:radius="15dp" />
+
+    <stroke
+    android:width="1dp"
+    android:color="#CCCCCC" />
+     边框宽度和颜色
+    <padding
+    android:left="15dp"
+    android:top="10dp"
+    android:right="15dp"
+    android:bottom="10dp"
+    />
+</shape>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+    <!--<corners android:radius="10dp" />-->
+    <!--&lt;!&ndash; 圆角，你也可以对不同的角设置不同的数值 &ndash;&gt;-->
+
+    <!--<solid android:color="#4FC3F7" />-->
+    <!-- 形状的填充色 -->
+
+    <!--<stroke-->
+        <!--android:width="1dp"-->
+        <!--android:color="#CCCCCC" />-->
+    <!--&lt;!&ndash; 边框宽度和颜色 &ndash;&gt;-->
+
+    <!--<padding-->
+        <!--android:left="15dp"-->
+        <!--android:top="10dp"-->
+        <!--android:right="15dp"-->
+        <!--android:bottom="10dp"-->
+        <!--/>-->
+<!--</selector>-->
