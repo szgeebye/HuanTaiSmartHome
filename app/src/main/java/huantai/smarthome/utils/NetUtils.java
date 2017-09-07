@@ -17,8 +17,6 @@
  */
 package huantai.smarthome.utils;
 
-import java.util.List;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
@@ -30,6 +28,8 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+
+import java.util.List;
 
 /**
  * 网络工具类.
@@ -47,7 +47,7 @@ public class NetUtils {
 	 *            上下文
 	 * @return boolean 是否连上网络
 	 * 
-	 *         *
+	 *
 	 */
 	static public boolean isWifiConnected(Context context) {
 		if (context != null) {

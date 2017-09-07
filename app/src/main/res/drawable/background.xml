@@ -2,10 +2,18 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item>
+
         <bitmap
             android:id="@+id/bitmap_splash"
-            android:src="@drawable/mydefault0" >
+            android:src="@drawable/launch_activity_bg"
+        >
         </bitmap>
+        <bitmap
+            android:id="@+id/bitmap_logo_splash"
+            android:src="@drawable/logo"
+        >
+        </bitmap>
+
     </item>
    <!--   <item android:top="100dp">
         <bitmap
@@ -13,7 +21,15 @@
             android:gravity="center"
             android:src="@drawable/gizwitslogo" >
         </bitmap>
-    </item>  -->
+    </item>
+
+     <item>
+        <bitmap
+            android:id="@+id/bitmap_splash"
+            android:src="@drawable/mydefault0" >
+        </bitmap>
+    </item>
+    -->
     
  
 </layer-list>

@@ -10,22 +10,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/logo3"
-        android:visibility="gone" />
+        android:layout_marginTop="35dp"
+        android:src="@drawable/logo"/>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="1dp"
         android:layout_marginTop="50dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
+        android:layout_below="@+id/imageView1"
+        style="@style/LoginInputStyle">
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
@@ -51,14 +43,10 @@
     </LinearLayout>
 
     <LinearLayout
+        style="@style/LoginInputStyle"
+        android:layout_marginTop="8dp"
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_centerHorizontal="true"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal" >
+        android:layout_below="@+id/linearLayout1">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -98,10 +86,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/linearLayout2"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
         android:text="@string/forget_password"
-        android:textColor="@color/black" />
+        android:textColor="@color/login_text" />
 
     <TextView
         android:id="@+id/tvRegister"
@@ -109,19 +97,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/linearLayout2"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
         android:text="@string/register"
-        android:textColor="@color/black" />
+        android:textColor="@color/login_text" />
 
     <Button
         android:id="@+id/btnLogin"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        style="@style/LoginButtonStyle"
         android:layout_below="@+id/tvForget"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
         android:text="@string/login" />
 
     <LinearLayout
@@ -149,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="@string/QQ"
-                android:textColor="@color/black"
+                android:textColor="@color/login_text"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -171,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="@string/Wechat"
-                android:textColor="@color/black"
+                android:textColor="@color/login_text"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
@@ -193,6 +177,7 @@
         android:layout_below="@+id/btnLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:textColor="@color/login_text"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="@string/pass" />

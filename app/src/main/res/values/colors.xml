@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="login_bg">#8fff</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="login_text">#808080</color>
     <color name="gray">#808080</color>
     <color name="yellow">#F8DC26</color>
     <color name="line_color">#E0E0E0</color>

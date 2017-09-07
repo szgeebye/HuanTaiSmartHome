@@ -1,15 +1,5 @@
 package huantai.smarthome.initial.UserModule;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.gizwits.gizwifisdk.api.GizWifiSDK;
-import com.gizwits.gizwifisdk.enumration.GizUserAccountType;
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-
-import huantai.smarthome.initial.CommonModule.GosDeploy;
-import huantai.smarthome.initial.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -26,6 +16,16 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.gizwits.gizwifisdk.api.GizWifiSDK;
+import com.gizwits.gizwifisdk.enumration.GizUserAccountType;
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import huantai.smarthome.initial.CommonModule.GosDeploy;
+import huantai.smarthome.initial.R;
 
 @SuppressLint("HandlerLeak")
 public class GosForgetPasswordActivity extends GosUserModuleBaseActivity
@@ -97,7 +97,7 @@ public class GosForgetPasswordActivity extends GosUserModuleBaseActivity
 			case TOAST:
 				String successfulText = (String) getText(R.string.reset_successful);
 				Toast.makeText(GosForgetPasswordActivity.this, msg.obj + "",
-						toastTime).show();
+						Toast.LENGTH_LONG).show();
 
 				if (msg.obj.toString().equals(successfulText)) {
 				//	spf.edit().putString("UserName", name).commit();
@@ -208,7 +208,7 @@ public class GosForgetPasswordActivity extends GosUserModuleBaseActivity
 			name = etName.getText().toString();
 			if (TextUtils.isEmpty(name)) {
 				Toast.makeText(GosForgetPasswordActivity.this,
-						R.string.toast_name_wrong, toastTime).show();
+						R.string.toast_name_wrong, Toast.LENGTH_LONG).show();
 				return;
 			}
 			Message msg = new Message();
@@ -223,17 +223,17 @@ public class GosForgetPasswordActivity extends GosUserModuleBaseActivity
 			psw = etPsw.getText().toString();
 			if (TextUtils.isEmpty(name)) {
 				Toast.makeText(GosForgetPasswordActivity.this,
-						R.string.toast_name_wrong, toastTime).show();
+						R.string.toast_name_wrong, Toast.LENGTH_LONG).show();
 				return;
 			}
 			if (code.length() != 6) {
 				Toast.makeText(GosForgetPasswordActivity.this,
-						R.string.no_getcode, toastTime).show();
+						R.string.no_getcode, Toast.LENGTH_LONG).show();
 				return;
 			}
 			if (TextUtils.isEmpty(psw)) {
 				Toast.makeText(GosForgetPasswordActivity.this,
-						R.string.toast_psw_wrong, toastTime).show();
+						R.string.toast_psw_wrong, Toast.LENGTH_LONG).show();
 				return;
 			}
 			/*

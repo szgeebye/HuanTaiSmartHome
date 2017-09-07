@@ -13,7 +13,7 @@
 	"push_type": 0,
 	"bpush_app_key": "your_bpush_api_key",
 	"buttonColor": "F8DC26",
-	"buttonTextColor": "000000",
+	"buttonTextColor": "FFFFFFFF",
 	"navigationBarColor": "F8DC26",
 	"navigationBarTextColor": "000000",
 	"configProgressViewColor": "000000",

@@ -172,8 +172,7 @@
         <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
 
-
-        <!--
+        <!-- TODO 极光推送-->
         <service
             android:name="cn.jpush.android.service.DaemonService"
             android:enabled="true"
@@ -181,11 +180,10 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
-                <category android:name="com.gizwits.opensource.appkit" />
+                <category android:name="huantai.smarthome.initial" />
             </intent-filter>
         </service>
 
-        -->
 
 
         <!-- Required -->
@@ -265,7 +263,8 @@
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="4c9f1e9d391d8dbbe343a1bb" />
+            android:value="4c86d3a98b7037dc8b147d1a " />
+        <!-- 极光推送 TODO  -->
 
         <!-- 百度推送 -->
         <!-- push service start -->

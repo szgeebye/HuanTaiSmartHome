@@ -1,28 +1,5 @@
 package huantai.smarthome.initial.UserModule;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xutils.BuildConfig;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
-import com.gizwits.gizwifisdk.api.GizWifiSDK;
-import com.gizwits.gizwifisdk.enumration.GizEventType;
-import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-import com.google.gson.Gson;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,9 +18,29 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.gizwits.gizwifisdk.api.GizWifiSDK;
+import com.gizwits.gizwifisdk.enumration.GizEventType;
+import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.google.gson.Gson;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import cn.jpush.android.api.JPushInterface;
 import huantai.smarthome.bean.UserBackInfo;
-import huantai.smarthome.bean.UserData;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.CommonModule.TipsDialog;
@@ -54,6 +51,7 @@ import huantai.smarthome.initial.PushModule.GosPushManager;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.initial.ThirdAccountModule.BaseUiListener;
 import huantai.smarthome.initial.view.DotView;
+import huantai.smarthome.utils.ToastUtil;
 
 @SuppressLint("HandlerLeak")
 //@ContentView(R.layout.activity_gos_user_login)
@@ -290,11 +288,11 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 			case R.id.btnLogin:
 
 				if (TextUtils.isEmpty(etName.getText().toString())) {
-					Toast.makeText(GosUserLoginActivity.this, R.string.toast_name_wrong, toastTime).show();
+					Toast.makeText(GosUserLoginActivity.this, R.string.toast_name_wrong,Toast.LENGTH_LONG).show();
 					return;
 				}
 				if (TextUtils.isEmpty(etPsw.getText().toString())) {
-					Toast.makeText(GosUserLoginActivity.this, R.string.toast_psw_wrong, toastTime).show();
+					Toast.makeText(GosUserLoginActivity.this, R.string.toast_psw_wrong,Toast.LENGTH_LONG).show();
 					return;
 				}
 				baseHandler.sendEmptyMessage(handler_key.LOGIN.ordinal());
@@ -338,8 +336,8 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 								msg.what = handler_key.THRED_LOGIN.ordinal();
 								baseHandler.sendMessage(msg);
 							} else {
-
-								Toast.makeText(GosUserLoginActivity.this, msg.obj.toString(), toastTime).show();
+								ToastUtil.ToastShow(GosUserLoginActivity.this, msg.obj.toString());
+								ToastUtil.ToastShow(GosUserLoginActivity.this, msg.obj.toString());
 
 							}
 						} catch (JSONException e) {
@@ -393,7 +391,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 	protected void didGetCurrentCloudService(GizWifiErrorCode result,
 											 java.util.concurrent.ConcurrentHashMap<String, String> cloudServiceInfo) {
 		if (GizWifiErrorCode.GIZ_SDK_SUCCESS != result) {
-			Toast.makeText(this, toastError(result), toastTime).show();
+			ToastUtil.ToastShow(this, toastError(result));
 		}
 	}
 
@@ -411,12 +409,12 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		Log.i("Apptest", GosDeviceListActivity.loginStatus + "\t" + "UserLogin");
 
 		if (GizWifiErrorCode.GIZ_SDK_SUCCESS != result) {// 登录失败
-			Toast.makeText(GosUserLoginActivity.this, toastError(result), toastTime).show();
+			ToastUtil.ToastShow(GosUserLoginActivity.this, toastError(result));
 
 		} else {// 登录成功
 
 			GosDeviceListActivity.loginStatus = 1;
-			Toast.makeText(GosUserLoginActivity.this, R.string.toast_login_successful, toastTime).show();
+			Toast.makeText(GosUserLoginActivity.this, R.string.toast_login_successful,Toast.LENGTH_LONG).show();
 
 			// TODO 绑定推送
 			GosPushManager.pushBindService(token);
@@ -443,7 +441,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 	 */
 	protected void didChannelIDUnBind(GizWifiErrorCode result) {
 		if (GizWifiErrorCode.GIZ_SDK_SUCCESS != result) {
-			Toast.makeText(this, toastError(result), toastTime).show();
+			ToastUtil.ToastShow(this, toastError(result));
 		}
 
 		Log.i("Apptest", "UnBind:" + result.toString());
@@ -470,7 +468,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		if (isExit == false) {
 			isExit = true; // 准备退出
 			String doubleClick = (String) getText(R.string.double_click);
-			Toast.makeText(this, doubleClick, toastTime).show();
+			ToastUtil.ToastShow(this, doubleClick);
 			tExit = new Timer();
 			tExit.schedule(new TimerTask() {
 				@Override
@@ -704,18 +702,18 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //			switch (key) {
 //				//登录成功
 //				case LOGIN_SUCCESS:
-//					Toast.makeText(GosUserLoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosUserLoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 //					intent = new Intent(GosUserLoginActivity.this, GosDeviceListActivity.class);
 //					startActivity(intent);
 //					finish();
 //					break;
 //				//登录失败
 //				case LOGIN_FAIL:
-//					Toast.makeText(GosUserLoginActivity.this, "登录失敗", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosUserLoginActivity.this, "登录失敗", Toast.LENGTH_SHORT).show();
 //					break;
 //				//联网失败
 //				case CONNECT_FAIL:
-//					Toast.makeText(GosUserLoginActivity.this, "服务器异常，请稍后重试", Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosUserLoginActivity.this, "服务器异常，请稍后重试", Toast.LENGTH_SHORT).show();
 //					break;
 //			}
 //		}
@@ -768,11 +766,11 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //		switch (v.getId()) {
 //			case R.id.btnLogin:
 //				if (TextUtils.isEmpty(etName.getText().toString())) {// TODO: 06/08/2017 判断是否为手机号
-//					Toast.makeText(GosUserLoginActivity.this, R.string.toast_name_wrong, Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosUserLoginActivity.this, R.string.toast_name_wrong, Toast.LENGTH_SHORT).show();
 //					return;
 //				}
 //				if (TextUtils.isEmpty(etPsw.getText().toString())) {
-//					Toast.makeText(GosUserLoginActivity.this, R.string.toast_psw_wrong, Toast.LENGTH_SHORT).show();
+//					ToastUtil.ToastShow(GosUserLoginActivity.this, R.string.toast_psw_wrong, Toast.LENGTH_SHORT).show();
 //					return;
 //				}
 //				login();
@@ -1119,11 +1117,11 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //		case R.id.btnLogin:
 //
 //			if (TextUtils.isEmpty(etName.getText().toString())) {
-//				Toast.makeText(GosUserLoginActivity.this, R.string.toast_name_wrong, toastTime).show();
+//				ToastUtil.ToastShow(GosUserLoginActivity.this, R.string.toast_name_wrong);
 //				return;
 //			}
 //			if (TextUtils.isEmpty(etPsw.getText().toString())) {
-//				Toast.makeText(GosUserLoginActivity.this, R.string.toast_psw_wrong, toastTime).show();
+//				ToastUtil.ToastShow(GosUserLoginActivity.this, R.string.toast_psw_wrong);
 //				return;
 //			}
 //			baseHandler.sendEmptyMessage(handler_key.LOGIN.ordinal());
@@ -1168,7 +1166,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //							baseHandler.sendMessage(msg);
 //						} else {
 //
-//							Toast.makeText(GosUserLoginActivity.this, msg.obj.toString(), toastTime).show();
+//							ToastUtil.ToastShow(GosUserLoginActivity.this, msg.obj.toString());
 //
 //						}
 //					} catch (JSONException e) {
@@ -1222,7 +1220,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //	protected void didGetCurrentCloudService(GizWifiErrorCode result,
 //			java.util.concurrent.ConcurrentHashMap<String, String> cloudServiceInfo) {
 //		if (GizWifiErrorCode.GIZ_SDK_SUCCESS != result) {
-//			Toast.makeText(this, toastError(result), toastTime).show();
+//			ToastUtil.ToastShow(this, toastError(result));
 //		}
 //	}
 //
@@ -1240,12 +1238,12 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //		Log.i("Apptest", GosDeviceListActivity.loginStatus + "\t" + "UserLogin");
 //
 //		if (GizWifiErrorCode.GIZ_SDK_SUCCESS != result) {// 登录失败
-//			Toast.makeText(GosUserLoginActivity.this, toastError(result), toastTime).show();
+//			ToastUtil.ToastShow(GosUserLoginActivity.this, toastError(result));
 //
 //		} else {// 登录成功
 //
 //			GosDeviceListActivity.loginStatus = 1;
-//			Toast.makeText(GosUserLoginActivity.this, R.string.toast_login_successful, toastTime).show();
+//			ToastUtil.ToastShow(GosUserLoginActivity.this, R.string.toast_login_successful);
 //
 //			// TODO 绑定推送
 //			GosPushManager.pushBindService(token);
@@ -1272,7 +1270,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //	 */
 //	protected void didChannelIDUnBind(GizWifiErrorCode result) {
 //		if (GizWifiErrorCode.GIZ_SDK_SUCCESS != result) {
-//			Toast.makeText(this, toastError(result), toastTime).show();
+//			ToastUtil.ToastShow(this, toastError(result));
 //		}
 //
 //		Log.i("Apptest", "UnBind:" + result.toString());
@@ -1299,7 +1297,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //		if (isExit == false) {
 //			isExit = true; // 准备退出
 //			String doubleClick = (String) getText(R.string.double_click);
-//			Toast.makeText(this, doubleClick, toastTime).show();
+//			ToastUtil.ToastShow(this, doubleClick);
 //			tExit = new Timer();
 //			tExit.schedule(new TimerTask() {
 //				@Override

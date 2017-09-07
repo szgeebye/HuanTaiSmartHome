@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/bg_login"
+>
+    <ImageView
+        android:id="@+id/imageView_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/logo"/>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal" >
+        style="@style/LoginInputStyle"
+        android:layout_marginTop="60dp">
 
         <ImageView
             android:id="@+id/imageView1"
@@ -40,7 +44,7 @@
 
         <Button
             android:id="@+id/btnGetCode"
-            style="@style/ButtonStyle"
+            style="@style/LoginButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="0dp"
@@ -51,18 +55,14 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:text="@string/getcode"
-            android:textColor="@android:color/black"
             android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal" >
+        style="@style/LoginInputStyle"
+        android:layout_marginTop="8dp"
+    >
 
         <ImageView
             android:id="@+id/imageView2"
@@ -89,11 +89,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal" >
+        style="@style/LoginInputStyle"
+        android:layout_marginTop="8dp"
+    >
 
         <ImageView
             android:id="@+id/imageView3"
@@ -127,11 +125,8 @@
     </LinearLayout>
 
     <Button
+        style="@style/LoginButtonStyle"
         android:id="@+id/btnRrgister"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
         android:text="@string/btn_register" />
 
 </LinearLayout>
