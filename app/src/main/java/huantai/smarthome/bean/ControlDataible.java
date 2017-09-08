@@ -11,7 +11,7 @@ import org.json.JSONException;
 public interface ControlDataible {
     void initStatusListener();//设置设备状态监听
     void initView();
-    void initBroadreceive();//开启广播监听
+    void initBroadreceive();//发数据广播
     void initDevice();//初始化设备
     void sendJson(String key, Object value) throws JSONException;//发数据
 }

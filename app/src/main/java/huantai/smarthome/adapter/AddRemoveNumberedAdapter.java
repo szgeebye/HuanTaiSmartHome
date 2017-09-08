@@ -1,17 +1,28 @@
 package huantai.smarthome.adapter;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import huantai.smarthome.bean.ControlDataible;
+import huantai.smarthome.control.HomeFragment;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.TextViewHolder;
 
-public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolder> {
+public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolder>{
   private static final int ITEM_VIEW_TYPE_ITEM = 0;
   private static final int ITEM_VIEW_TYPE_ADD = 1;
 
@@ -43,15 +54,19 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
       return;
     }
 
+    //获取图片资源文件
+    holder.iv_icon.setImageResource(R.drawable.home_images);
     if (position == 0){
       holder.tv_title.setText("温度");
       holder.tv_content.setText("60");
-      holder.iv_icon.setImageResource(R.drawable.home_icon_tenperature);
+//      holder.iv_icon.setImageResource(R.drawable.home_icon_tenperature);
+      holder.iv_icon.setImageLevel(0);
+
     }
     if (position == 1){
       holder.tv_title.setText("湿度");
       holder.tv_content.setText("80");
-      holder.iv_icon.setImageResource(R.drawable.home_icon_humidity);
+      holder.iv_icon.setImageLevel(1);
     }
 //    final String label = labels.get(position);
 //    holder.tv_title.setText(label);
@@ -90,6 +105,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
   public int getItemCount() {
     return labels.size()+1;
   }
+
 }
 
 
