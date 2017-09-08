@@ -55,15 +55,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
 
-        //FIXME
-        HomeItem item = new HomeItem();
-        //添加名称
-        item.setName("hehe");
-        //添加数据
-        item.setContent("123");
-        //添加图片
-        item.setPicture(1);
-        homeItemLists.add(item);
+        initData();
         addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new MarginDecoration(getContext()));
@@ -75,6 +67,19 @@ public class HomeFragment extends Fragment implements ControlDataible {
         initDevice();
         initStatusListener();
         return view;
+    }
+
+    private void initData() {
+        // FIXME: 2017/9/8 修改成从数据库读取
+        HomeItem item = new HomeItem();
+        //添加名称
+        item.setName("hehe");
+        //添加数据
+        item.setContent("123");
+        //添加图片
+        item.setPicture(1);
+//        homeItemLists.clear();
+        homeItemLists.add(item);
     }
 
 
@@ -154,7 +159,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     //添加数据
                     item.setContent(content);
                     //添加图片
-                    item.setPicture(8);
+                    item.setPicture(6);
                     homeItemLists.add(item);
 
                     //更新数据

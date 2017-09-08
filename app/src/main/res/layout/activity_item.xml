@@ -16,8 +16,9 @@
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/home_icon_humidity"/>
+            android:layout_height="30dp"/>
+            <!--android:background="@drawable/home_icon_humidity"-->
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
