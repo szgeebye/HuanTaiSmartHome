@@ -48,14 +48,23 @@ public class HomeFragment extends Fragment implements ControlDataible {
      * The GizWifiDevice device
      */
     private GizWifiDevice device;
-    private List<HomeItem> homeItemLists = null;
+    private List<HomeItem> homeItemLists = new ArrayList<HomeItem>();
     private AddRemoveNumberedAdapter addRemoveNumberedAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
 
-        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(5);
+        //FIXME
+        HomeItem item = new HomeItem();
+        //添加名称
+        item.setName("hehe");
+        //添加数据
+        item.setContent("123");
+        //添加图片
+        item.setPicture(1);
+        homeItemLists.add(item);
+        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new MarginDecoration(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -112,8 +121,9 @@ public class HomeFragment extends Fragment implements ControlDataible {
                          * auther：xuewenliao
                          * time：2017/9/8 17:31
                          */
+                    //清空数据
+                    homeItemLists.clear();
                     //Home展示的item集合
-                    homeItemLists = new ArrayList<HomeItem>();
                     //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
                     for (int i = 0; i < map.size() - 3; i++) {
                         HomeItem item = new HomeItem();
