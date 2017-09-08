@@ -2,7 +2,6 @@ package huantai.smarthome.control;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ public class MineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mine,container,false);
         TextView txt_content = (TextView) view.findViewById(R.id.txt_mine);
         txt_content.setText("MineFragment");
-        Log.e("HEHE", "4日狗");
         return view;
     }
 }
