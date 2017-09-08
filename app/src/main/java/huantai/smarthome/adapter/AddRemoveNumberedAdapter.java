@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import huantai.smarthome.bean.ControlDataible;
+import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.control.HomeFragment;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.TextViewHolder;
@@ -27,6 +28,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
   private static final int ITEM_VIEW_TYPE_ADD = 1;
 
   private List<String> labels;
+  private List<HomeItem> homeItemLists;
 
   public AddRemoveNumberedAdapter(int count) {
     labels = new ArrayList<String>(count);
@@ -34,6 +36,12 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
       labels.add(String.valueOf(i));
     }
   }
+
+  //更新数据
+  public void setData(List<HomeItem> homeItemLists) {
+        this.homeItemLists=homeItemLists;
+  }
+
 
   @Override
   public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,20 +64,24 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
 
     //获取图片资源文件
     holder.iv_icon.setImageResource(R.drawable.home_images);
-    if (position == 0){
-      holder.tv_title.setText("温度");
-      holder.tv_content.setText("60");
-//      holder.iv_icon.setImageResource(R.drawable.home_icon_tenperature);
-      holder.iv_icon.setImageLevel(0);
+    if (homeItemLists != null){
 
+      holder.tv_title.setText(homeItemLists.get(position).getName());
+      holder.tv_content.setText(homeItemLists.get(position).getContent());
+      holder.iv_icon.setImageLevel(homeItemLists.get(position).getPicture());
     }
-    if (position == 1){
-      holder.tv_title.setText("湿度");
-      holder.tv_content.setText("80");
-      holder.iv_icon.setImageLevel(1);
-    }
-//    final String label = labels.get(position);
-//    holder.tv_title.setText(label);
+//    if (position == 0){
+//      holder.tv_title.setText("温度");
+//      holder.tv_content.setText("60");
+//      holder.iv_icon.setImageLevel(0);
+////      holder.iv_icon.setImageResource(R.drawable.home_icon_tenperature);
+//
+//    }
+//    if (position == 1){
+//      holder.tv_title.setText("湿度");
+//      holder.tv_content.setText("80");
+//      holder.iv_icon.setImageLevel(1);
+//    }
 
     holder.tv_title.setOnClickListener(new View.OnClickListener() {
       @Override

@@ -731,6 +731,7 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 		foundDevicesList = new ArrayList<GizWifiDevice>();
 		offlineDevicesList = new ArrayList<GizWifiDevice>();
 
+		// TODO: 2017/9/8
 		for (GizWifiDevice gizWifiDevice : GosDeviceModuleBaseActivity.deviceslist) {
 			if (GizWifiDeviceNetStatus.GizDeviceOnline == gizWifiDevice.getNetStatus()
 					|| GizWifiDeviceNetStatus.GizDeviceControlled == gizWifiDevice.getNetStatus()) {

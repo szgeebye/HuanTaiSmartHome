@@ -144,7 +144,8 @@ public class HomeFragment0 extends Fragment implements ControlDataible{
                 if (dataMap.get("data") != null) {
                     ConcurrentHashMap<String, Object> map = (ConcurrentHashMap<String, Object>) dataMap.get("data");
                     // 获得kuozhan类型数据
-                    String msg = ConvertUtil.byteStringToHexString((byte[]) map.get("kuozhan"));
+//                    String msg = ConvertUtil.byteStringToHexString((byte[]) map.get("Temperature"));
+
                     Log.i("ListenerMsg",msg);
                     tv_msg.setText(msg);
                     System.out.println("接收到数据："+msg);

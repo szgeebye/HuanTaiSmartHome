@@ -23,35 +23,45 @@ import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.AddRemoveNumberedAdapter;
 import huantai.smarthome.adapter.MyFragmentPagerAdapter;
+import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.ControlDataible;
+import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ConvertUtil;
 import huantai.smarthome.utils.MarginDecoration;
 
 /**
-     * description:home界面
-     * auther：xuewenliao
-     * time：2017/9/8 9:06
-     */
-public class HomeFragment extends Fragment implements ControlDataible{
+ * description:home界面
+ * auther：xuewenliao
+ * time：2017/9/8 9:06
+ */
+public class HomeFragment extends Fragment implements ControlDataible {
 
     private View view;
-    /** The GizWifiDevice device */
+    /**
+     * The GizWifiDevice device
+     */
     private GizWifiDevice device;
+    private List<HomeItem> homeItemLists = null;
+    private AddRemoveNumberedAdapter addRemoveNumberedAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_recycler_view,container, false);
+        view = inflater.inflate(R.layout.activity_recycler_view, container, false);
 
-
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(5);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new MarginDecoration(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(new AddRemoveNumberedAdapter(4));
+        recyclerView.setAdapter(addRemoveNumberedAdapter);
+//        recyclerView.setAdapter(new AddRemoveNumberedAdapter(4,homeItemLists));
 
         initDevice();
         initStatusListener();
@@ -92,30 +102,64 @@ public class HomeFragment extends Fragment implements ControlDataible{
             if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
                 // 已定义的设备数据点，有布尔、数值和枚举型数据
                 if (dataMap.get("data") != null) {
+                    //除报警外所以数据
                     ConcurrentHashMap<String, Object> map = (ConcurrentHashMap<String, Object>) dataMap.get("data");
-                    // 获得kuozhan类型数据
-//                    String msg = ConvertUtil.byteStringToHexString((byte[]) map.get("kuozhan"));
+                    //报警数据
+                    ConcurrentHashMap<String, Object> alertmap = (ConcurrentHashMap<String, Object>) dataMap.get("alerts");
 
-                    //获取温度
-                    Integer Temperature = (Integer) map.get("Temperature");
-                    //获取湿度
-                    Integer Humidity = (Integer) map.get("Humidity");
-                    //获取烟雾
-                    String smoke1 = (String) map.get("smoke1");
-                    //获取气体
-                    String gas1 = (String) map.get("gas1");
-                    //获取报警
-                    String Alert_1 = (String) map.get("Alert_1");
+                    /**
+                         * description:获取报警外所以数据
+                         * auther：xuewenliao
+                         * time：2017/9/8 17:31
+                         */
+                    //Home展示的item集合
+                    homeItemLists = new ArrayList<HomeItem>();
+                    //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                    for (int i = 0; i < map.size() - 3; i++) {
+                        HomeItem item = new HomeItem();
+                        //获取数据
+                        String content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
+//                        String content =  map.get(ConstantData.key[i]);//获取温度
+                        //添加名称
+                        item.setName(ConstantData.name[i]);
+                        //添加数据
+                        item.setContent(content);
+                        //添加图片
+                        item.setPicture(i);
+                        homeItemLists.add(item);
 
+                    }
 
-                    //门
-//                    String gate1 = (String) map.get("gate1");
-                    //人体感应
-//                    String body1 = (String) map.get("body1");
-                    //灯
-//                    String LED_OnOff = (String) map.get("LED_OnOff");
-                    //Send_com
-                    Integer Send_com = (Integer) map.get("Send_com");
+                    /**
+                         * description:获取警报数据
+                         * auther：xuewenliao
+                         * time：2017/9/8 17:26
+                         */
+                    HomeItem item = new HomeItem();
+                    //获取数据
+                    String content = String.valueOf(alertmap.get(ConstantData.key[8]));//获取温度
+//                        String content =  map.get(ConstantData.key[i]);//获取温度
+                    //添加名称
+                    item.setName(ConstantData.name[8]);
+                    //添加数据
+                    item.setContent(content);
+                    //添加图片
+                    item.setPicture(8);
+                    homeItemLists.add(item);
+
+                    //更新数据
+                    addRemoveNumberedAdapter.setData(homeItemLists);
+                    //通知适配器更新视图
+                    addRemoveNumberedAdapter.notifyDataSetChanged();
+
+//                    String Humidity = String.valueOf(map.get("Humidity"));//获取湿度
+//                    String smoke1 = (String) map.get("smoke1");//获取烟雾
+//                    String gas1 = (String) map.get("gas1");//获取气体
+//                    String Alert_1 = (String) map.get("Alert_1"); //获取报警
+//                    String gate1 = (String) map.get("gate1"); //门
+//                    String body1 = (String) map.get("body1"); //人体感应
+//                    String LED_OnOff = (String) map.get("LED_OnOff"); //灯
+//                    Integer Send_com = (Integer) map.get("Send_com");//Send_com
 
 
                 }

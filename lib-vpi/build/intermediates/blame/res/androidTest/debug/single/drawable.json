@@ -6,5 +6,9 @@
     {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\vpi__tab_indicator.xml",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\bundles\\debug\\res\\drawable\\vpi__tab_indicator.xml"
+    },
+    {
+        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\vpi__tab_indicator.xml",
+        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\bundles\\debug\\res\\drawable\\vpi__tab_indicator.xml"
     }
 ]
