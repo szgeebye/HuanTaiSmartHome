@@ -57,5 +57,6 @@
     <color name="view_yellow">#f4dd98</color>
 
     <color name="home_actionbar">#d4cac1</color>
+    <color name="tv_white">#FFFFFF</color>
 
 </resources>

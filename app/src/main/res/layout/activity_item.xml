@@ -10,6 +10,7 @@
         android:id="@+id/itemLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:background="@color/tv_white"
         android:orientation="vertical">
 
 
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/light_blue_900"
-            android:background="@color/view_yellow"
+            android:background="@color/tv_white"
             android:padding="8dp"
             android:text="湿度"/>
 
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/light_blue_900"
-            android:background="@color/view_yellow"
+            android:background="@color/tv_white"
             android:padding="8dp"
             android:text="状态"/>
     </LinearLayout>
