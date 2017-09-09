@@ -12,8 +12,9 @@
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceMedium"
     android:textColor="@color/green_900"
-    android:background="@drawable/green_background"
+    android:background="@drawable/home_item_add"
     android:padding="8dp"
-    android:text="@string/add_item"/>
+        android:layout_marginTop="8dp" />
+
 
 </LinearLayout>
