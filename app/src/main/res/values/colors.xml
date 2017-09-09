@@ -59,4 +59,7 @@
     <color name="home_actionbar">#d4cac1</color>
     <color name="tv_white">#FFFFFF</color>
 
+    <color name="home_item_bg">#50f4f7f5</color>
+
+
 </resources>
