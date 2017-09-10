@@ -12,6 +12,7 @@ public class TextViewHolder extends RecyclerView.ViewHolder {
     public TextView tv_title;
     public TextView tv_content;
     public ImageView iv_icon;
+    public ImageView iv_edit;
     public LinearLayout itemLayout;
 
 
@@ -21,6 +22,7 @@ public class TextViewHolder extends RecyclerView.ViewHolder {
         tv_title = (TextView) itemView.findViewById(R.id.tv_title);
         tv_content = (TextView) itemView.findViewById(R.id.tv_content);
         iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
+        iv_edit = (ImageView) itemView.findViewById(R.id.iv_edit);
 
     }
 }

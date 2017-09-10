@@ -1,5 +1,9 @@
 package huantai.smarthome.adapter;
 
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Vibrator;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.HomeItem;
+import huantai.smarthome.control.HomeFragment;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.TextViewHolder;
 
@@ -15,12 +21,12 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
   private static final int ITEM_VIEW_TYPE_ITEM = 0;
   private static final int ITEM_VIEW_TYPE_ADD = 1;
 
-  private List<String> labels;
   private List<HomeItem> homeItemLists;
+  private Context context;
 
-
-  public AddRemoveNumberedAdapter(List<HomeItem> homeItemLists) {
+  public AddRemoveNumberedAdapter(List<HomeItem> homeItemLists, Context context) {
     this.homeItemLists=homeItemLists;
+    this.context = context;
   }
 
   //更新数据
@@ -55,14 +61,31 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
       holder.tv_title.setText(homeItemLists.get(position).getName());
       holder.tv_content.setText(homeItemLists.get(position).getContent());
       holder.iv_icon.setImageLevel(homeItemLists.get(position).getPicture());
+      holder.iv_edit.setEnabled(false);
     }
 
-    holder.tv_title.setOnClickListener(new View.OnClickListener() {
+    holder.itemLayout.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
-      public void onClick(View v) {
-        removeItem(holder.getPosition());
+      public boolean onLongClick(View v) {
+//        Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+//        vibrator.vibrate(20);
+        holder.iv_edit.setVisibility(View.VISIBLE);
+        holder.iv_edit.setEnabled(true);
+        //发震动广播
+        Intent intent = new Intent(ConstAction.vibratoraction);
+        context.sendBroadcast(intent);
+
+
+        return true;
       }
     });
+
+//    holder.tv_title.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        removeItem(holder.getPosition());
+//      }
+//    });
   }
 
   private void addItem() {

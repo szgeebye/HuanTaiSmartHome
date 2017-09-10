@@ -1,8 +1,11 @@
 package huantai.smarthome.control;
 
 import android.app.ActionBar;
+import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,6 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.AddRemoveNumberedAdapter;
 import huantai.smarthome.adapter.MyFragmentPagerAdapter;
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.ControlDataible;
 import huantai.smarthome.bean.HomeItem;
@@ -56,14 +60,14 @@ public class HomeFragment extends Fragment implements ControlDataible {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
 
         initData();
-        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists);
+        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists,getContext());
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new MarginDecoration(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(addRemoveNumberedAdapter);
-//        recyclerView.setAdapter(new AddRemoveNumberedAdapter(4,homeItemLists));
-
+        Vibrator vibrator = (Vibrator) getActivity().getSystemService(Service.VIBRATOR_SERVICE);
+        vibrator.vibrate(50);
         initDevice();
         initStatusListener();
         return view;

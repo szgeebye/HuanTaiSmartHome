@@ -1,12 +1,19 @@
 package huantai.smarthome.control;
 
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import huantai.smarthome.adapter.MyFragmentPagerAdapter;
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.R;
 
@@ -42,7 +49,23 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         bindViews();
         rb_channel.setChecked(true);
+        initBroadreceive();
+
     }
+
+    //注册震动广播
+    private void initBroadreceive() {
+        IntentFilter filter = new IntentFilter(ConstAction.vibratoraction);
+        registerReceiver(vibratorBroadcast,filter);
+    }
+    //实现广播内容
+    private BroadcastReceiver vibratorBroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+            vibrator.vibrate(20);
+        }
+    };
 
     private void bindViews() {
         rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
