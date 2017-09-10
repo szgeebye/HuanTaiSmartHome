@@ -13,12 +13,32 @@
             android:id="@+id/tv_hometopbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
             android:gravity="center"
             android:text="家"
             android:textColor="@color/text_topbar"
             android:background="@color/home_actionbar"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/tv_delete_finish"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/delete_finish"
+            android:textColor="@color/text_delete_finish"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/iv_person_image"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/image_test"
+            android:visibility="invisible"/>
+
     </RelativeLayout>
 
 

@@ -1,7 +1,10 @@
 package huantai.smarthome.control;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -11,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
@@ -23,6 +28,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.AddRemoveNumberedAdapter;
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.ControlDataible;
 import huantai.smarthome.bean.HomeItem;
@@ -43,22 +49,27 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private GizWifiDevice device;
     private List<HomeItem> homeItemLists = new ArrayList<HomeItem>();
     private AddRemoveNumberedAdapter addRemoveNumberedAdapter;
+    private RecyclerView recyclerView;
+    private TextView tv_delete_finish;
+    private ImageView iv_person_image;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
 
         initData();
-        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists,getContext());
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new MarginDecoration(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(addRemoveNumberedAdapter);
-        Vibrator vibrator = (Vibrator) getActivity().getSystemService(Service.VIBRATOR_SERVICE);
-        vibrator.vibrate(50);
+
+        initView();
         initDevice();
         initStatusListener();
+        initBroadreceive();
+        setEvent();
         return view;
     }
 
@@ -90,13 +101,50 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
     @Override
     public void initView() {
+        tv_delete_finish = (TextView) view.findViewById(R.id.tv_delete_finish);
+        iv_person_image = (ImageView) view.findViewById(R.id.iv_person_image);
 
     }
 
     @Override
     public void initBroadreceive() {
+        IntentFilter filter = new IntentFilter(ConstAction.deletefinishaction);
+        getContext().registerReceiver(deletefinishbroadcast, filter);
+    }
+
+    /**
+         * description:实现删除完成广播内容
+         * auther：xuewenliao
+         * time：2017/9/10 16:57
+         */
+    private BroadcastReceiver deletefinishbroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            tv_delete_finish.setVisibility(View.VISIBLE);
+            tv_delete_finish.setEnabled(true);
+        }
+    };
+
+    /**
+         * description:发送AddRemoveAdapter界面更新广播
+         * auther：xuewenliao
+         * time：2017/9/10 16:57
+         */
+    private void setEvent() {
+        tv_delete_finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //发送AddRemoveAdapter界面更新广播
+                Intent intent = new Intent( ConstAction.notifyfinishaction);
+                getContext().sendBroadcast(intent);
+
+                tv_delete_finish.setVisibility(View.INVISIBLE);
+                tv_delete_finish.setEnabled(false);
+            }
+        });
 
     }
+
 
     @Override
     public void sendJson(String key, Object value) throws JSONException {
@@ -115,10 +163,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     ConcurrentHashMap<String, Object> alertmap = (ConcurrentHashMap<String, Object>) dataMap.get("alerts");
 
                     /**
-                         * description:获取报警外所以数据
-                         * auther：xuewenliao
-                         * time：2017/9/8 17:31
-                         */
+                     * description:获取报警外所以数据
+                     * auther：xuewenliao
+                     * time：2017/9/8 17:31
+                     */
                     //清空数据
                     homeItemLists.clear();
                     //Home展示的item集合
@@ -139,10 +187,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     }
 
                     /**
-                         * description:获取警报数据
-                         * auther：xuewenliao
-                         * time：2017/9/8 17:26
-                         */
+                     * description:获取警报数据
+                     * auther：xuewenliao
+                     * time：2017/9/8 17:26
+                     */
                     HomeItem item = new HomeItem();
                     //获取数据
                     String content = String.valueOf(alertmap.get(ConstantData.key[8]));//获取温度

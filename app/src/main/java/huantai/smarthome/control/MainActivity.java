@@ -24,8 +24,6 @@ import huantai.smarthome.initial.R;
 public class MainActivity extends GosBaseActivity implements RadioGroup.OnCheckedChangeListener,
         ViewPager.OnPageChangeListener {
 
-    //UI Objects
-//    private TextView txt_topbar;
     private RadioGroup rg_tab_bar;
     private RadioButton rb_channel;
     private RadioButton rb_message;
@@ -52,8 +50,11 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         initBroadreceive();
 
     }
-
-    //注册震动广播
+    /**
+         * description:注册震动广播
+         * auther：xuewenliao
+         * time：2017/9/10 17:02
+         */
     private void initBroadreceive() {
         IntentFilter filter = new IntentFilter(ConstAction.vibratoraction);
         registerReceiver(vibratorBroadcast,filter);
@@ -63,7 +64,8 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         @Override
         public void onReceive(Context context, Intent intent) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
-            vibrator.vibrate(20);
+            long[] pattern = {800, 30, 10, 30};
+            vibrator.vibrate(pattern,-1);
         }
     };
 

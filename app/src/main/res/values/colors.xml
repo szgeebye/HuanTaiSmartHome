@@ -60,6 +60,8 @@
     <color name="tv_white">#FFFFFF</color>
     <!--主界面item颜色-->
     <color name="home_item_bg">#a0f4f7f5</color>
+    <!--删除完成text颜色-->
+    <color name="text_delete_finish">#31c27c</color>
 
 
 </resources>

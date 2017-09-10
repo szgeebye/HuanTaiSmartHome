@@ -1,7 +1,9 @@
 package huantai.smarthome.adapter;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
   private Context context;
   //删除按钮是否隐藏
   private boolean iv_delete_gone=true;
+
 
   public AddRemoveNumberedAdapter(List<HomeItem> homeItemLists, Context context) {
     this.homeItemLists=homeItemLists;
@@ -61,43 +64,57 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
       holder.tv_content.setText(homeItemLists.get(position).getContent());
       holder.iv_icon.setImageLevel(homeItemLists.get(position).getPicture());
 
+      //注册界面更新广播接收者
+      IntentFilter filter = new IntentFilter(ConstAction.notifyfinishaction);
+      context.registerReceiver(notifyfinishbroadcast,filter);
+
+
       if (iv_delete_gone) {
         holder.iv_edit.setVisibility(View.GONE);
         holder.iv_edit.setEnabled(false);
       } else {
         holder.iv_edit.setVisibility(View.VISIBLE);
         holder.iv_edit.setEnabled(true);
+        holder.iv_edit.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            removeItem(holder.getPosition());
+          }
+        });
+
       }
     }
 
     holder.itemLayout.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
       public boolean onLongClick(View v) {
-//        Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
-//        vibrator.vibrate(20);
-//        holder.iv_edit.setVisibility(View.VISIBLE);
-//        holder.iv_edit.setEnabled(true);
         //显示删除按钮
         iv_delete_gone=false;
         //刷新数据
         notifyDataSetChanged();
         //发震动广播
-        Intent intent = new Intent(ConstAction.vibratoraction);
-        context.sendBroadcast(intent);
+        Intent vintent = new Intent(ConstAction.vibratoraction);
+        context.sendBroadcast(vintent);
 
-
+        //发删除完成广播
+        Intent dintent = new Intent(ConstAction.deletefinishaction);
+        context.sendBroadcast(dintent);
 
         return true;
       }
     });
-
-//    holder.tv_title.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//        removeItem(holder.getPosition());
-//      }
-//    });
   }
+
+  //实现界面更新广播内容
+  private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      iv_delete_gone = true;
+      //刷新数据
+      notifyDataSetChanged();
+    }
+  };
+
 
   private void addItem() {
     if (homeItemLists.size() >=1){
