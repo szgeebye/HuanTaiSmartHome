@@ -1,24 +1,16 @@
 package huantai.smarthome.control;
 
-import android.app.ActionBar;
 import android.app.Service;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
@@ -31,13 +23,10 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.AddRemoveNumberedAdapter;
-import huantai.smarthome.adapter.MyFragmentPagerAdapter;
-import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.ControlDataible;
 import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.utils.ConvertUtil;
 import huantai.smarthome.utils.MarginDecoration;
 
 /**
