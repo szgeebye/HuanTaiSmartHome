@@ -1,14 +1,6 @@
 [
     {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable\\vpi__tab_indicator.xml",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
-    },
-    {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable\\vpi__tab_indicator.xml",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable\\vpi__tab_indicator.xml",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
     }
 ]

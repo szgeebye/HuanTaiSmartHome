@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_pressed_holo.9.png",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_pressed_holo.9.png"
-    },
-    {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_holo.9.png",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_holo.9.png"
     },
@@ -12,52 +8,12 @@
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_holo.9.png"
     },
     {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_pressed_holo.9.png"
-    },
-    {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_focused_holo.9.png",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_focused_holo.9.png"
     },
     {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_holo.9.png",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_holo.9.png"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_focused_holo.9.png",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_focused_holo.9.png"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_holo.9.png",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_holo.9.png"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_pressed_holo.9.png"
-    },
-    {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_holo.9.png",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_holo.9.png"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_holo.9.png",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_holo.9.png"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_focused_holo.9.png",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_focused_holo.9.png"
-    },
-    {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_focused_holo.9.png",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_focused_holo.9.png"
-    },
-    {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_pressed_holo.9.png",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_pressed_holo.9.png"
-    },
-    {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_focused_holo.9.png",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_focused_holo.9.png"
     },
     {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_pressed_holo.9.png",
@@ -66,9 +22,5 @@
     {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_selected_pressed_holo.9.png",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_selected_pressed_holo.9.png"
-    },
-    {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\vpi__tab_unselected_focused_holo.9.png",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\drawable-xhdpi\\vpi__tab_unselected_focused_holo.9.png"
     }
 ]

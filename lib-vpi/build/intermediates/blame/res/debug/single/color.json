@@ -1,26 +1,10 @@
 [
     {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\color\\vpi__dark_theme.xml",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\color\\vpi__dark_theme.xml"
-    },
-    {
-        "merged": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
-        "source": "D:\\lj_xwl\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\color\\vpi__light_theme.xml"
-    },
-    {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\color\\vpi__light_theme.xml"
     },
     {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\color\\vpi__dark_theme.xml",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\color\\vpi__dark_theme.xml"
-    },
-    {
         "merged": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\color\\vpi__dark_theme.xml",
         "source": "D:\\space\\huantai\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\color\\vpi__dark_theme.xml"
-    },
-    {
-        "merged": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
-        "source": "D:\\Users\\xuewenliao\\Desktop\\AndroidProject\\HuanTaiSmartHome\\lib-vpi\\src\\main\\res\\color\\vpi__light_theme.xml"
     }
 ]

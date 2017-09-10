@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\lj_xwl\AndroidProject\HuanTaiSmartHome\lib-vpi\src\main\assets"/><source path="D:\lj_xwl\AndroidProject\HuanTaiSmartHome\lib-vpi\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\lj_xwl\AndroidProject\HuanTaiSmartHome\lib-vpi\src\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\space\huantai\HuanTaiSmartHome\lib-vpi\src\main\assets"/><source path="D:\space\huantai\HuanTaiSmartHome\lib-vpi\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\space\huantai\HuanTaiSmartHome\lib-vpi\src\release\assets"/></dataSet></merger>
