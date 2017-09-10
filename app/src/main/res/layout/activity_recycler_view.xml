@@ -33,10 +33,14 @@
             android:visibility="invisible"/>
         <ImageView
             android:id="@+id/iv_person_image"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:gravity="center"
             android:background="@drawable/image_test"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8sp"
             android:visibility="invisible"/>
 
     </RelativeLayout>

@@ -104,6 +104,8 @@ public class HomeFragment extends Fragment implements ControlDataible {
         tv_delete_finish = (TextView) view.findViewById(R.id.tv_delete_finish);
         iv_person_image = (ImageView) view.findViewById(R.id.iv_person_image);
 
+        iv_person_image.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -122,6 +124,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
         public void onReceive(Context context, Intent intent) {
             tv_delete_finish.setVisibility(View.VISIBLE);
             tv_delete_finish.setEnabled(true);
+            iv_person_image.setVisibility(View.INVISIBLE);
         }
     };
 
@@ -140,6 +143,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                 tv_delete_finish.setVisibility(View.INVISIBLE);
                 tv_delete_finish.setEnabled(false);
+                iv_person_image.setVisibility(View.VISIBLE);
             }
         });
 
