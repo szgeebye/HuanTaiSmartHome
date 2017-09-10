@@ -58,8 +58,8 @@
 
     <color name="home_actionbar">#d4cac1</color>
     <color name="tv_white">#FFFFFF</color>
-
-    <color name="home_item_bg">#50f4f7f5</color>
+    <!--主界面item颜色-->
+    <color name="home_item_bg">#a0f4f7f5</color>
 
 
 </resources>
