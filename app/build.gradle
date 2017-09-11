@@ -18,6 +18,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    repositories     {
+        flatDir {
+        dirs 'libs'    }
+    }
+
 }
 
 
@@ -44,16 +50,13 @@ dependencies {
     compile files('libs/zxing.jar')
     compile 'com.yanzhenjie:permission:1.0.5'
     compile 'org.xutils:xutils:3.5.0'
-    compile project(':lib-vpi')
     compile 'com.google.code.gson:gson:2.8.1'
-
     //bmob-sms ：Bmob单独为短信服务提供的包
     compile 'cn.bmob.android:bmob-sms:1.0.1'
-
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile 'cn.bmob.android:http-legacy:1.0'
-
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile 'com.android.support:recyclerview-v7:24.2.1'
-
+    compile project(':bDIntegrationSDK_Lib')
+    compile(name: 'autoupdatesdk-release', ext: 'aar')
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.baidu.integrationsdk.lib.test" >
+
+    <uses-sdk
+        android:minSdkVersion="1"
+        android:targetSdkVersion="1" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for com.baidu.integrationsdk.lib.test"
+        android:targetPackage="com.baidu.integrationsdk.lib.test" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+
+        <meta-data
+            android:name="BDAPPID"
+            android:value="10125047" />
+        <meta-data
+            android:name="BDAPPKEY"
+            android:value="uQqf4Vc5bP1k6mX5oQo2gwap8nUlkVri" />
+    </application>
+
+</manifest>

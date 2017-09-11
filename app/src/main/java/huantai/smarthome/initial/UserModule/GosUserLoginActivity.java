@@ -1,6 +1,8 @@
 package huantai.smarthome.initial.UserModule;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
+import com.baidu.autoupdatesdk.UICheckUpdateCallback;
 import com.gizwits.gizwifisdk.api.GizWifiSDK;
 import com.gizwits.gizwifisdk.enumration.GizEventType;
 import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
@@ -114,6 +118,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 
 	/** The THRED_LOGIN UID&TOKEN */
 	public static String thirdUid, thirdToken;
+	private ProgressDialog dialog;
 
 	public static enum handler_key {
 
@@ -189,7 +194,35 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 //		x.view().inject(this);
 		initView();
 		initEvent();
+		//检查自动更新，默认UI
+		dialog = new ProgressDialog(this);
+		dialog.setIndeterminate(true);
+		dialog.setTitle("正在检查更新！");
+		dialog.setProgressStyle(Dialog.BUTTON_NEGATIVE);
+		dialog.show();
+		//检测更新
+		BDAutoUpdateSDK.uiUpdateAction(GosUserLoginActivity.this, new MyUICheckUpdateCallback());
+
+
 	}
+
+	/**
+	 * 自动更新接口
+	 */
+	private class MyUICheckUpdateCallback implements UICheckUpdateCallback {
+		@Override
+		public void onNoUpdateFound() {
+
+		}
+
+		@Override
+		public void onCheckComplete() {
+			//检查完成后调用
+			dialog.dismiss();
+		}
+
+	}
+
 
 	@Override
 	protected void onResume() {
