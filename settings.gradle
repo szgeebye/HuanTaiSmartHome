@@ -1,2 +1,2 @@
 include ':app'
-include ':lib-vpi'
+include ':bDIntegrationSDK_Lib'

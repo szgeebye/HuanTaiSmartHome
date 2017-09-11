@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HuanTaiSmartHome.iml" filepath="$PROJECT_DIR$/HuanTaiSmartHome.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib-vpi/lib-vpi.iml" filepath="$PROJECT_DIR$/lib-vpi/lib-vpi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bDIntegrationSDK_Lib/bDIntegrationSDK_Lib.iml" filepath="$PROJECT_DIR$/bDIntegrationSDK_Lib/bDIntegrationSDK_Lib.iml" />
     </modules>
   </component>
 </project>

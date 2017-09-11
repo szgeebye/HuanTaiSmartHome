@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/lib-vpi" />
+            <option value="$PROJECT_DIR$/bDIntegrationSDK_Lib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
