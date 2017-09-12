@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="huantai.smarthome.initial"
-    android:versionCode="1"
-    android:versionName="2.5.0.022212" >
+    package="huantai.smarthome.initial">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="22" />
 
 
     <!-- xutils-->

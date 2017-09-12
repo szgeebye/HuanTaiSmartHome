@@ -8,14 +8,29 @@ android {
         applicationId "huantai.smarthome.initial"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore/huantai.jks")
+            storePassword "huantai123"
+            keyAlias "huantai"
+            keyPassword "huantai123"
+        }
+        debug {
+            storeFile file("../keystore/huantai.jks")
+            storePassword "huantai123"
+            keyAlias "huantai"
+            keyPassword "huantai123"
         }
     }
 
