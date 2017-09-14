@@ -28,6 +28,7 @@ import com.gizwits.gizwifisdk.enumration.GizEventType;
 import com.gizwits.gizwifisdk.enumration.GizThirdAccountType;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.google.gson.Gson;
+import com.orm.SugarRecord;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -40,6 +41,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -577,17 +579,28 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 			//获取到数据
 			String jsonBack = result;
 			UserBackInfo userBackInfo = new Gson().fromJson(jsonBack, UserBackInfo.class);
-			//处理数据
-			Integer id = userBackInfo.id;
-			String uname = userBackInfo.uname;
-			String uphone = userBackInfo.uphone;
-			String upwd = userBackInfo.upwd;
+			System.out.println(1);
+			//存数据
+//            userBackInfo.setUserid();
+//            userBackInfo.setUname("uname");
+//            userBackInfo.setUpwd("upwd");
+//            userBackInfo.setUphone("uphone");
+			SugarRecord.save(userBackInfo);
+			List<UserBackInfo> userBackInfos = SugarRecord.listAll(UserBackInfo.class);
+			Log.i("quary",userBackInfos.toString());
+			UserBackInfo quary = SugarRecord.findById(UserBackInfo.class,25);
+			Log.i("quary",quary.toString());
+			System.out.println(2);
 
-			spf.edit().putInt("id",id).commit();
-			spf.edit().putString("uname",uname).commit();
-			spf.edit().putString("uphone",uphone).commit();
-			spf.edit().putString("upwd",upwd).commit();
-
+			long id = quary.getId();
+			String uname = quary.getUname();
+			String uphone = quary.getUphone();
+			String upwd = quary.getUpwd();
+//			spf.edit().putInt("id",id).commit();
+//			spf.edit().putString("uname",uname).commit();
+//			spf.edit().putString("uphone",uphone).commit();
+//			spf.edit().putString("upwd",upwd).commit();
+//
 			Log.i("server","id:"+id);
 			Log.i("server","uname:"+uname);
 			Log.i("server","uphone:"+uphone);

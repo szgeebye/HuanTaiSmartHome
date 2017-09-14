@@ -1,21 +1,52 @@
 package huantai.smarthome.bean;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.orm.dsl.Table;
+
 /**
  * use：接收后台用户数据
  * Created by xuewenliao on 2017/8/9.
  */
+@Table
+public class UserBackInfo{
 
-public class UserBackInfo {
-    public int id; //用户id
-    public String uname;//用户姓名
-    public String upwd;//密码
-    public String uphone;//手机（用户名）
 
-    public int getId() {
+    //    @Unique
+    @Expose
+    @SerializedName("id")
+    Long id; //用户id
+    @Expose
+    String uname;//用户姓名
+    @Expose
+    String upwd;//密码
+    @Expose
+    String uphone;//手机（用户名）
+    public UserBackInfo(){
+
+    }
+    public UserBackInfo(Long id, String uname, String upwd, String uphone) {
+        this.id = id;
+        this.uname = uname;
+        this.upwd = upwd;
+        this.uphone = uphone;
+    }
+
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,5 +74,14 @@ public class UserBackInfo {
         this.uphone = uphone;
     }
 
+    @Override
+    public String toString() {
+        return "UserBackInfo{" +
+                "id=" + id +
+                ", uname='" + uname + '\'' +
+                ", upwd='" + upwd + '\'' +
+                ", uphone='" + uphone + '\'' +
+                '}';
+    }
 
 }

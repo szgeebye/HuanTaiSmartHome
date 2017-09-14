@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="huantai.smarthome.initial">
+    package="huantai.smarthome.initial"
+    android:versionCode="1"
+    android:versionName="2.5.0.022212" >
 
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="22" />
 
 
     <!-- xutils-->
@@ -133,7 +138,7 @@
         <activity android:name=".sharingdevice.SharedDeviceListAcitivity"></activity>
 
         <activity android:name=".sharingdevice.SharedDeviceManagerActivity"></activity>
-        
+
         <activity android:name=".sharingdevice.addSharedActivity"></activity>
         <activity android:name=".sharingdevice.twoSharedActivity"></activity>
         <activity android:name=".sharingdevice.userSharedActivity"></activity>
@@ -260,6 +265,12 @@
             android:name="JPUSH_APPKEY"
             android:value="4c86d3a98b7037dc8b147d1a " />
         <!-- 极光推送 TODO  -->
+
+        <!--创建数据库-->
+        <meta-data android:name="DATABASE" android:value="huantai.db"/>
+        <meta-data android:name="VERSION" android:value="2"/>
+        <meta-data android:name="QUERY_LOG" android:value="true"/>
+        <meta-data android:name="DOMAIN_PACKAGE_NAME"  android:value="huantai.smarthome.bean"/>
 
         <!-- 百度推送 -->
         <!-- push service start -->

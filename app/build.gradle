@@ -74,4 +74,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile project(':bDIntegrationSDK_Lib')
     compile(name: 'autoupdatesdk-release', ext: 'aar')
+    //sugerORM框架
+    compile 'com.github.satyan:sugar:1.5'
 }
