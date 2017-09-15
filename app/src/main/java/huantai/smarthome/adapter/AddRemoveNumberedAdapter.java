@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.orm.SugarRecord;
 
 import java.util.List;
 
@@ -128,6 +131,13 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
 
   private void removeItem(int position) {
     homeItemLists.remove(position);
+
+    HomeItem homeItem = homeItemLists.get(position);
+
+//    HomeItem homeItem = SugarRecord.findById(HomeItem.class,position);
+    SugarRecord.delete(homeItem);
+    homeItemLists = SugarRecord.listAll(HomeItem.class);
+    Log.i("dataAll",homeItemLists.toString());
     notifyItemRemoved(position);
   }
 

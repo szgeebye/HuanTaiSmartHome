@@ -1,12 +1,10 @@
 package huantai.smarthome.control;
 
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +18,7 @@ import android.widget.TextView;
 import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
+import com.orm.SugarRecord;
 
 import org.json.JSONException;
 
@@ -172,7 +171,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
                      * time：2017/9/8 17:31
                      */
                     //清空数据
-                    homeItemLists.clear();
+//                    homeItemLists.clear();
+                    SugarRecord.deleteAll(HomeItem.class);
+                    homeItemLists = SugarRecord.listAll(HomeItem.class);
+                    Log.i("dataAll",homeItemLists.toString());
                     //Home展示的item集合
                     //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
                     for (int i = 0; i < map.size() - 3; i++) {
@@ -186,7 +188,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
                         item.setContent(content);
                         //添加图片
                         item.setPicture(i);
+                        //设置位置
+//                        item.setPosition(i);
                         homeItemLists.add(item);
+                        SugarRecord.save(item);
 
                     }
 
@@ -205,7 +210,14 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     item.setContent(content);
                     //添加图片
                     item.setPicture(6);
+                    //设置位置
+//                    item.setPosition(6);
                     homeItemLists.add(item);
+
+                    SugarRecord.save(item);
+                    homeItemLists = SugarRecord.listAll(HomeItem.class);
+                    Log.i("dataAll",homeItemLists.toString());
+                    Log.i("quary",SugarRecord.findById(HomeItem.class,1).toString());
 
                     //更新数据
                     addRemoveNumberedAdapter.setData(homeItemLists);

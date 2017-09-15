@@ -39,6 +39,7 @@
             android:textColorHint="@color/text_gray_light"
             android:textSize="14sp"
             android:color="#e0000000"
+            android:text="18390558098"
             />
     </LinearLayout>
 
@@ -67,7 +68,8 @@
             android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:textColorHint="@color/text_gray_light"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:text="123"/>
 
         <CheckBox
             android:id="@+id/cbLaws"
