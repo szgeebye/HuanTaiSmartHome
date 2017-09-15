@@ -1,6 +1,7 @@
 package huantai.smarthome.bean;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.orm.dsl.Table;
 
 /**
@@ -8,9 +9,9 @@ import com.orm.dsl.Table;
  */
 @Table
 public class HomeItem {
-//    @SerializedName("id")
-//    @Expose
-    public int position;
+    @SerializedName("id")
+    @Expose
+    public Long id;
     @Expose
     public String name;
     @Expose
@@ -18,6 +19,13 @@ public class HomeItem {
     @Expose
     public int picture;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public HomeItem(){
 
     }
@@ -28,13 +36,6 @@ public class HomeItem {
         this.picture = picture;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
 
     public String getName() {
         return name;
@@ -63,10 +64,10 @@ public class HomeItem {
     @Override
     public String toString() {
         return "HomeItem{" +
-                "position=" + position +
-                ", name='" + name + '\'' +
-                ", content='" + content + '\'' +
-                ", picture=" + picture +
-                '}';
+             "id=" + id +
+             ", name='" + name + '\'' +
+             ", content='" + content + '\'' +
+             ", picture=" + picture +
+             '}';
     }
 }

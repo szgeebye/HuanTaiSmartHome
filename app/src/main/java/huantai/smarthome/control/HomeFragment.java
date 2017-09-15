@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     SugarRecord.save(item);
                     homeItemLists = SugarRecord.listAll(HomeItem.class);
                     Log.i("dataAll",homeItemLists.toString());
-                    Log.i("quary",SugarRecord.findById(HomeItem.class,1).toString());
+//                    Log.i("quary",SugarRecord.findById(HomeItem.class,1).toString());
 
                     //更新数据
                     addRemoveNumberedAdapter.setData(homeItemLists);
