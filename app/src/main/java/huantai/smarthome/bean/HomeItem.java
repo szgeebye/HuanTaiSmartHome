@@ -18,6 +18,8 @@ public class HomeItem {
     public String content;
     @Expose
     public int picture;
+    @Expose
+    public boolean isDelete;
 
     public Long getId() {
         return id;
@@ -61,13 +63,22 @@ public class HomeItem {
         this.picture = picture;
     }
 
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
     @Override
     public String toString() {
         return "HomeItem{" +
-             "id=" + id +
-             ", name='" + name + '\'' +
-             ", content='" + content + '\'' +
-             ", picture=" + picture +
-             '}';
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", picture=" + picture +
+                ", isDelete=" + isDelete +
+                '}';
     }
 }

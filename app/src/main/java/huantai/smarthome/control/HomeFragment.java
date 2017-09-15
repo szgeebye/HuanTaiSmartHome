@@ -57,7 +57,8 @@ public class HomeFragment extends Fragment implements ControlDataible {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
 
         initData();
-        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());
+//        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());
+//        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(getContext());
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new MarginDecoration(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -75,14 +76,33 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private void initData() {
         // FIXME: 2017/9/8 修改成从数据库读取
         HomeItem item = new HomeItem();
-        //添加名称
-        item.setName("hehe");
-        //添加数据
-        item.setContent("123");
-        //添加图片
-        item.setPicture(1);
-//        homeItemLists.clear();
-        homeItemLists.add(item);
+        List<HomeItem> initItemLists = SugarRecord.listAll(HomeItem.class);
+        if (initItemLists.size() != 0) {
+            addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(initItemLists, getContext());
+            //更新数据
+            addRemoveNumberedAdapter.setData(initItemLists);
+            //通知适配器更新视图
+            addRemoveNumberedAdapter.notifyDataSetChanged();
+        } else {
+            addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());
+            //添加名称
+//            item.setName("请添加");
+//            //添加数据
+//            item.setContent("服务器未启用");
+//            //添加图片
+//            item.setPicture(1);
+////        homeItemLists.clear();
+//            homeItemLists.add(item);
+        }
+
+//        //添加名称
+//        item.setName("hehe");
+//        //添加数据
+//        item.setContent("123");
+//        //添加图片
+//        item.setPicture(1);
+////        homeItemLists.clear();
+//        homeItemLists.add(item);
     }
 
 
@@ -114,10 +134,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
     }
 
     /**
-         * description:实现删除完成广播内容
-         * auther：xuewenliao
-         * time：2017/9/10 16:57
-         */
+     * description:实现删除完成广播内容
+     * auther：xuewenliao
+     * time：2017/9/10 16:57
+     */
     private BroadcastReceiver deletefinishbroadcast = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -128,16 +148,16 @@ public class HomeFragment extends Fragment implements ControlDataible {
     };
 
     /**
-         * description:发送AddRemoveAdapter界面更新广播
-         * auther：xuewenliao
-         * time：2017/9/10 16:57
-         */
+     * description:发送AddRemoveAdapter界面更新广播
+     * auther：xuewenliao
+     * time：2017/9/10 16:57
+     */
     private void setEvent() {
         tv_delete_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //发送AddRemoveAdapter界面更新广播
-                Intent intent = new Intent( ConstAction.notifyfinishaction);
+                Intent intent = new Intent(ConstAction.notifyfinishaction);
                 getContext().sendBroadcast(intent);
 
                 tv_delete_finish.setVisibility(View.INVISIBLE);
@@ -165,73 +185,61 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     //报警数据
                     ConcurrentHashMap<String, Object> alertmap = (ConcurrentHashMap<String, Object>) dataMap.get("alerts");
 
-                    /**
-                     * description:获取报警外所以数据
-                     * auther：xuewenliao
-                     * time：2017/9/8 17:31
-                     */
-                    //清空数据
-//                    homeItemLists.clear();
-                    SugarRecord.deleteAll(HomeItem.class);
                     homeItemLists = SugarRecord.listAll(HomeItem.class);
-                    Log.i("dataAll",homeItemLists.toString());
-                    //Home展示的item集合
-                    //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
-                    for (int i = 0; i < map.size() - 3; i++) {
-                        HomeItem item = new HomeItem();
-                        //获取数据
-                        String content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
-//                        String content =  map.get(ConstantData.key[i]);//获取温度
-                        //添加名称
-                        item.setName(ConstantData.name[i]);
-                        //添加数据
-                        item.setContent(content);
-                        //添加图片
-                        item.setPicture(i);
-                        //设置位置
-//                        item.setPosition(i);
-                        homeItemLists.add(item);
-                        SugarRecord.save(item);
+                    if (homeItemLists.isEmpty()) {
 
+                        Log.i("dataAll", homeItemLists.toString());
+                        //Home展示的item集合
+                        //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                        for (int i = 0; i < map.size(); i++) {
+                            //LED和空调字段暂时不接数据
+                            if (i == 6 || i == 7) {
+                                continue;
+                            }
+                            HomeItem item = new HomeItem();
+                            //获取数据
+                            String content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
+                            //添加名称
+                            item.setName(ConstantData.name[i]);
+                            //添加数据
+                            item.setContent(content);
+                            //添加图片
+                            item.setPicture(i);
+//                            homeItemLists.add(item);
+                            SugarRecord.save(item);
+
+                        }
+
+                    } else {
+
+                        Log.i("dataAll", homeItemLists.toString());
+                        //Home展示的item集合
+                        //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                        for (int i = 0; i < map.size(); i++) {
+                            //LED和空调字段暂时不接数据
+                            if (i == 6 || i == 7) {
+                                continue;
+                            }
+                            for (HomeItem homeItem : homeItemLists) {
+                                if (homeItem.getName().equals(ConstantData.name[i])) {
+                                    String content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
+                                    homeItem.setContent(content);
+                                    SugarRecord.save(homeItem);
+                                    Log.i("update", homeItem.toString());
+
+                                }
+                            }
+                        }
                     }
 
-                    /**
-                     * description:获取警报数据
-                     * auther：xuewenliao
-                     * time：2017/9/8 17:26
-                     */
-                    HomeItem item = new HomeItem();
-                    //获取数据
-                    String content = String.valueOf(alertmap.get(ConstantData.key[8]));//获取温度
-//                        String content =  map.get(ConstantData.key[i]);//获取温度
-                    //添加名称
-                    item.setName(ConstantData.name[8]);
-                    //添加数据
-                    item.setContent(content);
-                    //添加图片
-                    item.setPicture(6);
-                    //设置位置
-//                    item.setPosition(6);
-                    homeItemLists.add(item);
-
-                    SugarRecord.save(item);
-                    homeItemLists = SugarRecord.listAll(HomeItem.class);
-                    Log.i("dataAll",homeItemLists.toString());
-//                    Log.i("quary",SugarRecord.findById(HomeItem.class,1).toString());
+                    homeItemLists = SugarRecord.findWithQuery(HomeItem.class,"Selete * from HomeItem where isDelete = ? ", String.valueOf(false));
+//                    homeItemLists = Select.from(HomeItem.class).where(Condition.prop("isDelete").eq(false)).list();
+                    Log.i("dataAll", homeItemLists.toString());
 
                     //更新数据
                     addRemoveNumberedAdapter.setData(homeItemLists);
                     //通知适配器更新视图
                     addRemoveNumberedAdapter.notifyDataSetChanged();
-
-//                    String Humidity = String.valueOf(map.get("Humidity"));//获取湿度
-//                    String smoke1 = (String) map.get("smoke1");//获取烟雾
-//                    String gas1 = (String) map.get("gas1");//获取气体
-//                    String Alert_1 = (String) map.get("Alert_1"); //获取报警
-//                    String gate1 = (String) map.get("gate1"); //门
-//                    String body1 = (String) map.get("body1"); //人体感应
-//                    String LED_OnOff = (String) map.get("LED_OnOff"); //灯
-//                    Integer Send_com = (Integer) map.get("Send_com");//Send_com
 
 
                 }

@@ -33,6 +33,9 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
     this.homeItemLists=homeItemLists;
     this.context = context;
   }
+//public AddRemoveNumberedAdapter(Context context) {
+//    this.context = context;
+//}
 
   //更新数据
   public void setData(List<HomeItem> homeItemLists) {
@@ -131,7 +134,10 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
 
   private void removeItem(int position) {
     HomeItem homeItem = SugarRecord.findById(HomeItem.class, homeItemLists.get(position).getId());
-    SugarRecord.delete(homeItem);
+    homeItem.setDelete(true);
+    SugarRecord.save(homeItem);
+
+//    SugarRecord.delete(homeItem);
     homeItemLists.remove(position);
     Log.i("dataAll",homeItemLists.toString());
     notifyItemRemoved(position);
