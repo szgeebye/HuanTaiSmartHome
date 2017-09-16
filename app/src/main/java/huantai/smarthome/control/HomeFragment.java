@@ -19,6 +19,8 @@ import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import org.json.JSONException;
 
@@ -232,8 +234,17 @@ public class HomeFragment extends Fragment implements ControlDataible {
                         }
                     }
 
-                    homeItemLists = SugarRecord.findWithQuery(HomeItem.class,"Selete * from HomeItem where isDelete = ? ", String.valueOf(false));
-//                    homeItemLists = Select.from(HomeItem.class).where(Condition.prop("isDelete").eq(false)).list();
+                    homeItemLists = SugarRecord.listAll(HomeItem.class);
+//                    homeItemLists= Select.from(HomeItem.class)
+//                         .where(Condition.prop("name").eq("温度"))
+//                         .list();
+
+
+                    homeItemLists= Select.from(HomeItem.class)
+                         .where(Condition.prop("is_delete").eq(0))
+                         .list();
+//                    homeItemLists = Select.from(HomeItem.class).where(Condition.prop("isDelete").eq(0)).list();
+//                    SugarRecord.findWithQuery()
                     Log.i("dataAll", homeItemLists.toString());
 
                     //更新数据
