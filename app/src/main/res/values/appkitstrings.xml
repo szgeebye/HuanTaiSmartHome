@@ -126,6 +126,10 @@
     <string name="no">不了</string>
     <string name="doubleclick_logout">再次点击您将注销登录</string>
     <string name="doubleclick_back">再次点击可返回</string>
+    <string name="rename">改名</string>
+    <string name="set_Alias_Remark">修改别名及备注</string>
+    <string name="alias_hint">请输入别名</string>
+    <string name="remark_hint">请输入备注</string>
 
     <!-- AboutActivity -->
     <string name="appversion">程序版本：</string>

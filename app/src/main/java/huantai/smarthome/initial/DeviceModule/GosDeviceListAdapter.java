@@ -1,11 +1,5 @@
 package huantai.smarthome.initial.DeviceModule;
 
-import java.util.List;
-
-import com.gizwits.gizwifisdk.api.GizWifiDevice;
-import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
-
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
@@ -18,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
+import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
+
+import java.util.List;
 
 import huantai.smarthome.initial.R;
 
@@ -28,6 +26,7 @@ public class GosDeviceListAdapter extends BaseAdapter {
 
 	Handler handler = new Handler();
 	protected static final int UNBOUND = 99;
+	protected static final int RENAME = 100;
 
 	public void setHandler(Handler handler) {
 		this.handler = handler;
@@ -129,6 +128,16 @@ public class GosDeviceListAdapter extends BaseAdapter {
 				handler.sendMessage(message);
 			}
 		});
+
+		holder.getRename().setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Message message = new Message();
+				message.what = RENAME;
+				message.obj = device;
+				handler.sendMessage(message);
+			}
+		});
 		return view;
 	}
 }
@@ -142,11 +151,14 @@ class Holder {
 
 	private TextView tvDeviceMac, tvDeviceStatus, tvDeviceName;
 
-	private RelativeLayout delete2;
+	private TextView delete2;
 
 	private ImageView imgRight;
 
 	private LinearLayout llLeft;
+
+	//改名按钮
+	private TextView rename;
 
 	public LinearLayout getLlLeft() {
 		if (null == llLeft) {
@@ -162,12 +174,20 @@ class Holder {
 		return imgRight;
 	}
 
-	public RelativeLayout getDelete2() {
+	public TextView getDelete2() {
 		if (null == delete2) {
-			delete2 = (RelativeLayout) view.findViewById(R.id.delete2);
+			delete2 = (TextView) view.findViewById(R.id.delete2);
 		}
 		return delete2;
 	}
+
+	public TextView getRename() {
+		if (null == rename) {
+			rename = (TextView) view.findViewById(R.id.rename);
+		}
+		return rename;
+	}
+
 
 	public TextView getTvDeviceMac() {
 		if (null == tvDeviceMac) {

@@ -33,6 +33,7 @@ import com.gizwits.gizwifisdk.api.GizWifiSDK;
 import com.gizwits.gizwifisdk.enumration.GizWifiDeviceNetStatus;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.gizwits.gizwifisdk.listener.GizDeviceSharingListener;
+import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 
 import huantai.smarthome.control.MainActivity;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
@@ -157,6 +158,10 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 	/** 设备解绑 */
 	protected static final int UNBOUND = 99;
+	/**
+	 * 修改设备备注名称
+	 */
+	protected static final int RENAME = 100;
 
 	/** 新设备提醒 */
 	protected static final int SHOWDIALOG = 999;
@@ -167,7 +172,13 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 	private VerticalSwipeRefreshLayout mSwipeLayout1;
 
-	private static final  int REQUEST_CODE_SETTING = 100;
+	private static final  int REQUEST_CODE_SETTING = 101;
+
+	/**
+	 * 修改名字的设备
+	 */
+	private GizWifiDevice rndevice;
+
 
 	Handler handler = new Handler() {
 		private AlertDialog myDialog;
@@ -204,6 +215,11 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 				progressDialog.show();
 				GizWifiSDK.sharedInstance().unbindDevice(uid, token, msg.obj.toString());
 				break;
+
+				case RENAME:
+ 					rndevice = (GizWifiDevice) msg.obj;
+					setDeviceInfo();
+					break;
 
 			case TOCONTROL:
 //				intent = new Intent(GosDeviceListActivity.this, GosDeviceControlActivity.class);
@@ -904,10 +920,85 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 	}
 
+	boolean isDeviceNull;
+	Dialog dialog;
+
+	private void setDeviceInfo() {
+		final EditText etAlias;
+		final EditText etRemark;
+		final GizWifiDevice device = rndevice;
+
+		dialog = new AlertDialog.Builder(this).setView(new EditText(this)).create();
+		dialog.show();
+		Window window = dialog.getWindow();
+		window.setContentView(R.layout.alert_gos_set_device_info);
 
 
+		etAlias = (EditText) window.findViewById(R.id.et_Alias);
+		etRemark = (EditText) window.findViewById(R.id.etRemark);
+
+		LinearLayout llNo, llSure;
+		llNo = (LinearLayout) window.findViewById(R.id.llNo);
+		llSure = (LinearLayout) window.findViewById(R.id.llSure);
+
+		if (device.getListener() != null) {
+			isDeviceNull = false;
+		} else {
+			isDeviceNull = true;
+		}
+
+		if (!TextUtils.isEmpty(device.getAlias())) {
+			etAlias.setText(device.getAlias());
+		}
+		if (!TextUtils.isEmpty(device.getRemark())) {
+			etRemark.setText(device.getRemark());
+		}
+
+		llNo.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
+				if (isDeviceNull) {
+					device.setListener(null);
+				}
+			}
+		});
+		llSure.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				device.setCustomInfo(etRemark.getText().toString(), etAlias.getText().toString());
+				dialog.cancel();
+				String loadingText = (String) getText(R.string.loadingtext);
+				progressDialog.setMessage(loadingText);
+				progressDialog.show();
+
+			}
+		});
+
+	}
 
 
+//	protected GizWifiDeviceListener gizWifiDeviceListener = new GizWifiDeviceListener() {
+//		/** 用于修改设备信息 */
+//		public void didSetCustomInfo(GizWifiErrorCode arg0, GizWifiDevice arg1) {
+//			GosDeviceListActivity.this.didSetCustomInfo(arg0, arg1);
+//		}
+//	};
+//
+//	protected void didSetCustomInfo(GizWifiErrorCode arg0, GizWifiDevice arg1) {
+//		Message msg = new Message();
+//		msg.what = TOAST;
+//		String toastText;
+//		if (GizWifiErrorCode.GIZ_SDK_SUCCESS == arg0) {
+//			toastText = (String)"设置成功";
+//		} else {
+//			toastText = (String)"设置失败" + "\n" + arg0;
+//		}
+//		msg.obj = toastText;
+//		handler.sendMessage(msg);
+//	}
 
 
 

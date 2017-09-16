@@ -28,6 +28,7 @@
     <color name="backwhrite">#FFFFFF</color>
     <color name="sample_deploy">#007AFF</color>
     <color name="text_color">#333333</color>
+    <color name="color_line_gray">#ffe0e0e0</color>
 
     <!--fragmentcolor-->
     <color name="bg_black">#000000</color>
