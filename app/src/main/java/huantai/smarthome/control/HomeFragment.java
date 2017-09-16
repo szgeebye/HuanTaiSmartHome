@@ -177,6 +177,9 @@ public class HomeFragment extends Fragment implements ControlDataible {
     }
 
     private GizWifiDeviceListener mListener = new GizWifiDeviceListener() {
+
+        private String content;
+
         @Override
         public void didReceiveData(GizWifiErrorCode result, GizWifiDevice device, ConcurrentHashMap<String, Object> dataMap, int sn) {
             if (result == GizWifiErrorCode.GIZ_SDK_SUCCESS) {
@@ -194,22 +197,33 @@ public class HomeFragment extends Fragment implements ControlDataible {
                         //Home展示的item集合
                         //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
                         for (int i = 0; i < map.size(); i++) {
+                            HomeItem item = new HomeItem();
                             //LED和空调字段暂时不接数据
                             if (i == 6 || i == 7) {
                                 continue;
                             }
-                            HomeItem item = new HomeItem();
-                            //获取数据
-                            String content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
-                            //添加名称
-                            item.setName(ConstantData.name[i]);
-                            //添加数据
-                            item.setContent(content);
-                            //添加图片
-                            item.setPicture(i);
+                            if (i == 8) {
+                                //获取报警数据
+                                content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
+                                //添加名称
+                                item.setName(ConstantData.name[i]);
+                                //添加数据
+                                item.setContent(content);
+                                //添加图片
+                                item.setPicture(i);
+                                SugarRecord.save(item);
+                            } else {
+                                //获取温度
+                                content = String.valueOf(map.get(ConstantData.key[i]));
+                                //添加名称
+                                item.setName(ConstantData.name[i]);
+                                //添加数据
+                                item.setContent(content);
+                                //添加图片
+                                item.setPicture(i);
 //                            homeItemLists.add(item);
-                            SugarRecord.save(item);
-
+                                SugarRecord.save(item);
+                            }
                         }
 
                     } else {
@@ -224,7 +238,12 @@ public class HomeFragment extends Fragment implements ControlDataible {
                             }
                             for (HomeItem homeItem : homeItemLists) {
                                 if (homeItem.getName().equals(ConstantData.name[i])) {
-                                    String content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
+                                    if (i == 8) {
+                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
+                                    } else {
+                                        content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
+
+                                    }
                                     homeItem.setContent(content);
                                     SugarRecord.save(homeItem);
                                     Log.i("update", homeItem.toString());
@@ -235,14 +254,18 @@ public class HomeFragment extends Fragment implements ControlDataible {
                     }
 
                     homeItemLists = SugarRecord.listAll(HomeItem.class);
+                    homeItemLists = Select.from(HomeItem.class)
+                            .where(Condition.prop("name").eq("温度"))
+                            .list();
+
+
 //                    homeItemLists= Select.from(HomeItem.class)
-//                         .where(Condition.prop("name").eq("温度"))
+//                         .where(Condition.prop("is_delete").eq(0))
 //                         .list();
 
-
-                    homeItemLists= Select.from(HomeItem.class)
-                         .where(Condition.prop("is_delete").eq(0))
-                         .list();
+                    homeItemLists = Select.from(HomeItem.class)
+                            .where(Condition.prop("isdelete").eq(0))
+                            .list();
 //                    homeItemLists = Select.from(HomeItem.class).where(Condition.prop("isDelete").eq(0)).list();
 //                    SugarRecord.findWithQuery()
                     Log.i("dataAll", homeItemLists.toString());

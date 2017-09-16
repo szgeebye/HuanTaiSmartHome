@@ -19,7 +19,7 @@ public class HomeItem {
     @Expose
     public int picture;
     @Expose
-    public boolean isDelete;
+    public boolean isdelete;
 
     public Long getId() {
         return id;
@@ -63,12 +63,12 @@ public class HomeItem {
         this.picture = picture;
     }
 
-    public boolean isDelete() {
-        return isDelete;
+    public boolean isdelete() {
+        return isdelete;
     }
 
     public void setDelete(boolean delete) {
-        isDelete = delete;
+        isdelete = delete;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class HomeItem {
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
                 ", picture=" + picture +
-                ", isDelete=" + isDelete +
+                ", isdelete=" + isdelete +
                 '}';
     }
 }

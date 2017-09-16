@@ -5,5 +5,5 @@
     <item android:maxLevel="3" android:drawable="@drawable/home_icon_gas" />
     <item android:maxLevel="4" android:drawable="@drawable/home_icon_door" />
     <item android:maxLevel="5" android:drawable="@drawable/home_icon_body" />
-    <item android:maxLevel="6" android:drawable="@drawable/home_icon_alert" />
+    <item android:maxLevel="8" android:drawable="@drawable/home_icon_alert" />
 </level-list>

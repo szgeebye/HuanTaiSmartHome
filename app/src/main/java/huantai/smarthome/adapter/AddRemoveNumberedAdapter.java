@@ -139,7 +139,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
 
 //    SugarRecord.delete(homeItem);
     homeItemLists.remove(position);
-    Log.i("dataAll",homeItemLists.toString());
+    Log.i("datadelete",SugarRecord.listAll(HomeItem.class).toString());
     notifyItemRemoved(position);
   }
 
