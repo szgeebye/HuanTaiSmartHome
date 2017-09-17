@@ -64,5 +64,8 @@
     <!--删除完成text颜色-->
     <color name="text_delete_finish">#31c27c</color>
 
-
+    <!--home popwindow-->
+    <color name="popup_bg">#8f000000</color>
+    <color name="line_bg">#CDCDCD</color>
+    <color name="click_bg">#c7c7c7</color>
 </resources>

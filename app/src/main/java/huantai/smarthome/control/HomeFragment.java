@@ -66,7 +66,6 @@ public class HomeFragment extends Fragment implements ControlDataible {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(addRemoveNumberedAdapter);
-
         initView();
         initDevice();
         initStatusListener();

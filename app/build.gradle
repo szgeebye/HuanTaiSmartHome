@@ -76,4 +76,6 @@ dependencies {
     compile(name: 'autoupdatesdk-release', ext: 'aar')
     //sugerORM框架
     compile 'com.github.satyan:sugar:1.5'
+    //popWindow
+    compile 'com.github.razerdp:BasePopup:1.8.1'
 }

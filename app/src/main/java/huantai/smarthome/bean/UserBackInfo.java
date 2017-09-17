@@ -22,6 +22,7 @@ public class UserBackInfo{
     String upwd;//密码
     @Expose
     String uphone;//手机（用户名）
+
     public UserBackInfo(){
 
     }
@@ -31,14 +32,6 @@ public class UserBackInfo{
         this.upwd = upwd;
         this.uphone = uphone;
     }
-
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 
 
     public Long getId() {
@@ -83,5 +76,6 @@ public class UserBackInfo{
                 ", uphone='" + uphone + '\'' +
                 '}';
     }
+
 
 }
