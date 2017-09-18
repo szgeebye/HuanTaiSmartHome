@@ -37,6 +37,7 @@ import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.ListPopup;
 import huantai.smarthome.utils.MarginDecoration;
+import huantai.smarthome.utils.ToastUtil;
 
 /**
  * description:home界面
@@ -70,6 +71,13 @@ public class HomeFragment extends Fragment implements ControlDataible {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(addRemoveNumberedAdapter);
+        addRemoveNumberedAdapter.setOnItemClickListener(new AddRemoveNumberedAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                ToastUtil.ToastShow(getActivity(),""+position);
+            }
+        });
         initView();
         initDevice();
         initStatusListener();
