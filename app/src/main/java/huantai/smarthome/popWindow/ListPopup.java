@@ -30,7 +30,7 @@ public class ListPopup extends BasePopupWindow {
     private ListView mListView;
     private OnListPopupItemClickListener mOnListPopupItemClickListener;
 
-    private ListPopup(Activity context) {
+    public ListPopup(Activity context) {
         super(context);
     }
     private ListPopup(Activity context, Builder builder){

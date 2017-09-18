@@ -43,6 +43,14 @@
             android:layout_marginLeft="8sp"
             android:visibility="invisible"/>
 
+        <Button
+            android:id="@+id/bt_pop"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:text="Listpop"
+            />
+
     </RelativeLayout>
 
 
@@ -53,6 +61,8 @@
         android:layout_height="match_parent"
         android:padding="@dimen/item_margin"
         android:clipToPadding="false"/>
+
+
 
 </LinearLayout>
 
