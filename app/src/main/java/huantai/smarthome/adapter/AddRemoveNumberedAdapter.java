@@ -19,7 +19,7 @@ import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.TextViewHolder;
 
-public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolder>{
+public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolder>implements View.OnClickListener{
   private static final int ITEM_VIEW_TYPE_ITEM = 0;
   private static final int ITEM_VIEW_TYPE_ADD = 1;
 
@@ -27,7 +27,8 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
   private Context context;
   //删除按钮是否隐藏
   private boolean iv_delete_gone=true;
-
+  //声明监听接口对象
+  private OnItemClickListener mOnItemClickListener = null;
 
   public AddRemoveNumberedAdapter(List<HomeItem> homeItemLists, Context context) {
     this.homeItemLists=homeItemLists;
@@ -47,7 +48,13 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
   public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(
             viewType == ITEM_VIEW_TYPE_ADD ? R.layout.item_add : R.layout.activity_item, parent, false);
-    return new TextViewHolder(view);
+
+    TextViewHolder textViewHolder = new TextViewHolder(view);
+    //为每一个item设置点击监听
+//    textViewHolder.itemLayout.setOnClickListener(this);
+    view.setOnClickListener(this);
+
+    return textViewHolder;
   }
 
   @Override
@@ -87,9 +94,12 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
             removeItem(holder.getPosition());
           }
         });
-
       }
+
+      //将position保存在itemView的Tag中，以便点击时进行获取
+      holder.itemView.setTag(position);
     }
+
 
     holder.itemLayout.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
@@ -106,7 +116,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
         Intent dintent = new Intent(ConstAction.deletefinishaction);
         context.sendBroadcast(dintent);
 
-        return true;
+        return false;
       }
     });
   }
@@ -153,5 +163,22 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
     return homeItemLists.size()+1;
   }
 
+  //接口暴露监听
+  public static interface OnItemClickListener {
+    void onItemClick(View view , int position);
+  }
+
+
+  public void setOnItemClickListener(OnItemClickListener listener) {
+    this.mOnItemClickListener = listener;
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (mOnItemClickListener != null) {
+      //注意这里使用getTag方法获取position
+      mOnItemClickListener.onItemClick(v,(int)v.getTag());
+    }
+  }
 }
 
