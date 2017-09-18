@@ -37,7 +37,6 @@ import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.ListPopup;
 import huantai.smarthome.utils.MarginDecoration;
-import huantai.smarthome.utils.ToastUtil;
 
 /**
  * description:home界面
@@ -71,13 +70,14 @@ public class HomeFragment extends Fragment implements ControlDataible {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(addRemoveNumberedAdapter);
-        addRemoveNumberedAdapter.setOnItemClickListener(new AddRemoveNumberedAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                ToastUtil.ToastShow(getActivity(),""+position);
-            }
-        });
+        //recycleView的item点击事件
+//        addRemoveNumberedAdapter.setOnItemClickListener(new AddRemoveNumberedAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//
+//                ToastUtil.ToastShow(getActivity(),""+position);
+//            }
+//        });
         initView();
         initDevice();
         initStatusListener();
@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
     }
 
     private void initData() {
-        // FIXME: 2017/9/8 修改成从数据库读取
+        //从数据库读取初始化数据
         HomeItem item = new HomeItem();
         List<HomeItem> initItemLists = SugarRecord.listAll(HomeItem.class);
         if (initItemLists.size() != 0) {
@@ -99,24 +99,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
             addRemoveNumberedAdapter.notifyDataSetChanged();
         } else {
             addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());
-            //添加名称
-//            item.setName("请添加");
-//            //添加数据
-//            item.setContent("服务器未启用");
-//            //添加图片
-//            item.setPicture(1);
-////        homeItemLists.clear();
-//            homeItemLists.add(item);
         }
-
-//        //添加名称
-//        item.setName("hehe");
-//        //添加数据
-//        item.setContent("123");
-//        //添加图片
-//        item.setPicture(1);
-////        homeItemLists.clear();
-//        homeItemLists.add(item);
     }
 
 
@@ -215,7 +198,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                         Log.i("dataAll", homeItemLists.toString());
                         //Home展示的item集合
-                        //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                        //6、7为“开关”和“空调”没有接收的数据，“扩展”占一个字段（总共9个字段）
                         for (int i = 0; i < map.size(); i++) {
                             HomeItem item = new HomeItem();
                             //LED和空调字段暂时不接数据
@@ -241,7 +224,6 @@ public class HomeFragment extends Fragment implements ControlDataible {
                                 item.setContent(content);
                                 //添加图片
                                 item.setPicture(i);
-//                            homeItemLists.add(item);
                                 SugarRecord.save(item);
                             }
                         }
@@ -250,7 +232,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                         Log.i("dataAll", homeItemLists.toString());
                         //Home展示的item集合
-                        //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                        //6、7为“开关”和“空调”没有接收的数据，“扩展”占一个字段（总共9个字段）
                         for (int i = 0; i < map.size(); i++) {
                             //LED和空调字段暂时不接数据
                             if (i == 6 || i == 7) {
@@ -259,7 +241,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
                             for (HomeItem homeItem : homeItemLists) {
                                 if (homeItem.getName().equals(ConstantData.name[i])) {
                                     if (i == 8) {
-                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
+                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取警报
                                     } else {
                                         content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
 
@@ -275,19 +257,8 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                     homeItemLists = SugarRecord.listAll(HomeItem.class);
                     homeItemLists = Select.from(HomeItem.class)
-                            .where(Condition.prop("name").eq("温度"))
-                            .list();
-
-
-//                    homeItemLists= Select.from(HomeItem.class)
-//                         .where(Condition.prop("is_delete").eq(0))
-//                         .list();
-
-                    homeItemLists = Select.from(HomeItem.class)
                             .where(Condition.prop("isdelete").eq(0))
                             .list();
-//                    homeItemLists = Select.from(HomeItem.class).where(Condition.prop("isDelete").eq(0)).list();
-//                    SugarRecord.findWithQuery()
                     Log.i("dataAll", homeItemLists.toString());
 
                     //更新数据
@@ -330,6 +301,9 @@ public class HomeFragment extends Fragment implements ControlDataible {
         mListPopup.setOnListPopupItemClickListener(new ListPopup.OnListPopupItemClickListener() {
             @Override
             public void onItemClick(int what) {
+
+
+
 //                switch (what) {
 //                    case TAG_CREATE:
 //                        Toast.makeText(getContext(), "click create", Toast.LENGTH_LONG).show();
