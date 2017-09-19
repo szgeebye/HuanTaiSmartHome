@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +36,7 @@ import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.ListPopup;
 import huantai.smarthome.utils.MarginDecoration;
+import huantai.smarthome.utils.ToastUtil;
 
 /**
  * description:home界面
@@ -55,9 +55,13 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private RecyclerView recyclerView;
     private TextView tv_delete_finish;
     private ImageView iv_person_image;
-    private Button bt_pop;
+    private ImageView bt_pop;
     private ListPopup mListPopup;
+    private List<HomeItem> addlists = new ArrayList<HomeItem>();//popList增加条目
 
+    public HomeFragment(){
+
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
@@ -82,8 +86,8 @@ public class HomeFragment extends Fragment implements ControlDataible {
         initDevice();
         initStatusListener();
         initBroadreceive();
-        bindPopWindowEvent();
         setEvent();
+//        bindPopWindowEvent();
         return view;
     }
 
@@ -121,7 +125,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
         iv_person_image = (ImageView) view.findViewById(R.id.iv_person_image);
 
         iv_person_image.setVisibility(View.VISIBLE);
-        bt_pop = (Button) view.findViewById(R.id.bt_pop);
+        bt_pop = (ImageView) view.findViewById(R.id.bt_pop);
 
     }
 
@@ -167,6 +171,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
         bt_pop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                addlists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(1)).list();
+                Log.i("dataPoplist", addlists.toString());
+                bindPopWindowEvent();
                 mListPopup.showPopupWindow();
             }
         });
@@ -275,48 +283,37 @@ public class HomeFragment extends Fragment implements ControlDataible {
     };
 
 
-//    public static final int TAG_CREATE = 0x01;
+    public static final int TAG_CREATE = 0x01;
+//    List<Integer> tag = new ArrayList<Integer>();
+    Integer[] tag;
 //    public static final int TAG_DELETE = 0x02;
 //    public static final int TAG_MODIFY = 0x03;
+    int i;
 
     private void bindPopWindowEvent() {
         ListPopup.Builder builder = new ListPopup.Builder(getActivity());
-
-
-
-//        builder.addItem(TAG_CREATE, "Create-01");
-//        builder.addItem(TAG_MODIFY, "Modify-01");
-//        builder.addItem(TAG_CREATE, "Create-02");
-//        builder.addItem(TAG_DELETE, "Delete-01");
-//        builder.addItem(TAG_MODIFY, "Modify-02");
-//        builder.addItem(TAG_CREATE, "Create-03");
-//        builder.addItem(TAG_DELETE, "Delete-02");
-//        builder.addItem(TAG_MODIFY, "Modify-03");
-//        builder.addItem(TAG_DELETE, "Delete-03");
-//        builder.addItem(TAG_MODIFY, "Modify-04");
-//        builder.addItem(TAG_DELETE, "Delete-04");
-//        builder.addItem(TAG_CREATE, "Create-04");
+        for (i = 0;i < addlists.size();i++){
+            builder.addItem(TAG_CREATE,addlists.get(i).getName());
+        }
         mListPopup = builder.build();
 
         mListPopup.setOnListPopupItemClickListener(new ListPopup.OnListPopupItemClickListener() {
             @Override
-            public void onItemClick(int what) {
+            public void onItemClick(int what,int position) {
+                ToastUtil.ToastShow(getActivity(),""+position);
 
+                        //将该项值的isdelete置为false
+                        HomeItem homeItem = SugarRecord.findById(HomeItem.class, addlists.get(position).getId());
+                        homeItem.setDelete(false);
+                        SugarRecord.save(homeItem);
 
-
-//                switch (what) {
-//                    case TAG_CREATE:
-//                        Toast.makeText(getContext(), "click create", Toast.LENGTH_LONG).show();
-//                        break;
-//                    case TAG_DELETE:
-//                        Toast.makeText(getContext(), "click delete", Toast.LENGTH_LONG).show();
-//                        break;
-//                    case TAG_MODIFY:
-//                        Toast.makeText(getContext(), "click modify", Toast.LENGTH_LONG).show();
-//                        break;
-//                    default:
-//                        break;
-//                }
+                        List<HomeItem> addItemLists;
+//                        addItemLists = SugarRecord.listAll(HomeItem.class);
+                        addItemLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(0)).list();
+                        //更新数据
+                        addRemoveNumberedAdapter.setData(addItemLists);
+                        //通知适配器更新视图
+                        addRemoveNumberedAdapter.notifyDataSetChanged();
             }
         });
     }

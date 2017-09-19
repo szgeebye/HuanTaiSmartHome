@@ -3,28 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
-    android:paddingRight="-91dp" >
+    android:paddingRight="-251dp">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentLeft="true" >
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:id="@+id/llLeft"
-            android:layout_width="50dp"
-            android:layout_height="42dp"
+            android:layout_width="60dp"
+            android:layout_height="62dp"
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="14dp"
             android:background="@drawable/img_bg_shape"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imgLeft"
+                android:id="@+id/iv_icon"
                 android:layout_width="46dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -37,29 +39,17 @@
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-           >
+            android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tvDeviceName"
+                android:id="@+id/tv_deviceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:layout_alignParentTop="true"
-                android:text="TextView"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tvDeviceMac"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:text="TextView"
                 android:textColor="@color/black"
-                android:layout_alignParentBottom="true"
                 android:textSize="12sp" />
 
-            
 
         </RelativeLayout>
 
@@ -69,22 +59,23 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvDeviceStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/device_item_edit"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+              />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/imgRight"
@@ -93,22 +84,52 @@
                 android:src="@drawable/button_more" />
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/delete2"
-            android:layout_width="90dp"
+        <LinearLayout
+
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:background="@color/tomato"
-            android:clickable="true" >
+            android:focusable="false"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:id="@+id/tv_delete"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:focusable="false"
                 android:gravity="center"
-                android:text="@string/remove_bound"
+                android:text="@string/device_item_remove"
+                android:textColor="@color/color_line_gray"
+                android:textSize="15sp"
+                android:background="@color/floralwhite"/>
+
+            <TextView
+                android:id="@+id/tv_rename"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@color/tomato"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="@string/rename"
                 android:textColor="@color/floralwhite"
                 android:textSize="15sp" />
-        </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@color/tomato"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="@string/device_item_add"
+                android:textColor="@color/floralwhite"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -160,11 +160,11 @@ public class ListPopup extends BasePopupWindow {
                 if (mOnListPopupItemClickListener!=null){
                     Object clickObj=adapter.getItemList().get(position);
                     if (clickObj instanceof String){
-                        mOnListPopupItemClickListener.onItemClick(position);
+                        mOnListPopupItemClickListener.onItemClick(1,position);
                     }
                     if (clickObj instanceof clickItemEvent) {
                         int what=((clickItemEvent) clickObj).clickTag;
-                        mOnListPopupItemClickListener.onItemClick(what);
+                        mOnListPopupItemClickListener.onItemClick(what,position);
                     }
                 }
             }
@@ -221,6 +221,6 @@ public class ListPopup extends BasePopupWindow {
     }
 
     public interface OnListPopupItemClickListener{
-        void onItemClick(int what);
+        void onItemClick(int what,int position);
     }
 }
