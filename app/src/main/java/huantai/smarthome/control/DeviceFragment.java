@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import org.json.JSONException;
 
@@ -45,8 +46,16 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     @Override
     public void initView() {
         lv_device = (SlideListView) view.findViewById(R.id.lv_device);
+        //设定策划模式
+        lv_device.initSlideMode(SlideListView.MOD_RIGHT);
         deviceShowAdapter = new DeviceShowAdapter(switchInfoList,getActivity());
         lv_device.setAdapter(deviceShowAdapter);
+        lv_device.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
     @Override

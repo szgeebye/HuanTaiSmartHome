@@ -92,30 +92,6 @@
             android:focusable="false"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_delete"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:focusable="false"
-                android:gravity="center"
-                android:text="@string/device_item_remove"
-                android:textColor="@color/color_line_gray"
-                android:textSize="15sp"
-                android:background="@color/floralwhite"/>
-
-            <TextView
-                android:id="@+id/tv_rename"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_weight="1"
-                android:background="@color/tomato"
-                android:focusable="false"
-                android:gravity="center"
-                android:text="@string/rename"
-                android:textColor="@color/floralwhite"
-                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_add"
@@ -123,11 +99,36 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_weight="1"
-                android:background="@color/tomato"
+                android:background="@color/device_add"
                 android:focusable="false"
                 android:gravity="center"
                 android:text="@string/device_item_add"
                 android:textColor="@color/floralwhite"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_rename"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@color/device_rename"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="@string/rename"
+                android:textColor="@color/floralwhite"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/tomato"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="@string/device_item_remove"
+                android:textColor="@color/color_line_gray"
                 android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>

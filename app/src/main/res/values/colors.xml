@@ -68,4 +68,7 @@
     <color name="popup_bg">#8f000000</color>
     <color name="line_bg">#CDCDCD</color>
     <color name="click_bg">#c7c7c7</color>
+    <!-- device item-->
+    <color name="device_add">#e7dcab</color>
+    <color name="device_rename">#e2cc6b</color>
 </resources>

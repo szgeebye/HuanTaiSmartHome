@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rll"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/bg_topbar">
@@ -33,8 +34,6 @@
         android:id="@+id/lv_device"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvListViewTitle"
         android:background="@color/white"
         android:divider="@color/line_gray"
         android:dividerHeight="0.5dp"
