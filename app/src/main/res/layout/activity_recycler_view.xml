@@ -43,12 +43,15 @@
             android:layout_marginLeft="8sp"
             android:visibility="invisible"/>
 
-        <Button
+        <ImageView
             android:id="@+id/bt_pop"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:background="@drawable/home_add_icon"
+            android:gravity="center"
             android:layout_alignParentRight="true"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:text="Listpop"
+            android:layout_marginRight="8sp"
+            android:layout_centerVertical="true"
             />
 
     </RelativeLayout>

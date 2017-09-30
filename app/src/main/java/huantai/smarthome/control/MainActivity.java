@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -16,6 +15,7 @@ import huantai.smarthome.adapter.MyFragmentPagerAdapter;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.R;
+import huantai.smarthome.view.MainViewPager;
 
 
 /**
@@ -29,7 +29,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     private RadioButton rb_message;
     private RadioButton rb_better;
     private RadioButton rb_setting;
-    private ViewPager vpager;
+    private MainViewPager vpager;
 
     private MyFragmentPagerAdapter mAdapter;
 
@@ -77,7 +77,9 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         rb_setting = (RadioButton) findViewById(R.id.rb_setting);
         rg_tab_bar.setOnCheckedChangeListener(this);
 
-        vpager = (ViewPager) findViewById(R.id.vpager);
+        vpager = (MainViewPager) findViewById(R.id.vpager);
+        //设置不能滑动
+        vpager.setScanScroll(false);
         vpager.setAdapter(mAdapter);
         vpager.setCurrentItem(0);
         vpager.addOnPageChangeListener(this);

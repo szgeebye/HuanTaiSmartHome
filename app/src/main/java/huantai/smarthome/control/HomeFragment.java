@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,9 +55,13 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private RecyclerView recyclerView;
     private TextView tv_delete_finish;
     private ImageView iv_person_image;
-    private Button bt_pop;
+    private ImageView bt_pop;
     private ListPopup mListPopup;
+    private List<HomeItem> addlists = new ArrayList<HomeItem>();//popList增加条目
 
+    public HomeFragment(){
+
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_recycler_view, container, false);
@@ -71,24 +74,25 @@ public class HomeFragment extends Fragment implements ControlDataible {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(addRemoveNumberedAdapter);
-        addRemoveNumberedAdapter.setOnItemClickListener(new AddRemoveNumberedAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                ToastUtil.ToastShow(getActivity(),""+position);
-            }
-        });
+        //recycleView的item点击事件
+//        addRemoveNumberedAdapter.setOnItemClickListener(new AddRemoveNumberedAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//
+//                ToastUtil.ToastShow(getActivity(),""+position);
+//            }
+//        });
         initView();
         initDevice();
         initStatusListener();
         initBroadreceive();
-        bindPopWindowEvent();
         setEvent();
+//        bindPopWindowEvent();
         return view;
     }
 
     private void initData() {
-        // FIXME: 2017/9/8 修改成从数据库读取
+        //从数据库读取初始化数据
         HomeItem item = new HomeItem();
         List<HomeItem> initItemLists = SugarRecord.listAll(HomeItem.class);
         if (initItemLists.size() != 0) {
@@ -99,24 +103,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
             addRemoveNumberedAdapter.notifyDataSetChanged();
         } else {
             addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());
-            //添加名称
-//            item.setName("请添加");
-//            //添加数据
-//            item.setContent("服务器未启用");
-//            //添加图片
-//            item.setPicture(1);
-////        homeItemLists.clear();
-//            homeItemLists.add(item);
         }
-
-//        //添加名称
-//        item.setName("hehe");
-//        //添加数据
-//        item.setContent("123");
-//        //添加图片
-//        item.setPicture(1);
-////        homeItemLists.clear();
-//        homeItemLists.add(item);
     }
 
 
@@ -138,7 +125,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
         iv_person_image = (ImageView) view.findViewById(R.id.iv_person_image);
 
         iv_person_image.setVisibility(View.VISIBLE);
-        bt_pop = (Button) view.findViewById(R.id.bt_pop);
+        bt_pop = (ImageView) view.findViewById(R.id.bt_pop);
 
     }
 
@@ -184,6 +171,10 @@ public class HomeFragment extends Fragment implements ControlDataible {
         bt_pop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                addlists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(1)).list();
+                Log.i("dataPoplist", addlists.toString());
+                bindPopWindowEvent();
                 mListPopup.showPopupWindow();
             }
         });
@@ -215,7 +206,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                         Log.i("dataAll", homeItemLists.toString());
                         //Home展示的item集合
-                        //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                        //6、7为“开关”和“空调”没有接收的数据，“扩展”占一个字段（总共9个字段）
                         for (int i = 0; i < map.size(); i++) {
                             HomeItem item = new HomeItem();
                             //LED和空调字段暂时不接数据
@@ -241,7 +232,6 @@ public class HomeFragment extends Fragment implements ControlDataible {
                                 item.setContent(content);
                                 //添加图片
                                 item.setPicture(i);
-//                            homeItemLists.add(item);
                                 SugarRecord.save(item);
                             }
                         }
@@ -250,7 +240,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                         Log.i("dataAll", homeItemLists.toString());
                         //Home展示的item集合
-                        //"size()-3"表示除去扩展和3个未实现的功能（总共9个字段）
+                        //6、7为“开关”和“空调”没有接收的数据，“扩展”占一个字段（总共9个字段）
                         for (int i = 0; i < map.size(); i++) {
                             //LED和空调字段暂时不接数据
                             if (i == 6 || i == 7) {
@@ -259,7 +249,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
                             for (HomeItem homeItem : homeItemLists) {
                                 if (homeItem.getName().equals(ConstantData.name[i])) {
                                     if (i == 8) {
-                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
+                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取警报
                                     } else {
                                         content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
 
@@ -275,19 +265,8 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
                     homeItemLists = SugarRecord.listAll(HomeItem.class);
                     homeItemLists = Select.from(HomeItem.class)
-                            .where(Condition.prop("name").eq("温度"))
-                            .list();
-
-
-//                    homeItemLists= Select.from(HomeItem.class)
-//                         .where(Condition.prop("is_delete").eq(0))
-//                         .list();
-
-                    homeItemLists = Select.from(HomeItem.class)
                             .where(Condition.prop("isdelete").eq(0))
                             .list();
-//                    homeItemLists = Select.from(HomeItem.class).where(Condition.prop("isDelete").eq(0)).list();
-//                    SugarRecord.findWithQuery()
                     Log.i("dataAll", homeItemLists.toString());
 
                     //更新数据
@@ -304,45 +283,37 @@ public class HomeFragment extends Fragment implements ControlDataible {
     };
 
 
-//    public static final int TAG_CREATE = 0x01;
+    public static final int TAG_CREATE = 0x01;
+//    List<Integer> tag = new ArrayList<Integer>();
+    Integer[] tag;
 //    public static final int TAG_DELETE = 0x02;
 //    public static final int TAG_MODIFY = 0x03;
+    int i;
 
     private void bindPopWindowEvent() {
         ListPopup.Builder builder = new ListPopup.Builder(getActivity());
-
-
-
-//        builder.addItem(TAG_CREATE, "Create-01");
-//        builder.addItem(TAG_MODIFY, "Modify-01");
-//        builder.addItem(TAG_CREATE, "Create-02");
-//        builder.addItem(TAG_DELETE, "Delete-01");
-//        builder.addItem(TAG_MODIFY, "Modify-02");
-//        builder.addItem(TAG_CREATE, "Create-03");
-//        builder.addItem(TAG_DELETE, "Delete-02");
-//        builder.addItem(TAG_MODIFY, "Modify-03");
-//        builder.addItem(TAG_DELETE, "Delete-03");
-//        builder.addItem(TAG_MODIFY, "Modify-04");
-//        builder.addItem(TAG_DELETE, "Delete-04");
-//        builder.addItem(TAG_CREATE, "Create-04");
+        for (i = 0;i < addlists.size();i++){
+            builder.addItem(TAG_CREATE,addlists.get(i).getName());
+        }
         mListPopup = builder.build();
 
         mListPopup.setOnListPopupItemClickListener(new ListPopup.OnListPopupItemClickListener() {
             @Override
-            public void onItemClick(int what) {
-//                switch (what) {
-//                    case TAG_CREATE:
-//                        Toast.makeText(getContext(), "click create", Toast.LENGTH_LONG).show();
-//                        break;
-//                    case TAG_DELETE:
-//                        Toast.makeText(getContext(), "click delete", Toast.LENGTH_LONG).show();
-//                        break;
-//                    case TAG_MODIFY:
-//                        Toast.makeText(getContext(), "click modify", Toast.LENGTH_LONG).show();
-//                        break;
-//                    default:
-//                        break;
-//                }
+            public void onItemClick(int what,int position) {
+                ToastUtil.ToastShow(getActivity(),""+position);
+
+                        //将该项值的isdelete置为false
+                        HomeItem homeItem = SugarRecord.findById(HomeItem.class, addlists.get(position).getId());
+                        homeItem.setDelete(false);
+                        SugarRecord.save(homeItem);
+
+                        List<HomeItem> addItemLists;
+//                        addItemLists = SugarRecord.listAll(HomeItem.class);
+                        addItemLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(0)).list();
+                        //更新数据
+                        addRemoveNumberedAdapter.setData(addItemLists);
+                        //通知适配器更新视图
+                        addRemoveNumberedAdapter.notifyDataSetChanged();
             }
         });
     }

@@ -9,7 +9,9 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:id="@+id/llLeft"
@@ -115,14 +117,14 @@
                 android:id="@+id/rename"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@color/tomato"
                 android:focusable="false"
                 android:gravity="center"
                 android:text="@string/rename"
                 android:textColor="@color/floralwhite"
-                android:textSize="15sp"
-                android:background="@color/tomato"/>
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 

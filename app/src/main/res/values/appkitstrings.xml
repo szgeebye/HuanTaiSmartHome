@@ -434,5 +434,9 @@
     <string name="tab_menu_pay">视频</string>
     <string name="tab_menu_setting">我的</string>
     <string name="delete_finish">完成</string>
+    <string name="add_item">添加</string>
+    <string name="device_item_edit">编辑</string>
+    <string name="device_item_add">添加到主界面</string>
+    <string name="device_item_remove">删除设备</string>
 
 </resources>

@@ -45,7 +45,7 @@
         android:layout_above="@id/rg_tab_bar"
         android:background="@color/div_white" />
 
-    <android.support.v4.view.ViewPager
+    <huantai.smarthome.view.MainViewPager
         android:id="@+id/vpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
