@@ -40,7 +40,6 @@ import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.CommonModule.TipsDialog;
 import huantai.smarthome.initial.ConfigModule.GosAirlinkChooseDeviceWorkWiFiActivity;
 import huantai.smarthome.initial.ConfigModule.GosCheckDeviceWorkWiFiActivity;
-import huantai.smarthome.control.GosDeviceControlActivity;
 import huantai.smarthome.initial.PushModule.GosPushManager;
 
 import huantai.smarthome.initial.R;

@@ -1,11 +1,18 @@
 package huantai.smarthome.control;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -28,6 +35,24 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     private List<SwitchInfo> switchInfoList = new ArrayList<SwitchInfo>();
     private DeviceShowAdapter deviceShowAdapter;
 
+    protected static final int DEVICEDELETE = 99;//删除设备
+    protected static final int DEVICERENAME = 100;//设备改名
+    private TextView tv_rename;
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DEVICERENAME:
+                    tv_rename = (TextView) msg.obj;
+                    setDeviceInfo();
+                    break;
+            }
+        }
+    };
+
+
+
     public DeviceFragment() {
     }
 
@@ -49,6 +74,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         //设定策划模式
         lv_device.initSlideMode(SlideListView.MOD_RIGHT);
         deviceShowAdapter = new DeviceShowAdapter(switchInfoList,getActivity());
+        deviceShowAdapter.setHandler(handler);
         lv_device.setAdapter(deviceShowAdapter);
         lv_device.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,4 +98,33 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public void sendJson(String key, Object value) throws JSONException {
 
     }
+
+    private void setDeviceInfo() {
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(new EditText(getActivity())).create();
+        final TextView re = tv_rename;
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setContentView(R.layout.alert_devicefragment_set_device_info);
+
+        final EditText et_rename = (EditText) window.findViewById(R.id.et_rename);
+        LinearLayout ll_device_no = (LinearLayout) window.findViewById(R.id.ll_device_no);
+        LinearLayout ll_device_sure = (LinearLayout) window.findViewById(R.id.ll_device_sure);
+
+        ll_device_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                re.setText(et_rename.getText());
+                dialog.cancel();
+            }
+        });
+
+        ll_device_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+    }
+
 }

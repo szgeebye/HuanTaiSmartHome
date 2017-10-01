@@ -22,16 +22,13 @@ import com.gizwits.gizwifisdk.enumration.GizUserAccountType;
 import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
 import com.google.gson.Gson;
 
-import org.xutils.BuildConfig;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
-import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import huantai.smarthome.bean.UserBackInfo;
 import huantai.smarthome.bean.UserData;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.R;

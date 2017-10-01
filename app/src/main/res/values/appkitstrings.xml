@@ -438,5 +438,6 @@
     <string name="device_item_edit">编辑</string>
     <string name="device_item_add">添加到主界面</string>
     <string name="device_item_remove">删除设备</string>
+    <string name="device_alert">修改设备名称</string>
 
 </resources>
