@@ -57,7 +57,10 @@ import huantai.smarthome.initial.PushModule.GosPushManager;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.initial.ThirdAccountModule.BaseUiListener;
 import huantai.smarthome.initial.view.DotView;
+import huantai.smarthome.utils.ControlProtocol;
+import huantai.smarthome.utils.ControlUtils;
 import huantai.smarthome.utils.ToastUtil;
+
 
 @SuppressLint("HandlerLeak")
 //@ContentView(R.layout.activity_gos_user_login)
@@ -204,6 +207,40 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		dialog.show();
 		//检测更新
 		BDAutoUpdateSDK.uiUpdateAction(GosUserLoginActivity.this, new MyUICheckUpdateCallback());
+		
+		//一位开关A开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_ONE,ControlProtocol.DevCMD.SWITCH_ONE_A_OPEN,"F1F2F3F4");
+		//一位开关A关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_ONE,ControlProtocol.DevCMD.SWITCH_ONE_A_CLOSE,"F1F2F3F4");
+
+		//二位开关A开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO,ControlProtocol.DevCMD.SWITCH_TWO_A_OPEN,"F1F2F3F4");
+		//二位开关A关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO,ControlProtocol.DevCMD.SWITCH_TWO_A_CLOSE,"F1F2F3F4");
+		//二位开关B开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO,ControlProtocol.DevCMD.SWITCH_TWO_B_OPEN,"F1F2F3F4");
+		//二位开关B关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO,ControlProtocol.DevCMD.SWITCH_TWO_B_CLOSE,"F1F2F3F4");
+
+
+		//三位开关A开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE,ControlProtocol.DevCMD.SWITCH_THREE_A_OPEN,"F1F2F3F4");
+		//三位开关A关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE,ControlProtocol.DevCMD.SWITCH_THREE_A_CLOSE,"F1F2F3F4");
+		//三位开关B开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE,ControlProtocol.DevCMD.SWITCH_THREE_B_OPEN,"F1F2F3F4");
+		//三位开关B关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE,ControlProtocol.DevCMD.SWITCH_THREE_B_CLOSE,"F1F2F3F4");
+		//三位开关C开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE,ControlProtocol.DevCMD.SWITCH_THREE_C_OPEN,"F1F2F3F4");
+		//三位开关C关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE,ControlProtocol.DevCMD.SWITCH_THREE_C_CLOSE,"F1F2F3F4");
+
+		//插座开
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.PLUG_FIVE,ControlProtocol.DevCMD.PLUG_OPEN,"F1F2F3F4");
+		//插座关
+		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.PLUG_FIVE,ControlProtocol.DevCMD.PLUG_CLOSE,"F1F2F3F4");
+
 
 
 	}

@@ -40,7 +40,7 @@ public class ControlProtocol {
                     //一位开关——A——开
                     public static final byte SWITCH_ONE_A_OPEN=0x01;
                     //一位开关——A——关
-                    public static final byte SWITCH_ONE__CLOSE=0x02;
+                    public static final byte SWITCH_ONE_A_CLOSE=0x02;
                     //二位开关——A——开
                     public static final byte SWITCH_TWO_A_OPEN=0x03;
                     //二位开关——A——关
@@ -82,12 +82,24 @@ public class ControlProtocol {
           //指令长度
           public class Instruction_Length{
                     //空调指令长度 5字节
-                    public static final byte AIR__LENGTH=0x05;
-                    //开关指令长度 5字节
+                    public static final byte AIR_LENGTH=0x05;
+                    //开关指令长度 0字节
                     public static final byte SWITCH_INSTRUCTION_LENGTH=0x00;
-                    //窗帘指令长度 5字节
+                    //窗帘指令长度 4字节
                     public static final byte CURTAIN_INSTRUCTION_LENGTH=0x04;
                     //增氧机指令长度 8字节
                     public static final byte OXYGEN_INSTRUCTION_LENGTH=0x08;
+          }
+
+          //指令长度
+          public class Data_Length{
+                    //空调指令长度 5字节 +7字节数据头
+                    public static final int AIR_LENGTH=12;
+                    //开关指令长度 0字节 +7字节数据头
+                    public static final int SWITCH_INSTRUCTION_LENGTH=7;
+                    //窗帘指令长度 4字节 +7字节数据头
+                    public static final int CURTAIN_INSTRUCTION_LENGTH=11;
+                    //增氧机指令长度 8字节 +7字节数据头
+                    public static final int OXYGEN_INSTRUCTION_LENGTH=15;
           }
 }

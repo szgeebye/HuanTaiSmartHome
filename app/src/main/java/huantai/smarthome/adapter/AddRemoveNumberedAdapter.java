@@ -113,7 +113,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
         Intent dintent = new Intent(ConstAction.deletefinishaction);
         context.sendBroadcast(dintent);
 
-        return false;
+        return true;
       }
     });
   }
