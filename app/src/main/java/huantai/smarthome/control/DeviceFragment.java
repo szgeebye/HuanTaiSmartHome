@@ -1,5 +1,6 @@
 package huantai.smarthome.control;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,7 +40,9 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     protected static final int DEVICEDELETE = 99;//删除设备
     protected static final int DEVICERENAME = 100;//设备改名
     private TextView tv_rename;
-    Handler handler = new Handler(){
+    private ImageView bt_device_add;
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -52,7 +56,6 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     };
 
 
-
     public DeviceFragment() {
     }
 
@@ -60,28 +63,41 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_device, container, false);
         initView();
+        initStatusListener();
         return view;
     }
 
     @Override
     public void initStatusListener() {
 
-    }
+        bt_device_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),DeviceAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
-    @Override
-    public void initView() {
-        lv_device = (SlideListView) view.findViewById(R.id.lv_device);
-        //设定策划模式
-        lv_device.initSlideMode(SlideListView.MOD_RIGHT);
-        deviceShowAdapter = new DeviceShowAdapter(switchInfoList,getActivity());
-        deviceShowAdapter.setHandler(handler);
-        lv_device.setAdapter(deviceShowAdapter);
         lv_device.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
         });
+
+    }
+
+    @Override
+    public void initView() {
+        bt_device_add = (ImageView) view.findViewById(R.id.bt_device_add);
+
+        lv_device = (SlideListView) view.findViewById(R.id.lv_device);
+        //设定策划模式
+        lv_device.initSlideMode(SlideListView.MOD_RIGHT);
+        deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getActivity());
+        deviceShowAdapter.setHandler(handler);
+        lv_device.setAdapter(deviceShowAdapter);
+
     }
 
     @Override

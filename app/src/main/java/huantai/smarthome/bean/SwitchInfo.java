@@ -1,128 +1,177 @@
 package huantai.smarthome.bean;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.orm.dsl.Table;
+
 /**
- * description:开关bean
- * auther：joahluo
- * time：2017/8/25 20:17
- */
+     * description:开关表
+     * auther：xuewenliao
+     * time：2017/10/1 10:11
+     */
+
+@Table
 public class SwitchInfo {
-          public int get_id() {
-                    return _id;
-          }
 
-          public void set_id(int _id) {
-                    this._id = _id;
-          }
+    @SerializedName("id")
+    @Expose
+    private Long id;
+    @Expose
+    private String name;//开关名称
+    @Expose
+    private String address;//设备Mac地址
+    @Expose
+    private String bindgiz;//绑定到此Mac地址的板子
+    @Expose
+    private String userid;//用户ID，备用
+    @Expose
+    private int flag;//留用
+    @Expose
+    private int type;//开关类型
+    @Expose
+    private int status;//状态
+    @Expose
+    private int picture;//对应图片
+    @Expose
+    private boolean isdelete;//是否在界面删除
+//    private int status1;
+//    private int status2;
+//    private int status3;
 
-          public String getAddress() {
-                    return address;
-          }
+    public SwitchInfo() {
 
-          public void setAddress(String address) {
-                    this.address = address;
-          }
+    }
 
-          public String getBindgiz() {
-                    return bindgiz;
-          }
+    public SwitchInfo(Long id, String name, String address, String bindgiz, String userid, int flag, int type, int status, int picture, boolean isdelete) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.bindgiz = bindgiz;
+        this.userid = userid;
+        this.flag = flag;
+        this.type = type;
+        this.status = status;
+        this.picture = picture;
+        this.isdelete = isdelete;
+    }
 
-          public void setBindgiz(String bindgiz) {
-                    this.bindgiz = bindgiz;
-          }
+    public Long getId() {
+        return id;
+    }
 
-          public int getFlag() {
-                    return flag;
-          }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-          public void setFlag(int flag) {
-                    this.flag = flag;
-          }
+    public String getName() {
+        return name;
+    }
 
-          public String getName() {
-                    return name;
-          }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-          public void setName(String name) {
-                    this.name = name;
-          }
+    public String getAddress() {
+        return address;
+    }
 
-          public int getType() {
-                    return type;
-          }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-          public void setType(int type) {
-                    this.type = type;
-          }
+    public String getBindgiz() {
+        return bindgiz;
+    }
 
-          public String getUserid() {
-                    return userid;
-          }
+    public void setBindgiz(String bindgiz) {
+        this.bindgiz = bindgiz;
+    }
 
-          public void setUserid(String userid) {
-                    this.userid = userid;
-          }
+    public String getUserid() {
+        return userid;
+    }
 
-          public SwitchInfo() {
-                    super();
-          }
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
-          private int _id;
-          private String name;
-          private String address;
-          private String bindgiz;
-          private String userid;
-          private int flag;
-          private int type;
+    public int getFlag() {
+        return flag;
+    }
 
-          public int getStatus1() {
-                    return status1;
-          }
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
-          public void setStatus1(int status1) {
-                    this.status1 = status1;
-          }
+    public int getType() {
+        return type;
+    }
 
-          public int getStatus2() {
-                    return status2;
-          }
+    public void setType(int type) {
+        this.type = type;
+    }
 
-          public void setStatus2(int status2) {
-                    this.status2 = status2;
-          }
+    public int getStatus() {
+        return status;
+    }
 
-          public int getStatus3() {
-                    return status3;
-          }
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-          public void setStatus3(int status3) {
-                    this.status3 = status3;
-          }
+    public int getPicture() {
+        return picture;
+    }
 
-          private int status1;
-          private int status2;
-          private int status3;
+    public void setPicture(int picture) {
+        this.picture = picture;
+    }
 
-          public SwitchInfo(int id, String name, String address, String bindgiz, String userid, int flag, int type) {
-                    super();
-                    this._id = id;
-                    this.name = name;
-                    this.address = address;
-                    this.bindgiz=bindgiz;
-                    this.userid=userid;
-                    this.flag = flag;
-                    this.type = type;
-                    this.status1=0;
-                    this.status2=0;
-                    this.status3=0;
-          }
+    public boolean isdelete() {
+        return isdelete;
+    }
 
-          public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type) {
-                    super();
-                    this.name = name;
-                    this.address = address;
-                    this.bindgiz=bindgiz;
-                    this.flag = flag;
-                    this.userid=userid;
-                    this.type = type;
-          }
+    public void setIsdelete(boolean isdelete) {
+        this.isdelete = isdelete;
+    }
+
+    @Override
+    public String toString() {
+        return "SwitchInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", bindgiz='" + bindgiz + '\'' +
+                ", userid='" + userid + '\'' +
+                ", flag=" + flag +
+                ", type=" + type +
+                ", status=" + status +
+                ", picture=" + picture +
+                ", isdelete=" + isdelete +
+                '}';
+    }
+
+    //    public SwitchInfo(int id, String name, String address, String bindgiz, String userid, int flag, int type) {
+//        super();
+//        this._id = id;
+//        this.name = name;
+//        this.address = address;
+//        this.bindgiz = bindgiz;
+//        this.userid = userid;
+//        this.flag = flag;
+//        this.type = type;
+//        this.status1 = 0;
+//        this.status2 = 0;
+//        this.status3 = 0;
+//    }
+//
+//    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type) {
+//        super();
+//        this.name = name;
+//        this.address = address;
+//        this.bindgiz = bindgiz;
+//        this.flag = flag;
+//        this.userid = userid;
+//        this.type = type;
+//    }
 }

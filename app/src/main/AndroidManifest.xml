@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="huantai.smarthome.initial"
     android:versionCode="1"
-    android:versionName="2.5.0.022212" >
+    android:versionName="2.5.0.022212">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -68,11 +68,11 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".UserModule.GosUserLoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/My_Start" >
+            android:theme="@style/My_Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,7 +83,7 @@
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -98,42 +98,26 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 以下是框架中使用的Activity -->
-        <activity android:name=".UserModule.GosRegisterUserActivity" >
-        </activity>
-        <activity android:name=".UserModule.GosForgetPasswordActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosDeviceReadyActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosDeviceResetActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosChooseDeviceActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosConfigCountdownActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosConfigFailedActivity" >
-        </activity>
-        <activity android:name=".DeviceModule.GosDeviceListActivity" >
-        </activity>
+        <activity android:name=".UserModule.GosRegisterUserActivity"></activity>
+        <activity android:name=".UserModule.GosForgetPasswordActivity"></activity>
+        <activity android:name=".ConfigModule.GosDeviceReadyActivity"></activity>
+        <activity android:name=".ConfigModule.GosDeviceResetActivity"></activity>
+        <activity android:name=".ConfigModule.GosChooseDeviceActivity"></activity>
+        <activity android:name=".ConfigModule.GosConfigCountdownActivity"></activity>
+        <activity android:name=".ConfigModule.GosConfigFailedActivity"></activity>
+        <activity android:name=".DeviceModule.GosDeviceListActivity"></activity>
         <activity android:name=".UserModule.GosChangeUserPasswordActivity"></activity>
         <activity
             android:name="huantai.smarthome.initial.zxing.CaptureActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name=".SettingsModule.GosSettiingsActivity" >
-        </activity>
-        <activity android:name=".SettingsModule.GosAboutActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosCheckDeviceWorkWiFiActivity" >
-        </activity>
-        <activity android:name="huantai.smarthome.control.GosDeviceControlActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosModeListActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosAirlinkChooseDeviceWorkWiFiActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosAirlinkReadyActivity" >
-        </activity>
-        <activity android:name=".ConfigModule.GosAirlinkConfigCountdownActivity" >
-        </activity>
+        <activity android:name=".SettingsModule.GosSettiingsActivity"></activity>
+        <activity android:name=".SettingsModule.GosAboutActivity"></activity>
+        <activity android:name=".ConfigModule.GosCheckDeviceWorkWiFiActivity"></activity>
+        <activity android:name="huantai.smarthome.control.GosDeviceControlActivity"></activity>
+        <activity android:name=".ConfigModule.GosModeListActivity"></activity>
+        <activity android:name=".ConfigModule.GosAirlinkChooseDeviceWorkWiFiActivity"></activity>
+        <activity android:name=".ConfigModule.GosAirlinkReadyActivity"></activity>
+        <activity android:name=".ConfigModule.GosAirlinkConfigCountdownActivity"></activity>
         <activity android:name=".UserModule.GosUserManager"></activity>
         <activity android:name=".sharingdevice.SharedDeviceListAcitivity"></activity>
 
@@ -149,9 +133,11 @@
         <!--主界面入口-->
         <activity
             android:name="huantai.smarthome.control.MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <!--添加设备界面-->
+        <activity
+            android:name="huantai.smarthome.control.DeviceAddActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
         <!-- 极光推送 -->
         <!-- Required SDK 核心功能 -->
@@ -160,7 +146,7 @@
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTER" />
                 <action android:name="cn.jpush.android.intent.REPORT" />
@@ -176,7 +162,7 @@
         <service
             android:name="cn.jpush.android.service.DaemonService"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
@@ -185,12 +171,11 @@
         </service>
 
 
-
         <!-- Required -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
-            android:enabled="true" >
-            <intent-filter android:priority="1000" >
+            android:enabled="true">
+            <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
 
                 <category android:name="huantai.smarthome.initial" />
@@ -211,7 +196,7 @@
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
@@ -223,15 +208,14 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false" >
-        </service>
+            android:exported="false"></service>
         <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
         <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
             android:name=".PushModule.JPushReceiver"
-            android:enabled="true" >
+            android:enabled="true">
             <intent-filter>
 
                 <!-- Required 用户注册SDK的intent -->
@@ -267,17 +251,25 @@
         <!-- 极光推送 TODO  -->
 
         <!--创建数据库-->
-        <meta-data android:name="DATABASE" android:value="huantai.db"/>
-        <meta-data android:name="VERSION" android:value="2"/>
-        <meta-data android:name="QUERY_LOG" android:value="true"/>
-        <meta-data android:name="DOMAIN_PACKAGE_NAME"  android:value="huantai.smarthome.bean"/>
+        <meta-data
+            android:name="DATABASE"
+            android:value="huantai.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="huantai.smarthome.bean" />
 
         <!-- 百度推送 -->
         <!-- push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -293,7 +285,7 @@
         <!-- Push服务接收客户端发送的各种请求 -->
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1">
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.METHOD" />
                 <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
@@ -308,7 +300,7 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1">
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
             </intent-filter>
@@ -321,7 +313,7 @@
 
 
         <!-- 此处Receiver名字修改为当前包名路径 -->
-        <receiver android:name=".PushModule.BaiDuPushReceiver" >
+        <receiver android:name=".PushModule.BaiDuPushReceiver">
             <intent-filter>
 
                 <!-- 接收push消息 -->

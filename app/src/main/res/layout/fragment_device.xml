@@ -20,7 +20,7 @@
             android:textColor="@color/text_topbar"
             android:textSize="18sp" />
         <ImageView
-            android:id="@+id/bt_pop"
+            android:id="@+id/bt_device_add"
             android:layout_width="30sp"
             android:layout_height="30sp"
             android:background="@drawable/home_add_icon"

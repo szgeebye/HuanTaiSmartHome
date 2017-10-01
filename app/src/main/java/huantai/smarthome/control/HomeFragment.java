@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
     };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_recycler_view, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
         initData();
 //        addRemoveNumberedAdapter = new AddRemoveNumberedAdapter(homeItemLists, getContext());

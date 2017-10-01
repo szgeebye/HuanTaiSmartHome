@@ -439,5 +439,7 @@
     <string name="device_item_add">添加到主界面</string>
     <string name="device_item_remove">删除设备</string>
     <string name="device_alert">修改设备名称</string>
+    <string name="device_add">添加设备</string>
+    <string name="device_scan">扫描二维码添加设备</string>
 
 </resources>
