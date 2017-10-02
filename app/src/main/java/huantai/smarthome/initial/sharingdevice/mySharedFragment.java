@@ -1,15 +1,5 @@
 package huantai.smarthome.initial.sharingdevice;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.gizwits.gizwifisdk.api.GizWifiDevice;
-import com.gizwits.gizwifisdk.api.GizWifiSDK;
-import com.gizwits.gizwifisdk.enumration.GizDeviceSharingUserRole;
-
-import huantai.smarthome.initial.CommonModule.GosConstant;
-import huantai.smarthome.initial.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
+import com.gizwits.gizwifisdk.api.GizWifiSDK;
+import com.gizwits.gizwifisdk.enumration.GizDeviceSharingUserRole;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import huantai.smarthome.initial.CommonModule.GosConstant;
+import huantai.smarthome.initial.R;
 
 public class mySharedFragment extends Fragment {
 
@@ -169,7 +169,6 @@ class Holder {
 	public Holder(View view) {
 		this.view = view;
 	}
-
 	private TextView tvDeviceMac, tvDeviceStatus, tvDeviceName;
 
 	private LinearLayout delete2;

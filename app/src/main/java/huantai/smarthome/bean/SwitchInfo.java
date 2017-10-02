@@ -15,28 +15,28 @@ public class SwitchInfo {
 
     @SerializedName("id")
     @Expose
-    private Long id;
+    public Long id;
     @Expose
-    private String name;//开关名称
+    public String name;//开关名称
     @Expose
-    private String address;//设备Mac地址
+    public String address;//设备Mac地址
     @Expose
-    private String bindgiz;//绑定到此Mac地址的板子
+    public String bindgiz;//绑定到此Mac地址的板子
     @Expose
-    private String userid;//用户ID，备用
+    public String userid;//用户ID，备用
     @Expose
-    private int flag;//留用
+    public int flag;//留用
     @Expose
-    private int type;//开关类型
+    public int type;//开关类型
     @Expose
-    private int status;//状态
+    public int status;//状态
     @Expose
-    private int picture;//对应图片
+    public int picture;//对应图片
     @Expose
-    private boolean isdelete;//是否在界面删除
-//    private int status1;
-//    private int status2;
-//    private int status3;
+    public boolean isdelete;//是否在界面删除
+//    public int status1;
+//    public int status2;
+//    public int status3;
 
     public SwitchInfo() {
 
