@@ -1,7 +1,6 @@
 package huantai.smarthome.bean;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.orm.dsl.Table;
 
 /**
@@ -13,9 +12,9 @@ import com.orm.dsl.Table;
 @Table
 public class SwitchInfo {
 
-    @SerializedName("id")
-    @Expose
-    public Long id;
+//    @SerializedName("id")
+//    @Expose
+//    public Long id;
     @Expose
     public String name;//开关名称
     @Expose
@@ -42,8 +41,7 @@ public class SwitchInfo {
 
     }
 
-    public SwitchInfo(Long id, String name, String address, String bindgiz, String userid, int flag, int type, int status, int picture, boolean isdelete) {
-        this.id = id;
+    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type, int status, int picture, boolean isdelete) {
         this.name = name;
         this.address = address;
         this.bindgiz = bindgiz;
@@ -53,14 +51,6 @@ public class SwitchInfo {
         this.status = status;
         this.picture = picture;
         this.isdelete = isdelete;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -138,8 +128,7 @@ public class SwitchInfo {
     @Override
     public String toString() {
         return "SwitchInfo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", bindgiz='" + bindgiz + '\'' +
                 ", userid='" + userid + '\'' +
@@ -150,28 +139,4 @@ public class SwitchInfo {
                 ", isdelete=" + isdelete +
                 '}';
     }
-
-    //    public SwitchInfo(int id, String name, String address, String bindgiz, String userid, int flag, int type) {
-//        super();
-//        this._id = id;
-//        this.name = name;
-//        this.address = address;
-//        this.bindgiz = bindgiz;
-//        this.userid = userid;
-//        this.flag = flag;
-//        this.type = type;
-//        this.status1 = 0;
-//        this.status2 = 0;
-//        this.status3 = 0;
-//    }
-//
-//    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type) {
-//        super();
-//        this.name = name;
-//        this.address = address;
-//        this.bindgiz = bindgiz;
-//        this.flag = flag;
-//        this.userid = userid;
-//        this.type = type;
-//    }
 }

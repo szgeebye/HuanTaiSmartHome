@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.orm.SugarRecord;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -59,12 +61,37 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public DeviceFragment() {
     }
 
+    public void setSwitchInfoList(List<SwitchInfo> switchInfoList) {
+        this.switchInfoList = switchInfoList;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_device, container, false);
+
+
+
         initView();
+        initData();
         initStatusListener();
         return view;
+    }
+
+    private void initData() {
+//        deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getActivity());
+        SwitchInfo switchInfo = new SwitchInfo();
+        List<SwitchInfo> initItemLists = SugarRecord.listAll(SwitchInfo.class);
+        if (initItemLists.size() != 0) {
+            deviceShowAdapter = new DeviceShowAdapter(initItemLists,getContext());
+            //更新数据
+            deviceShowAdapter.setData(initItemLists);
+            //通知适配器更新视图
+            deviceShowAdapter.notifyDataSetChanged();
+        } else {
+            deviceShowAdapter = new DeviceShowAdapter(switchInfoList,getContext());
+        }
+        deviceShowAdapter.setHandler(handler);
+        lv_device.setAdapter(deviceShowAdapter);
     }
 
     @Override
@@ -94,9 +121,9 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         lv_device = (SlideListView) view.findViewById(R.id.lv_device);
         //设定策划模式
         lv_device.initSlideMode(SlideListView.MOD_RIGHT);
-        deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getActivity());
-        deviceShowAdapter.setHandler(handler);
-        lv_device.setAdapter(deviceShowAdapter);
+//        deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getActivity());
+//        deviceShowAdapter.setHandler(handler);
+//        lv_device.setAdapter(deviceShowAdapter);
 
     }
 

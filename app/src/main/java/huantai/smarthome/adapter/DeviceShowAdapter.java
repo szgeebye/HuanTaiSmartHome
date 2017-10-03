@@ -1,6 +1,9 @@
 package huantai.smarthome.adapter;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.DeviceHolder;
@@ -35,10 +39,15 @@ public class DeviceShowAdapter extends BaseAdapter{
         this.context = context;
     }
 
+    //更新数据
+    public void setData(List<SwitchInfo> switchInfoList) {
+        this.switchInfoList=switchInfoList;
+    }
+
     @Override
     public int getCount() {
 //        return switchInfoList.size();
-        return 5;
+        return switchInfoList.size();
     }
 
     @Override
@@ -61,13 +70,19 @@ public class DeviceShowAdapter extends BaseAdapter{
             holder = new DeviceHolder(view);
             view.setTag(holder);
 
-//            holder.getTv_deviceName().setText(switchInfoList.get(position).getName());
         } else {
             holder = (DeviceHolder) view.getTag();
         }
 
-//        view.findViewById(R.id.tv_deviceName);
+        holder.getTv_deviceName().setText(switchInfoList.get(position).getName());
+        holder.getTv_icon().setImageResource(R.drawable.device_images);
+        holder.getTv_icon().setImageLevel(switchInfoList.get(position).getPicture());
 
+        //注册界面更新广播接收者
+        IntentFilter filter = new IntentFilter(ConstAction.devicenotifyfinishaction);
+        context.registerReceiver(notifyfinishbroadcast,filter);
+
+//        notifyDataSetChanged();
 
         holder.getTv_rename().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,4 +103,14 @@ public class DeviceShowAdapter extends BaseAdapter{
 
         return view;
     }
+
+    //实现界面更新广播内容
+    private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //刷新数据
+            notifyDataSetChanged();
+        }
+    };
+
 }

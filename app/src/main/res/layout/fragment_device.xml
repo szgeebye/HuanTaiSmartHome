@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/bg_topbar">
+
         <TextView
             android:id="@+id/tv_devicetopbar"
             android:layout_width="match_parent"
@@ -19,25 +20,31 @@
             android:text="设备"
             android:textColor="@color/text_topbar"
             android:textSize="18sp" />
+
         <ImageView
             android:id="@+id/bt_device_add"
             android:layout_width="30sp"
             android:layout_height="30sp"
-            android:background="@drawable/home_add_icon"
-            android:gravity="center"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="8sp"
             android:layout_centerVertical="true"
-            />
+            android:layout_marginRight="8sp"
+            android:background="@drawable/home_add_icon"
+            android:gravity="center" />
     </RelativeLayout>
-    <huantai.smarthome.view.SlideListView
-        android:id="@+id/lv_device"
+
+    <!--将自定义侧滑SlideListView放在ScrollView中可实现上下滑动-->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:divider="@color/line_gray"
-        android:dividerHeight="0.5dp"
-        android:listSelector="@drawable/devicelist_item_selector" >
-    </huantai.smarthome.view.SlideListView>
+        android:layout_height="wrap_content">
+        <huantai.smarthome.view.SlideListView
+            android:id="@+id/lv_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:divider="@color/line_gray"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@drawable/devicelist_item_selector">
+        </huantai.smarthome.view.SlideListView>
+    </ScrollView>
 
 </LinearLayout>
