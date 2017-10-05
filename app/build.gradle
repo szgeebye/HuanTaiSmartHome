@@ -78,4 +78,6 @@ dependencies {
     compile 'com.github.satyan:sugar:1.5'
     //popWindow
     compile 'com.github.razerdp:BasePopup:1.8.1'
+    //SwitchButton
+    compile 'com.github.zcweng:switch-button:0.0.3@aar'
 }

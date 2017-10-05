@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import org.json.JSONException;
 
@@ -27,6 +30,8 @@ import huantai.smarthome.adapter.DeviceShowAdapter;
 import huantai.smarthome.bean.ControlDataible;
 import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
+import huantai.smarthome.popWindow.PopupSwitch;
+import huantai.smarthome.utils.ToastUtil;
 import huantai.smarthome.view.SlideListView;
 
 /**
@@ -36,13 +41,14 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     private View view;
     private SlideListView lv_device;
-    private List<SwitchInfo> switchInfoList = new ArrayList<SwitchInfo>();
+    private static List<SwitchInfo> switchInfoList = new ArrayList<SwitchInfo>();
     private DeviceShowAdapter deviceShowAdapter;
 
     protected static final int DEVICEDELETE = 99;//删除设备
     protected static final int DEVICERENAME = 100;//设备改名
     private TextView tv_rename;
     private ImageView bt_device_add;
+//    private ImageView bt_device_refresh;
 
     Handler handler = new Handler() {
         @Override
@@ -61,15 +67,13 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public DeviceFragment() {
     }
 
-    public void setSwitchInfoList(List<SwitchInfo> switchInfoList) {
-        this.switchInfoList = switchInfoList;
+    public static void setSwitchInfoList(List<SwitchInfo> switchInfoList) {
+        DeviceFragment.switchInfoList = switchInfoList;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_device, container, false);
-
-
 
         initView();
         initData();
@@ -78,20 +82,25 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     }
 
     private void initData() {
-//        deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getActivity());
-        SwitchInfo switchInfo = new SwitchInfo();
-        List<SwitchInfo> initItemLists = SugarRecord.listAll(SwitchInfo.class);
+
+//        switchInfoList = InputPopup.getSwitchLists();
+        //初始化显示未删除的设备
+        List<SwitchInfo> initItemLists = Select.from(SwitchInfo.class)
+                .where(Condition.prop("isdelete").eq(0))
+                .list();
         if (initItemLists.size() != 0) {
-            deviceShowAdapter = new DeviceShowAdapter(initItemLists,getContext());
+            deviceShowAdapter = new DeviceShowAdapter(initItemLists, getContext());
             //更新数据
             deviceShowAdapter.setData(initItemLists);
             //通知适配器更新视图
             deviceShowAdapter.notifyDataSetChanged();
         } else {
-            deviceShowAdapter = new DeviceShowAdapter(switchInfoList,getContext());
+            deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getContext());
+            deviceShowAdapter.setData(switchInfoList);
         }
         deviceShowAdapter.setHandler(handler);
         lv_device.setAdapter(deviceShowAdapter);
+
     }
 
     @Override
@@ -100,30 +109,45 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         bt_device_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),DeviceAddActivity.class);
+                Intent intent = new Intent(getActivity(), DeviceAddActivity.class);
                 startActivity(intent);
             }
         });
+
 
         lv_device.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                int type = deviceShowAdapter.getSwitchInfoLists().get(position).getType();
+                PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
+                //popup初始化事件
+                popupSwitch.init();
+                popupSwitch.showPopupWindow();
+
             }
         });
+
+//        bt_device_refresh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                deviceShowAdapter.notifyDataSetChanged();
+//                //发送DeviceShowAdapter界面更新广播
+//                Intent intent = new Intent(ConstAction.devicenotifyfinishaction);
+//                getContext().sendBroadcast(intent);
+//            }
+//        });
 
     }
 
     @Override
     public void initView() {
+//        bt_device_refresh = (ImageView) view.findViewById(R.id.bt_device_refresh);
         bt_device_add = (ImageView) view.findViewById(R.id.bt_device_add);
-
         lv_device = (SlideListView) view.findViewById(R.id.lv_device);
         //设定策划模式
         lv_device.initSlideMode(SlideListView.MOD_RIGHT);
-//        deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getActivity());
-//        deviceShowAdapter.setHandler(handler);
-//        lv_device.setAdapter(deviceShowAdapter);
 
     }
 
@@ -156,7 +180,13 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         ll_device_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<SwitchInfo> findSwitchList =  Select.from(SwitchInfo.class).where(Condition.prop("name").eq(re.getText())).list();;
+                SwitchInfo switchInfo = findSwitchList.get(0);
+                switchInfo.setName(String.valueOf(et_rename.getText()));
+                Log.i("rename",switchInfo.toString());
+                SugarRecord.save(switchInfo);
                 re.setText(et_rename.getText());
+                ToastUtil.ToastShow(getActivity(),"改名成功");
                 dialog.cancel();
             }
         });

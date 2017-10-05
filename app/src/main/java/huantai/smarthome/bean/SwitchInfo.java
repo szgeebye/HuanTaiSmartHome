@@ -1,6 +1,5 @@
 package huantai.smarthome.bean;
 
-import com.google.gson.annotations.Expose;
 import com.orm.dsl.Table;
 
 /**
@@ -15,42 +14,45 @@ public class SwitchInfo {
 //    @SerializedName("id")
 //    @Expose
 //    public Long id;
-    @Expose
+//    @Expose
     public String name;//开关名称
-    @Expose
+//    @Expose
     public String address;//设备Mac地址
-    @Expose
+//    @Expose
     public String bindgiz;//绑定到此Mac地址的板子
-    @Expose
+//    @Expose
     public String userid;//用户ID，备用
-    @Expose
+//    @Expose
     public int flag;//留用
-    @Expose
+//    @Expose
     public int type;//开关类型
-    @Expose
-    public int status;//状态
-    @Expose
+//    @Expose
     public int picture;//对应图片
-    @Expose
+//    @Expose
     public boolean isdelete;//是否在界面删除
-//    public int status1;
-//    public int status2;
-//    public int status3;
+//    @Expose
+    public int status1;//状态
+//    @Expose
+    public int status2;//状态
+//    @Expose
+    public int status3;//状态
 
     public SwitchInfo() {
 
     }
 
-    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type, int status, int picture, boolean isdelete) {
+    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type, int picture, boolean isdelete, int status1, int status2, int status3) {
         this.name = name;
         this.address = address;
         this.bindgiz = bindgiz;
         this.userid = userid;
         this.flag = flag;
         this.type = type;
-        this.status = status;
         this.picture = picture;
         this.isdelete = isdelete;
+        this.status1 = status1;
+        this.status2 = status2;
+        this.status3 = status3;
     }
 
     public String getName() {
@@ -101,14 +103,6 @@ public class SwitchInfo {
         this.type = type;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public int getPicture() {
         return picture;
     }
@@ -125,6 +119,30 @@ public class SwitchInfo {
         this.isdelete = isdelete;
     }
 
+    public int getStatus1() {
+        return status1;
+    }
+
+    public void setStatus1(int status1) {
+        this.status1 = status1;
+    }
+
+    public int getStatus2() {
+        return status2;
+    }
+
+    public void setStatus2(int status2) {
+        this.status2 = status2;
+    }
+
+    public int getStatus3() {
+        return status3;
+    }
+
+    public void setStatus3(int status3) {
+        this.status3 = status3;
+    }
+
     @Override
     public String toString() {
         return "SwitchInfo{" +
@@ -134,9 +152,11 @@ public class SwitchInfo {
                 ", userid='" + userid + '\'' +
                 ", flag=" + flag +
                 ", type=" + type +
-                ", status=" + status +
                 ", picture=" + picture +
                 ", isdelete=" + isdelete +
+                ", status1=" + status1 +
+                ", status2=" + status2 +
+                ", status3=" + status3 +
                 '}';
     }
 }

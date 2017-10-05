@@ -21,6 +21,16 @@
             android:textColor="@color/text_topbar"
             android:textSize="18sp" />
 
+        <!--<ImageView-->
+            <!--android:id="@+id/bt_device_refresh"-->
+            <!--android:layout_width="30sp"-->
+            <!--android:layout_height="30sp"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="8sp"-->
+            <!--android:background="@drawable/device_refresh_iconl"-->
+            <!--android:gravity="center" />-->
+
         <ImageView
             android:id="@+id/bt_device_add"
             android:layout_width="30sp"

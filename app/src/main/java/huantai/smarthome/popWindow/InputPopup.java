@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +41,19 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
     private EditText et_deviceMac;
     private String deviceSort;//设备类型
 
-    private List<SwitchInfo> switchInfoList;
+    private static List<SwitchInfo> switchInfoList;
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    ToastUtil.ToastShow(getContext(),"添加成功");
+                    break;
+            }
+        }
+    };
 
     public InputPopup(Activity context) {
         super(context);
@@ -178,14 +191,20 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
 //        }
 
         //发送switchInfoList到DeviceFragment
-        DeviceFragment deviceFragment = new DeviceFragment();
-        deviceFragment.setSwitchInfoList(switchInfoList);
+//        DeviceFragment deviceFragment = new DeviceFragment();
+//        deviceFragment.setSwitchInfoList(switchInfoList);
+        DeviceFragment.setSwitchInfoList(switchInfoList);
+
+        //添加成功友好提示
+        Message msg = new Message();
+        msg.what = 1;
+        handler.sendMessage(msg);
 
         //通知DeviceShowAdapter更新界面
         //发送DeviceShowAdapter界面更新广播
         Intent intent = new Intent(ConstAction.devicenotifyfinishaction);
         getContext().sendBroadcast(intent);
-        System.out.print(1);
+
 
     }
 }
