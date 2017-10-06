@@ -1,6 +1,9 @@
 package huantai.smarthome.control;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.orm.SugarRecord;
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -25,12 +29,15 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.DeviceShowAdapter;
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ControlDataible;
 import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.PopupSwitch;
+import huantai.smarthome.utils.ControlUtils;
 import huantai.smarthome.utils.ToastUtil;
 import huantai.smarthome.view.SlideListView;
 
@@ -41,15 +48,19 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     private View view;
     private SlideListView lv_device;
-    private static List<SwitchInfo> switchInfoList = new ArrayList<SwitchInfo>();
+    private List<SwitchInfo> switchInfoList = new ArrayList<SwitchInfo>();
     private DeviceShowAdapter deviceShowAdapter;
-
     protected static final int DEVICEDELETE = 99;//删除设备
     protected static final int DEVICERENAME = 100;//设备改名
+    protected static final int SENDSUCCESS = 101;//设备改名
     private TextView tv_rename;
     private ImageView bt_device_add;
-//    private ImageView bt_device_refresh;
+    private GizWifiDevice device;//机智云设备
+    private String address;//点击条目的当前地址
 
+    private MyReceiver receiver = null;//自定义广播接收者
+
+//    private ImageView bt_device_refresh;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -59,6 +70,9 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     tv_rename = (TextView) msg.obj;
                     setDeviceInfo();
                     break;
+                case SENDSUCCESS:
+                    ToastUtil.ToastShow(getActivity(),"数据发送成功");
+                    break;
             }
         }
     };
@@ -67,8 +81,8 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public DeviceFragment() {
     }
 
-    public static void setSwitchInfoList(List<SwitchInfo> switchInfoList) {
-        DeviceFragment.switchInfoList = switchInfoList;
+    public void setSwitchInfoList(List<SwitchInfo> switchInfoList) {
+        this.switchInfoList = switchInfoList;
     }
 
     @Override
@@ -78,6 +92,8 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         initView();
         initData();
         initStatusListener();
+        initBroadreceive();
+        initDevice();
         return view;
     }
 
@@ -119,7 +135,9 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int type = deviceShowAdapter.getSwitchInfoLists().get(position).getType();
+                address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取锁点击设备的当前地址
+//                Log.i("address",address);
+
                 PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                 //popup初始化事件
                 popupSwitch.init();
@@ -153,16 +171,27 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     @Override
     public void initBroadreceive() {
-
+        receiver = new MyReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConstAction.switchcontrolaction);
+        getContext().registerReceiver(receiver,filter);
     }
 
     @Override
     public void initDevice() {
-
+        Intent intent = getActivity().getIntent();
+        device = (GizWifiDevice) intent.getParcelableExtra("GizWifiDevice");
+        System.out.print(1);
     }
 
     @Override
     public void sendJson(String key, Object value) throws JSONException {
+
+        ConcurrentHashMap<String, Object> hashMap = new ConcurrentHashMap<String, Object>();
+        hashMap.put(key, value);
+        device.write(hashMap, 0);
+        Log.i("==", hashMap.toString());
+
 
     }
 
@@ -199,5 +228,35 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         });
 
     }
+
+    //自定义广播接收者
+    public class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+//            device = (GizWifiDevice) intent.getParcelableExtra("GizWifiDevice");
+
+//            Intent intent1 = getActivity().getIntent();
+            if (action.equals(ConstAction.switchcontrolaction)) {
+                byte type = intent.getByteExtra("type", (byte) 0xff);
+                byte status = intent.getByteExtra("status",(byte) 0xff);
+//                byte[] statu = intent.getByteArrayExtra("status");
+                try {
+                    Log.i("address",address);
+                    byte[] b = ControlUtils.getSwitchInstruction(type,status,address.toUpperCase());
+                    sendJson("kuozhan", ControlUtils.getSwitchInstruction(type,status,address.toUpperCase()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Message msg = new Message();
+                msg.what = SENDSUCCESS;
+                handler.sendMessage(msg);
+
+            }
+
+        }
+    }
+
 
 }

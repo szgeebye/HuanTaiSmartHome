@@ -43,17 +43,26 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
 
     private static List<SwitchInfo> switchInfoList;
 
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    ToastUtil.ToastShow(getContext(),"添加成功");
+                    ToastUtil.ToastShow(getContext(), "添加成功");
+                    break;
+                case 2:
+                    ToastUtil.ToastShow(getContext(), "设备名不能为空");
+                    break;
+                case 3:
+                    ToastUtil.ToastShow(getContext(), "请输入正确的设备地址");
                     break;
             }
         }
     };
+    private String regex;
+    private String macAddress;
+    private String deviceName;
 
     public InputPopup(Activity context) {
         super(context);
@@ -141,7 +150,10 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
             case R.id.btn_Compelete:
                 savaData();
                 ToastUtil.ToastShow(getContext(), deviceSort + "添加成功");
-                dismiss();
+                //符合要求才消失弹窗
+                if (macAddress.matches(regex) && !deviceName.isEmpty()) {
+                    dismiss();
+                }
                 break;
             default:
                 break;
@@ -155,28 +167,35 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
 //        if (switchInfoList.isEmpty()) {
 
         SwitchInfo switchInfo = new SwitchInfo();
-        switchInfo.setName(String.valueOf(et_deviceName.getText()));
-        switchInfo.setAddress(String.valueOf(et_deviceMac.getText()));
-        if (deviceSort.equals(ConstantData.devicename[0])) {//一位开关
-            switchInfo.setType(1);
-            switchInfo.setPicture(0);
+        regex = "^[A-Fa-f0-9]{8}$";
+        macAddress = String.valueOf(et_deviceMac.getText());
+        deviceName = String.valueOf(et_deviceName.getText());
+        //判断Mac是否为8位16进制数
+        if (macAddress.matches(regex) && !deviceName.isEmpty()) {
+            switchInfo.setName(deviceName);
+            switchInfo.setAddress(macAddress);
 
-        } else if (deviceSort.equals(ConstantData.devicename[1])) {//二位开关
-            switchInfo.setType(2);
-            switchInfo.setPicture(1);
 
-        } else if (deviceSort.equals(ConstantData.devicename[2])) {//三位开关
-            switchInfo.setType(3);
-            switchInfo.setPicture(2);
+            if (deviceSort.equals(ConstantData.devicename[0])) {//一位开关
+                switchInfo.setType(1);
+                switchInfo.setPicture(0);
 
-        } else if (deviceSort.equals(ConstantData.devicename[3])) {//插座
-            switchInfo.setType(4);
-            switchInfo.setPicture(3);
+            } else if (deviceSort.equals(ConstantData.devicename[1])) {//二位开关
+                switchInfo.setType(2);
+                switchInfo.setPicture(1);
 
-        }
-        SugarRecord.save(switchInfo);
-        switchInfoList = SugarRecord.listAll(SwitchInfo.class);
-        Log.i("addall", switchInfoList.toString());
+            } else if (deviceSort.equals(ConstantData.devicename[2])) {//三位开关
+                switchInfo.setType(3);
+                switchInfo.setPicture(2);
+
+            } else if (deviceSort.equals(ConstantData.devicename[3])) {//插座
+                switchInfo.setType(4);
+                switchInfo.setPicture(3);
+
+            }
+            SugarRecord.save(switchInfo);
+            switchInfoList = SugarRecord.listAll(SwitchInfo.class);
+            Log.i("addall", switchInfoList.toString());
 
 //        }
 //        else {//更新数据
@@ -190,21 +209,29 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
 //
 //        }
 
-        //发送switchInfoList到DeviceFragment
-//        DeviceFragment deviceFragment = new DeviceFragment();
-//        deviceFragment.setSwitchInfoList(switchInfoList);
-        DeviceFragment.setSwitchInfoList(switchInfoList);
+            //发送switchInfoList到DeviceFragment
+            DeviceFragment deviceFragment = new DeviceFragment();
+            deviceFragment.setSwitchInfoList(switchInfoList);
+//        DeviceFragment.setSwitchInfoList(switchInfoList);
 
-        //添加成功友好提示
-        Message msg = new Message();
-        msg.what = 1;
-        handler.sendMessage(msg);
+            //添加成功友好提示
+            Message msg = new Message();
+            msg.what = 1;
+            handler.sendMessage(msg);
 
-        //通知DeviceShowAdapter更新界面
-        //发送DeviceShowAdapter界面更新广播
-        Intent intent = new Intent(ConstAction.devicenotifyfinishaction);
-        getContext().sendBroadcast(intent);
-
+            //通知DeviceShowAdapter更新界面
+            //发送DeviceShowAdapter界面更新广播
+            Intent intent = new Intent(ConstAction.devicenotifyfinishaction);
+            getContext().sendBroadcast(intent);
+        } else if (deviceName.isEmpty()) {
+            Message msg = new Message();
+            msg.what = 2;
+            handler.sendMessage(msg);
+        } else {
+            Message msg = new Message();
+            msg.what = 3;
+            handler.sendMessage(msg);
+        }
 
     }
 }

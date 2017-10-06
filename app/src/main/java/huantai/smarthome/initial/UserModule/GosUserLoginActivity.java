@@ -207,7 +207,7 @@ public class GosUserLoginActivity extends GosUserModuleBaseActivity implements O
 		dialog.show();
 		//检测更新
 		BDAutoUpdateSDK.uiUpdateAction(GosUserLoginActivity.this, new MyUICheckUpdateCallback());
-		
+
 		//一位开关A开
 		ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_ONE,ControlProtocol.DevCMD.SWITCH_ONE_A_OPEN,"F1F2F3F4");
 		//一位开关A关
