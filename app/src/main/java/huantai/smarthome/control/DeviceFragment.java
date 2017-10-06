@@ -60,7 +60,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     private MyReceiver receiver = null;//自定义广播接收者
 
-//    private ImageView bt_device_refresh;
+    //    private ImageView bt_device_refresh;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -71,11 +71,12 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     setDeviceInfo();
                     break;
                 case SENDSUCCESS:
-                    ToastUtil.ToastShow(getActivity(),"数据发送成功");
+                    ToastUtil.ToastShow(getActivity(), "数据发送成功");
                     break;
             }
         }
     };
+    private LinearLayout ll_add_device;
 
 
     public DeviceFragment() {
@@ -110,9 +111,12 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             deviceShowAdapter.setData(initItemLists);
             //通知适配器更新视图
             deviceShowAdapter.notifyDataSetChanged();
+            ll_add_device.setVisibility(View.GONE);
+
         } else {
             deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getContext());
             deviceShowAdapter.setData(switchInfoList);
+            ll_add_device.setVisibility(View.VISIBLE);
         }
         deviceShowAdapter.setHandler(handler);
         lv_device.setAdapter(deviceShowAdapter);
@@ -130,6 +134,14 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             }
         });
 
+
+        ll_add_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DeviceAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
         lv_device.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -162,6 +174,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     @Override
     public void initView() {
 //        bt_device_refresh = (ImageView) view.findViewById(R.id.bt_device_refresh);
+        ll_add_device = (LinearLayout) view.findViewById(R.id.ll_add_device);
         bt_device_add = (ImageView) view.findViewById(R.id.bt_device_add);
         lv_device = (SlideListView) view.findViewById(R.id.lv_device);
         //设定策划模式
@@ -174,7 +187,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConstAction.switchcontrolaction);
-        getContext().registerReceiver(receiver,filter);
+        getContext().registerReceiver(receiver, filter);
     }
 
     @Override
@@ -209,13 +222,14 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         ll_device_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<SwitchInfo> findSwitchList =  Select.from(SwitchInfo.class).where(Condition.prop("name").eq(re.getText())).list();;
+                List<SwitchInfo> findSwitchList = Select.from(SwitchInfo.class).where(Condition.prop("name").eq(re.getText())).list();
+                ;
                 SwitchInfo switchInfo = findSwitchList.get(0);
                 switchInfo.setName(String.valueOf(et_rename.getText()));
-                Log.i("rename",switchInfo.toString());
+                Log.i("rename", switchInfo.toString());
                 SugarRecord.save(switchInfo);
                 re.setText(et_rename.getText());
-                ToastUtil.ToastShow(getActivity(),"改名成功");
+                ToastUtil.ToastShow(getActivity(), "改名成功");
                 dialog.cancel();
             }
         });
@@ -239,12 +253,12 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 //            Intent intent1 = getActivity().getIntent();
             if (action.equals(ConstAction.switchcontrolaction)) {
                 byte type = intent.getByteExtra("type", (byte) 0xff);
-                byte status = intent.getByteExtra("status",(byte) 0xff);
+                byte status = intent.getByteExtra("status", (byte) 0xff);
 //                byte[] statu = intent.getByteArrayExtra("status");
                 try {
-                    Log.i("address",address);
-                    byte[] b = ControlUtils.getSwitchInstruction(type,status,address.toUpperCase());
-                    sendJson("kuozhan", ControlUtils.getSwitchInstruction(type,status,address.toUpperCase()));
+                    Log.i("address", address);
+                    byte[] b = ControlUtils.getSwitchInstruction(type, status, address.toUpperCase());
+                    sendJson("kuozhan", ControlUtils.getSwitchInstruction(type, status, address.toUpperCase()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

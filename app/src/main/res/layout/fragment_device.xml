@@ -42,6 +42,33 @@
             android:gravity="center" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_add_device"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/svListGroup"
+        android:layout_toRightOf="@+id/svListGroup"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgNoDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/device_btn_nodevice" />
+
+        <TextView
+            android:id="@+id/tvNoDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/no_devices"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
     <!--将自定义侧滑SlideListView放在ScrollView中可实现上下滑动-->
     <ScrollView
         android:layout_width="match_parent"
