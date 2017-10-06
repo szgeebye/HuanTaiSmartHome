@@ -6,7 +6,12 @@ package huantai.smarthome.utils;
  * time：2017/8/30 16:39
  */
 public class ConvertUtil {
-          //java 合并两个byte数组
+          /**
+           * 合并两个byte数组
+           * @param byte_1
+           * @param byte_2
+           * @return byte_1+byte_2
+           */
           public static byte[] byteMerger(byte[] byte_1, byte[] byte_2){
                     byte[] byte_3 = new byte[byte_1.length+byte_2.length];
                     System.arraycopy(byte_1, 0, byte_3, 0, byte_1.length);
@@ -14,7 +19,11 @@ public class ConvertUtil {
                     return byte_3;
           }
 
-          //把16进制字符串转换成字节数组
+          /**
+           * 把16进制字符串转换成字节数组
+           * @param hex 16进制字符串F1F2F3F4
+           * @return 返回对应的byte数据
+           */
           public static byte[] hexStringToByte(String hex) {
                     int len = (hex.length() / 2);
                     byte[] result = new byte[len];
@@ -26,13 +35,21 @@ public class ConvertUtil {
                     return result;
           }
 
-          //char转byte
+          /**
+           * char转byte
+           * @param c 字符转比特
+           * @return byte
+           */
           private static byte toByte(char c) {
                     byte b = (byte) "0123456789ABCDEF".indexOf(c);
                     return b;
           }
 
-          //java int转byer
+          /**
+           * char转byte
+           * @param i int转byte
+           * @return byte
+           */
           public static byte[] intToByteArray(int i) {
                     byte[] result = new byte[4];
                     result[0] = (byte)((i >> 24) & 0xFF);
@@ -43,7 +60,12 @@ public class ConvertUtil {
           }
 
 
-          //把字节数组转换成16进制字符串
+
+          /***
+           * 把字节数组转换成16进制字符串
+           * @param bytes 字节数组
+           * @return 16进制字符串 F1F2F3F4
+           */
           public static String byteStringToHexString(byte[] bytes) {
                     StringBuilder stringBuilder = new StringBuilder("");
                     if (bytes == null || bytes.length <= 0) {
@@ -61,7 +83,12 @@ public class ConvertUtil {
           }
 
 
-          //两byte转int
+          /**
+           * 两byte转int
+           * @param high 高位
+           * @param low 地位
+           * @return int
+           */
           public static int byte2ToInt(byte high,byte low) {
                     int value;
                     value = (int) ((low&0xFF)
