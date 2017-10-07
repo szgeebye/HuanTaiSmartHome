@@ -3,45 +3,50 @@ package huantai.smarthome.bean;
 import com.orm.dsl.Table;
 
 /**
-     * description:开关表
-     * auther：xuewenliao
-     * time：2017/10/1 10:11
-     */
+ * description:开关表
+ * auther：xuewenliao
+ * time：2017/10/1 10:11
+ */
 
 @Table
 public class SwitchInfo {
 
-//    @SerializedName("id")
+    //    @SerializedName("id")
 //    @Expose
 //    public Long id;
 //    @Expose
     public String name;//开关名称
-//    @Expose
+    //    @Expose
     public String address;//设备Mac地址
-//    @Expose
+    //    @Expose
     public String bindgiz;//绑定到此Mac地址的板子
-//    @Expose
+    //    @Expose
     public String userid;//用户ID，备用
-//    @Expose
+    //    @Expose
     public int flag;//留用
-//    @Expose
-    public int type;//开关类型
-//    @Expose
+    //    @Expose
+    public int type;//开关类型（1：一位开关；2：二位开关；3：三位开关；4：插座；5：空调）
+    //    @Expose
     public int picture;//对应图片
-//    @Expose
+    //    @Expose
     public boolean isdelete;//是否在界面删除
-//    @Expose
-    public int status1;//状态
-//    @Expose
-    public int status2;//状态
-//    @Expose
-    public int status3;//状态
+    //    @Expose
+    public int status1;//共用字段1（对应开关：状态1--对应空调：brand品牌）
+    //    @Expose
+    public int status2;//共用字段1（对应开关：状态2--对应空调：temperature温度）
+    //    @Expose
+    public int status3;//共用字段1（对应开关：状态3--对应空调：mode模式）
+    //    @Expose
+    public int status4;//共用字段1（对应开关：无--对应空调：speed速度）
+    //    @Expose
+    public int status5;//共用字段1（对应开关：无--对应空调：direction风向）
+
 
     public SwitchInfo() {
 
     }
 
-    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type, int picture, boolean isdelete, int status1, int status2, int status3) {
+    public SwitchInfo(String name, String address, String bindgiz, String userid, int flag, int type, int picture, boolean isdelete, int status1, int status2, int status3, int status4, int status5) {
         this.name = name;
         this.address = address;
         this.bindgiz = bindgiz;
@@ -53,6 +58,8 @@ public class SwitchInfo {
         this.status1 = status1;
         this.status2 = status2;
         this.status3 = status3;
+        this.status4 = status4;
+        this.status5 = status5;
     }
 
     public String getName() {
@@ -143,6 +150,22 @@ public class SwitchInfo {
         this.status3 = status3;
     }
 
+    public int getStatus4() {
+        return status4;
+    }
+
+    public void setStatus4(int status4) {
+        this.status4 = status4;
+    }
+
+    public int getStatus5() {
+        return status5;
+    }
+
+    public void setStatus5(int status5) {
+        this.status5 = status5;
+    }
+
     @Override
     public String toString() {
         return "SwitchInfo{" +
@@ -157,6 +180,8 @@ public class SwitchInfo {
                 ", status1=" + status1 +
                 ", status2=" + status2 +
                 ", status3=" + status3 +
+                ", status4=" + status4 +
+                ", status5=" + status5 +
                 '}';
     }
 }

@@ -24,7 +24,6 @@ import java.util.List;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.SwitchInfo;
-import huantai.smarthome.control.DeviceFragment;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ToastUtil;
 import razerdp.basepopup.BasePopupWindow;
@@ -164,8 +163,6 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
     //保存数据到数据库
     private void savaData() {
 
-//        if (switchInfoList.isEmpty()) {
-
         SwitchInfo switchInfo = new SwitchInfo();
         regex = "^[A-Fa-f0-9]{8}$";
         macAddress = String.valueOf(et_deviceMac.getText());
@@ -196,23 +193,6 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
             SugarRecord.save(switchInfo);
             switchInfoList = SugarRecord.listAll(SwitchInfo.class);
             Log.i("addall", switchInfoList.toString());
-
-//        }
-//        else {//更新数据
-////            SwitchInfo switchInfo = new SwitchInfo();
-//            for (SwitchInfo switchInfo : switchInfoList) {
-//                switchInfo.setName(String.valueOf(et_deviceName.getText()));
-//                switchInfo.setAddress(String.valueOf(et_deviceMac.getText()));
-//                SugarRecord.save(switchInfo);
-//                Log.i("addalll",switchInfoList.toString());
-//            }
-//
-//        }
-
-            //发送switchInfoList到DeviceFragment
-            DeviceFragment deviceFragment = new DeviceFragment();
-            deviceFragment.setSwitchInfoList(switchInfoList);
-//        DeviceFragment.setSwitchInfoList(switchInfoList);
 
             //添加成功友好提示
             Message msg = new Message();

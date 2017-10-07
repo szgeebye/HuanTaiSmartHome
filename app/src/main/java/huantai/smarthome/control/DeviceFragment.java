@@ -89,13 +89,21 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_device, container, false);
+        return view;
+    }
 
+    /*
+    * onStart在onCreateView后面执行，保证第一次添加数据能立即显示
+    */
+    @Override
+    public void onStart() {
+        super.onStart();
         initView();
         initData();
         initStatusListener();
         initBroadreceive();
         initDevice();
-        return view;
+
     }
 
     private void initData() {
@@ -105,17 +113,15 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         List<SwitchInfo> initItemLists = Select.from(SwitchInfo.class)
                 .where(Condition.prop("isdelete").eq(0))
                 .list();
+        deviceShowAdapter = new DeviceShowAdapter(initItemLists, getContext());
+        deviceShowAdapter.setData(initItemLists);
         if (initItemLists.size() != 0) {
-            deviceShowAdapter = new DeviceShowAdapter(initItemLists, getContext());
             //更新数据
-            deviceShowAdapter.setData(initItemLists);
             //通知适配器更新视图
             deviceShowAdapter.notifyDataSetChanged();
             ll_add_device.setVisibility(View.GONE);
 
         } else {
-            deviceShowAdapter = new DeviceShowAdapter(switchInfoList, getContext());
-            deviceShowAdapter.setData(switchInfoList);
             ll_add_device.setVisibility(View.VISIBLE);
         }
         deviceShowAdapter.setHandler(handler);
@@ -184,11 +190,25 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     @Override
     public void initBroadreceive() {
+
+        //注册界面更新广播接收者
+        IntentFilter filter1 = new IntentFilter(ConstAction.devicenotifyfinishaction);
+        getContext().registerReceiver(notifyfinishbroadcast, filter1);
+
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConstAction.switchcontrolaction);
         getContext().registerReceiver(receiver, filter);
     }
+
+    private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //刷新数据
+            deviceShowAdapter.UpdateData();
+        }
+    };
+
 
     @Override
     public void initDevice() {

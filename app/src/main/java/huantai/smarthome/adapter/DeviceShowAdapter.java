@@ -1,9 +1,6 @@
 package huantai.smarthome.adapter;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -15,7 +12,6 @@ import com.orm.SugarRecord;
 
 import java.util.List;
 
-import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.DeviceHolder;
@@ -48,6 +44,11 @@ public class DeviceShowAdapter extends BaseAdapter{
 
     public List<SwitchInfo> getSwitchInfoLists() {
         return switchInfoList;
+    }
+
+    public void UpdateData() {
+        this.switchInfoList = SugarRecord.listAll(SwitchInfo.class);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -83,9 +84,6 @@ public class DeviceShowAdapter extends BaseAdapter{
             holder.getTv_icon().setImageResource(R.drawable.device_images);
             holder.getTv_icon().setImageLevel(switchInfoList.get(position).getPicture());
 
-            //注册界面更新广播接收者
-            IntentFilter filter = new IntentFilter(ConstAction.devicenotifyfinishaction);
-            context.registerReceiver(notifyfinishbroadcast, filter);
 
 
             holder.getTv_rename().setOnClickListener(new View.OnClickListener() {
@@ -118,17 +116,18 @@ public class DeviceShowAdapter extends BaseAdapter{
     }
 
     //实现界面更新广播内容
-    private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            List<SwitchInfo> switchInfoList2 = SugarRecord.listAll(SwitchInfo.class);
-            if (switchInfoList2 != null) {
-                switchInfoList = switchInfoList2;
-            }
-
-            //刷新数据
-            notifyDataSetChanged();
-        }
-    };
+//    private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+////            List<SwitchInfo> switchInfoList2 = SugarRecord.listAll(SwitchInfo.class);
+////            if (switchInfoList2 != null) {
+////                switchInfoList = switchInfoList2;
+////            }
+//
+//            UpdateData();
+////            //刷新数据
+////            notifyDataSetChanged();
+//        }
+//    };
 
 }

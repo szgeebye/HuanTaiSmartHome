@@ -8,8 +8,15 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
+
+import org.json.JSONException;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.MyFragmentPagerAdapter;
 import huantai.smarthome.bean.ConstAction;
@@ -24,6 +31,7 @@ import huantai.smarthome.view.MainViewPager;
 public class MainActivity extends GosBaseActivity implements RadioGroup.OnCheckedChangeListener,
         ViewPager.OnPageChangeListener {
 
+    private GizWifiDevice device;
     private RadioGroup rg_tab_bar;
     private RadioButton rb_channel;
     private RadioButton rb_message;
@@ -47,6 +55,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         bindViews();
         rb_channel.setChecked(true);
+        initDevice();
         initBroadreceive();
 
     }
@@ -56,9 +65,42 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
          * time：2017/9/10 17:02
          */
     private void initBroadreceive() {
+
+        IntentFilter intentFilter = new IntentFilter(ConstAction.senddeviceaction);
+        MainActivity.this.registerReceiver(sendDataBroadcast,intentFilter);
+
+        //接收震动广播
         IntentFilter filter = new IntentFilter(ConstAction.vibratoraction);
         registerReceiver(vibratorBroadcast,filter);
+
     }
+
+    private BroadcastReceiver sendDataBroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String key = intent.getStringExtra("kuozhan");
+            byte[] value = intent.getByteArrayExtra("value");
+            try {
+                sendJson(key,value);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public void initDevice() {
+        Intent intent = getIntent();
+        device = (GizWifiDevice) intent.getParcelableExtra("GizWifiDevice");
+    }
+
+    private void sendJson(String key, Object value) throws JSONException {
+        ConcurrentHashMap<String, Object> hashMap = new ConcurrentHashMap<String, Object>();
+        hashMap.put(key, value);
+        device.write(hashMap, 0);
+        Log.i("==", hashMap.toString());
+        // Log.i("Apptest", hashMap.toString());
+    }
+
     //实现广播内容
     private BroadcastReceiver vibratorBroadcast = new BroadcastReceiver() {
         @Override

@@ -58,7 +58,7 @@ public class DeviceAddActivity extends Activity {
 
     private void initData() {
         addSwitchDeviceLists = new ArrayList<AddSwitchDevice>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
 
             addSwitchDevice = new AddSwitchDevice();
             addSwitchDevice.setDevicesort(ConstantData.devicename[i]);
@@ -79,13 +79,21 @@ public class DeviceAddActivity extends Activity {
         lv_device_add.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InputPopup inputPopup = new InputPopup(DeviceAddActivity.this);
-                inputPopup.showPopupWindow();
 
-                //发送向InputPopup传递数据广播
-                Intent intent = new Intent(ConstAction.deviceaddaction);
-                intent.putExtra("devicesort",addSwitchDeviceLists.get(position).getDevicesort());
-                sendBroadcast(intent);
+                if (position == 4) {
+                    Intent intent = new Intent(DeviceAddActivity.this, AirConBrandActivity.class);
+                    startActivity(intent);
+                } else {
+
+                    InputPopup inputPopup = new InputPopup(DeviceAddActivity.this);
+                    inputPopup.showPopupWindow();
+
+                    //发送向InputPopup传递数据广播
+                    Intent intent = new Intent(ConstAction.deviceaddaction);
+                    intent.putExtra("devicesort",addSwitchDeviceLists.get(position).getDevicesort());
+                    sendBroadcast(intent);
+                }
+
             }
         });
 

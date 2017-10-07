@@ -3,4 +3,5 @@
     <item android:maxLevel="1" android:drawable="@drawable/switch2" />
     <item android:maxLevel="2" android:drawable="@drawable/switch3" />
     <item android:maxLevel="3" android:drawable="@drawable/socket" />
+    <item android:maxLevel="4" android:drawable="@drawable/device_air" />
 </level-list>

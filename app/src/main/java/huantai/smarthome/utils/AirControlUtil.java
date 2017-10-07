@@ -1,7 +1,5 @@
 package huantai.smarthome.utils;
 
-import static android.os.Build.ID;
-
 /**
  * Auther：joahluo
  * E-mail：joahluo@163.com
@@ -67,7 +65,7 @@ public class AirControlUtil {
           public static final byte[] getControlHead(byte type, String MAC, byte length) {
                     byte[] head = new byte[7];
                     head[0] = type;
-                    byte[] bytes_id = ConvertUtil.hexStringToByte(ID);
+                    byte[] bytes_id = ConvertUtil.hexStringToByte(MAC);
                     //填充ID
                     for (int i = 0; i < 4; i++) {
                               head[i + 1] = bytes_id[i];
@@ -85,7 +83,7 @@ public class AirControlUtil {
           public static final byte[] getAirControlHead(String MAC) {
                     byte[] head = new byte[7];
                     head[0] = ControlProtocol.DevType.CONTROL_AIR;
-                    byte[] bytes_id = ConvertUtil.hexStringToByte(ID);
+                    byte[] bytes_id = ConvertUtil.hexStringToByte(MAC);
                     //填充ID
                     for (int i = 0; i < 4; i++) {
                               head[i + 1] = bytes_id[i];
