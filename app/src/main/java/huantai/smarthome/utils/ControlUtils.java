@@ -56,5 +56,20 @@ public class ControlUtils {
                     return instruction;
           }
 
+          /***
+           *
+           * @param CMD 开关的控制命令
+           * @param address 开关的MAC地址
+           * @return 返回开关的控制命令
+           */
+          public static byte[] getAirInstruction(String address,byte CMD) {
+                    //指令长度
+                    byte[] instruction = new byte[ControlProtocol.Data_Length.AIR_LENGTH];
+
+
+                    //返回控制命令
+                    return instruction;
+          }
+
 }
 
