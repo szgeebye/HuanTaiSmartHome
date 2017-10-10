@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:background="@android:color/white"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp">
+        android:background="@drawable/alert_shape"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -29,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@color/black"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:hint="@string/device_name_input"
             android:textColorHint="@color/device_add_hint" />
 
@@ -40,15 +42,20 @@
             android:textColor="@color/black"
             android:hint="@string/device_mac_input"
             android:textColorHint="@color/device_add_hint"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:maxLength="8"
             />
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="55dp"
             android:orientation="horizontal"
             android:weightSum="2">
-
             <Button
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
@@ -57,6 +64,11 @@
                 android:background="@android:color/transparent"
                 android:text="取消"
                 android:textColor="#bfbfbf"/>
+
+            <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg"/>
 
             <Button
                 android:id="@+id/btn_Compelete"
