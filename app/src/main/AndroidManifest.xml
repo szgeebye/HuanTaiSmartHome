@@ -146,6 +146,10 @@
         <activity
             android:name="huantai.smarthome.control.AirMateActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <!--空调控制界面-->
+        <activity
+            android:name="huantai.smarthome.control.SmartAirConditionActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
         <!-- 极光推送 -->
         <!-- Required SDK 核心功能 -->

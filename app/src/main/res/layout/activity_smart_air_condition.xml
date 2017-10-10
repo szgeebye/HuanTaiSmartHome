@@ -25,13 +25,16 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="22"
-                android:textSize="100sp" />
+                android:textSize="100sp"
+                android:textColor="@color/black"
+                />
 
             <TextView
                 android:id="@+id/tv_temsign"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="℃"
+                android:textColor="@color/black"
                 android:textSize="25sp" />
         </LinearLayout>
 
@@ -46,11 +49,12 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:adjustViewBounds="true"
+                android:textColor="@color/black"
                 />
 
             <TextView
                 android:id="@+id/tv_mod"
-                android:layout_width="wrap_content"
+                android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:text="制冷"
                 android:textColor="@color/black"
@@ -110,6 +114,7 @@
                     android:id="@+id/tv_wd"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:textColor="@color/black"
                     android:text="自动风向" />
             </LinearLayout>
         </LinearLayout>
@@ -140,7 +145,9 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="开关" />
+                android:text="开关"
+                android:textColor="@color/black"
+                />
 
             <Button
                 android:id="@+id/bt_mod"
@@ -150,7 +157,9 @@
                 android:layout_marginLeft="1dp"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="模式" />
+                android:text="模式"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -167,7 +176,9 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="-" />
+                android:text="-"
+                android:textColor="@color/black"
+                />
 
             <TextView
                 android:layout_width="0dp"
@@ -175,7 +186,8 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:hint="温度" />
+                android:hint="温度"
+                android:textColorHint="@color/background_tem"/>
 
             <Button
                 android:id="@+id/bt_add"
@@ -184,7 +196,9 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="+" />
+                android:text="+"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
         
           <LinearLayout
@@ -201,7 +215,9 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="风速" />
+                android:text="风速"
+                android:textColor="@color/black"
+                />
 
             <Button
                 android:id="@+id/bt_wind_direction"
@@ -211,7 +227,9 @@
                  android:layout_marginLeft="1dp"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="风向" />
+                android:text="风向"
+                android:textColor="@color/black"
+                />
         </LinearLayout>
         
         

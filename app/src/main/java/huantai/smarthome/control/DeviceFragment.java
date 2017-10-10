@@ -77,6 +77,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         }
     };
     private LinearLayout ll_add_device;
+    private List<SwitchInfo> initItemLists;
 
 
     public DeviceFragment() {
@@ -110,7 +111,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
 //        switchInfoList = InputPopup.getSwitchLists();
         //初始化显示未删除的设备
-        List<SwitchInfo> initItemLists = Select.from(SwitchInfo.class)
+        initItemLists = Select.from(SwitchInfo.class)
                 .where(Condition.prop("isdelete").eq(0))
                 .list();
         deviceShowAdapter = new DeviceShowAdapter(initItemLists, getContext());
@@ -153,13 +154,31 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取锁点击设备的当前地址
-//                Log.i("address",address);
+                if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {
 
-                PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
-                //popup初始化事件
-                popupSwitch.init();
-                popupSwitch.showPopupWindow();
+                    Intent intent = new Intent(getActivity(),SmartAirConditionActivity.class);
+
+                    intent.putExtra("name", initItemLists.get(position).getName());
+                    intent.putExtra("brand", initItemLists.get(position).getStatus1());
+                    intent.putExtra("temperature", initItemLists.get(position)
+                            .getStatus2());
+                    intent.putExtra("mod", initItemLists.get(position).getStatus3());
+                    intent.putExtra("speed", initItemLists.get(position).getStatus4());
+                    intent.putExtra("direction", initItemLists.get(position).getStatus5());
+                    intent.putExtra("opcl", initItemLists.get(position).getFlag());
+                    intent.putExtra("device_id", initItemLists.get(position).getAddress());
+
+                    startActivity(intent);
+
+                } else {
+
+//                address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
+                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
+                    //popup初始化事件
+                    popupSwitch.init();
+                    popupSwitch.showPopupWindow();
+                }
+
 
             }
         });

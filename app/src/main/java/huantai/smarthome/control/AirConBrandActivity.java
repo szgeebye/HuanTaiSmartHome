@@ -36,7 +36,6 @@ public class AirConBrandActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_air_con_brand);
-//		setActionBar(true, true, getResources().getString(R.string.title_activity_air_con_brand));
 		initDevice();
 		initView();
 		initData();
