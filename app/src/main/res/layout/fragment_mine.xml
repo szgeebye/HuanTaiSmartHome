@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rll_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/bg_topbar">
@@ -18,15 +19,28 @@
             android:text="我的"
             android:textColor="@color/text_topbar"
             android:textSize="18sp" />
+
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txt_mine"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="呵呵"
-        android:textColor="@color/text_yellow"
-        android:textSize="20sp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/bt_share"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="设备分享"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:background="@color/alert_blue"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp" />
+    <!--<TextView-->
+        <!--android:id="@+id/txt_mine"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:text="呵呵"-->
+        <!--android:textColor="@color/text_yellow"-->
+        <!--android:textSize="20sp" />-->
+
+</RelativeLayout>

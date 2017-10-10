@@ -1,12 +1,12 @@
 package huantai.smarthome.initial.CommonModule;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.net.wifi.ScanResult;
 
 import com.gizwits.gizwifisdk.api.GizDeviceSharingInfo;
 import com.gizwits.gizwifisdk.api.GizUserInfo;
 
-import android.net.wifi.ScanResult;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GosConstant {
 
@@ -30,5 +30,8 @@ public class GosConstant {
 	
 	// 设备热点默认前缀
 	public static final String SoftAP_Start = "XPG-GAgent";
+
+	public static String Product_Key = "a5c5ddfdf47c4542ac23cd135cf55310";
+	public static String Product_Secret = "031e8d83352a4fa0ba7df040e86dca23";
 
 }

@@ -1,16 +1,5 @@
 package huantai.smarthome.initial.sharingdevice;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import com.gizwits.gizwifisdk.api.GizDeviceSharing;
-import com.gizwits.gizwifisdk.enumration.GizDeviceSharingWay;
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-import com.gizwits.gizwifisdk.listener.GizDeviceSharingListener;
-
-import huantai.smarthome.initial.CommonModule.GosBaseActivity;
-import huantai.smarthome.initial.R;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -20,6 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.gizwits.gizwifisdk.api.GizDeviceSharing;
+import com.gizwits.gizwifisdk.enumration.GizDeviceSharingWay;
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.gizwits.gizwifisdk.listener.GizDeviceSharingListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import huantai.smarthome.initial.CommonModule.GosBaseActivity;
+import huantai.smarthome.initial.R;
 
 public class twoSharedActivity extends GosBaseActivity {
 
@@ -70,7 +70,7 @@ public class twoSharedActivity extends GosBaseActivity {
 		splits = timeout2.split("15");
 		GizDeviceSharing.sharingDevice(spf.getString("Token", ""), did, GizDeviceSharingWay.GizDeviceSharingByQRCode,
 				null, null);
-
+		Log.i("Token",spf.getString("Token", "") +"---" + did);
 	}
 
 	private void startTimer() {
