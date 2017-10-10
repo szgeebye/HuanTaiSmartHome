@@ -74,4 +74,6 @@
     <color name="device_set_add">#2b2b2b</color>
     <!--popupText-->
     <color name="device_add_hint">#7a7c7b</color>
+    <!--air-->
+    <color name="color_gray_e7">#ffe7e7e7</color>
 </resources>
