@@ -12,16 +12,12 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.orm.SugarRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.initial.R;
 import razerdp.basepopup.BasePopupWindow;
 
@@ -29,15 +25,15 @@ import razerdp.basepopup.BasePopupWindow;
  * Created by 大灯泡 on 2016/1/20.
  * 包含着listview的popup，使用builder模式，事件与tag进行绑定
  */
-public class ListPopup extends BasePopupWindow {
+public class ListPopup0 extends BasePopupWindow {
 
     private ListView mListView;
     private OnListPopupItemClickListener mOnListPopupItemClickListener;
 
-    public ListPopup(Activity context) {
+    public ListPopup0(Activity context) {
         super(context);
     }
-    private ListPopup(Activity context, Builder builder){
+    private ListPopup0(Activity context, Builder builder){
         this(context);
         mListView= (ListView) findViewById(R.id.home_popup_list);
         setAdapter(context,builder);
@@ -63,8 +59,8 @@ public class ListPopup extends BasePopupWindow {
             return mItemEventList;
         }
 
-        public ListPopup build(){
-            return new ListPopup(mContext,this);
+        public ListPopup0 build(){
+            return new ListPopup0(mContext,this);
         }
 
     }
@@ -134,18 +130,12 @@ public class ListPopup extends BasePopupWindow {
             if (convertView==null){
                 vh=new ViewHolder();
                 convertView=mInflater.inflate(R.layout.home_item_popup_list,parent,false);
-                vh.tv_deviceName= (TextView) convertView.findViewById(R.id.tv_deviceName);
-                vh.iv_deviceicon = (ImageView) convertView.findViewById(R.id.iv_deviceicon);
+//                vh.mTextView= (TextView) convertView.findViewById(R.id.item_tx);
                 convertView.setTag(vh);
             }else {
                 vh= (ViewHolder) convertView.getTag();
             }
-            List<HomeItem> showLists = SugarRecord.listAll(HomeItem.class);
-            vh.iv_deviceicon.setImageResource(R.drawable.home_images);
-            vh.iv_deviceicon.setImageLevel(showLists.get(position).getPicture());
-
-            vh.tv_deviceName.setText(getItem(position));
-//            vh.iv_deviceicon.setImageLevel(Integer.parseInt(getItem(position)));
+//            vh.mTextView.setText(getItem(position));
             return convertView;
         }
 
@@ -155,8 +145,7 @@ public class ListPopup extends BasePopupWindow {
 
 
         class ViewHolder{
-            public TextView tv_deviceName;
-            public ImageView iv_deviceicon;
+            public TextView mTextView;
         }
     }
 
@@ -232,6 +221,6 @@ public class ListPopup extends BasePopupWindow {
     }
 
     public interface OnListPopupItemClickListener{
-        void onItemClick(int what,int position);
+        void onItemClick(int what, int position);
     }
 }

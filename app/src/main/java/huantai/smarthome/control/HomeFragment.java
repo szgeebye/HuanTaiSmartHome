@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private ImageView iv_person_image;
     private ImageView bt_pop;
     private ListPopup mListPopup;
-    private List<HomeItem> addlists = new ArrayList<HomeItem>();//popList增加条目
+    private List<HomeItem> allLists = new ArrayList<HomeItem>();//popList展示所有数据
 
     public HomeFragment(){
 
@@ -172,8 +172,9 @@ public class HomeFragment extends Fragment implements ControlDataible {
             @Override
             public void onClick(View v) {
 
-                addlists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(1)).list();
-                Log.i("dataPoplist", addlists.toString());
+//                allLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(1)).list();
+                allLists = SugarRecord.listAll(HomeItem.class);
+                Log.i("dataPoplist", allLists.toString());
                 bindPopWindowEvent();
                 mListPopup.showPopupWindow();
             }
@@ -292,28 +293,48 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
     private void bindPopWindowEvent() {
         ListPopup.Builder builder = new ListPopup.Builder(getActivity());
-        for (i = 0;i < addlists.size();i++){
-            builder.addItem(TAG_CREATE,addlists.get(i).getName());
+        for (i = 0;i < allLists.size();i++){
+            builder.addItem(TAG_CREATE,allLists.get(i).getName());
         }
         mListPopup = builder.build();
 
         mListPopup.setOnListPopupItemClickListener(new ListPopup.OnListPopupItemClickListener() {
             @Override
             public void onItemClick(int what,int position) {
-                ToastUtil.ToastShow(getActivity(),""+position);
+//                ToastUtil.ToastShow(getActivity(),""+position);
 
-                        //将该项值的isdelete置为false
-                        HomeItem homeItem = SugarRecord.findById(HomeItem.class, addlists.get(position).getId());
-                        homeItem.setDelete(false);
-                        SugarRecord.save(homeItem);
+//                List<HomeItem> showLists = SugarRecord.listAll(HomeItem.class);
+                HomeItem homeItem = allLists.get(position);
+                if (homeItem.isdelete() == false) {
+                    ToastUtil.ToastShow(getActivity(), "设备已存在，无法添加到主界面");
+                } else if (homeItem.isdelete() == true){
+                    homeItem.setDelete(false);
+                    SugarRecord.save(homeItem);
 
-                        List<HomeItem> addItemLists;
-//                        addItemLists = SugarRecord.listAll(HomeItem.class);
+                    List<HomeItem> addItemLists;
                         addItemLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(0)).list();
                         //更新数据
                         addRemoveNumberedAdapter.setData(addItemLists);
                         //通知适配器更新视图
                         addRemoveNumberedAdapter.notifyDataSetChanged();
+                    ToastUtil.ToastShow(getActivity(),"添加成功");
+                    mListPopup.dismiss();
+                }
+
+
+
+                            //将该项值的isdelete置为false
+//                        HomeItem homeItem = SugarRecord.findById(HomeItem.class, allLists.get(position).getId());
+//                        homeItem.setDelete(false);
+//                        SugarRecord.save(homeItem);
+//
+//                        List<HomeItem> addItemLists;
+////                        addItemLists = SugarRecord.listAll(HomeItem.class);
+//                        addItemLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(0)).list();
+//                        //更新数据
+//                        addRemoveNumberedAdapter.setData(addItemLists);
+//                        //通知适配器更新视图
+//                        addRemoveNumberedAdapter.notifyDataSetChanged();
             }
         });
     }

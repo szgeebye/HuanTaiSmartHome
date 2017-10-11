@@ -1,17 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/home_item_selector"
-    android:layout_width="match_parent"
-    android:layout_height="50dp">
-    <TextView
-        android:id="@+id/item_tx"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="#11a25b"
-        tools:text="this is item 1"
-        />
 
-</RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top">
+
+    <LinearLayout
+        android:id="@+id/ll_deviceaddd"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/llLeft"
+            android:layout_width="60dp"
+            android:layout_height="62dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_deviceicon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/switch1" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_deviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="温度"
+                android:textSize="16sp"
+                android:textColor="#11a25b"/>
+
+        </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:background="@drawable/home_item_selector"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp">-->
+    <!--<TextView-->
+        <!--android:id="@+id/item_tx"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textColor="#11a25b"-->
+        <!--tools:text="this is item 1"-->
+        <!--/>-->
+
+<!--</RelativeLayout>-->
