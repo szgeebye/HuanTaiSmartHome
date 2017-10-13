@@ -19,7 +19,7 @@ public class SwitchInfo {
     //    @Expose
     public String address;//设备Mac地址
     //    @Expose
-    public String bindgiz;//绑定到此Mac地址的板子
+    public String bindgiz;//绑定的网关
     //    @Expose
     public String userid;//用户ID，备用
     //    @Expose

@@ -52,7 +52,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     private DeviceShowAdapter deviceShowAdapter;
     protected static final int DEVICEDELETE = 99;//删除设备
     protected static final int DEVICERENAME = 100;//设备改名
-    protected static final int SENDSUCCESS = 101;//设备改名
+    protected static final int SENDSUCCESS = 101;//数据发送成功
     private TextView tv_rename;
     private ImageView bt_device_add;
     private GizWifiDevice device;//机智云设备
@@ -78,6 +78,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     };
     private LinearLayout ll_add_device;
     private List<SwitchInfo> initItemLists;
+    private IntentFilter updateFilter;
 
 
     public DeviceFragment() {
@@ -100,10 +101,10 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public void onStart() {
         super.onStart();
         initView();
+        initDevice();
         initData();
         initStatusListener();
         initBroadreceive();
-        initDevice();
 
     }
 
@@ -112,7 +113,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 //        switchInfoList = InputPopup.getSwitchLists();
         //初始化显示未删除的设备
         initItemLists = Select.from(SwitchInfo.class)
-                .where(Condition.prop("isdelete").eq(0))
+                .where(Condition.prop("isdelete").eq(0),Condition.prop("bindgiz").eq(device.getMacAddress()))
                 .list();
         deviceShowAdapter = new DeviceShowAdapter(initItemLists, getContext());
         deviceShowAdapter.setData(initItemLists);
@@ -154,25 +155,26 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {
 
                     Intent intent = new Intent(getActivity(),SmartAirConditionActivity.class);
 
-                    intent.putExtra("name", initItemLists.get(position).getName());
-                    intent.putExtra("brand", initItemLists.get(position).getStatus1());
-                    intent.putExtra("temperature", initItemLists.get(position)
+                    intent.putExtra("name", deviceShowAdapter.getSwitchInfoLists().get(position).getName());
+                    intent.putExtra("brand", deviceShowAdapter.getSwitchInfoLists().get(position).getStatus1());
+                    intent.putExtra("temperature", deviceShowAdapter.getSwitchInfoLists().get(position)
                             .getStatus2());
-                    intent.putExtra("mod", initItemLists.get(position).getStatus3());
-                    intent.putExtra("speed", initItemLists.get(position).getStatus4());
-                    intent.putExtra("direction", initItemLists.get(position).getStatus5());
-                    intent.putExtra("opcl", initItemLists.get(position).getFlag());
-                    intent.putExtra("device_id", initItemLists.get(position).getAddress());
-
+                    intent.putExtra("mod", deviceShowAdapter.getSwitchInfoLists().get(position).getStatus3());
+                    intent.putExtra("speed", deviceShowAdapter.getSwitchInfoLists().get(position).getStatus4());
+                    intent.putExtra("direction", deviceShowAdapter.getSwitchInfoLists().get(position).getStatus5());
+                    intent.putExtra("opcl", deviceShowAdapter.getSwitchInfoLists().get(position).getFlag());
+                    intent.putExtra("device_id", deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
+                    Log.i("getAddress",deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                     startActivity(intent);
 
                 } else {
 
-//                address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
+                    address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
                     PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                     //popup初始化事件
                     popupSwitch.init();
@@ -211,8 +213,8 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     public void initBroadreceive() {
 
         //注册界面更新广播接收者
-        IntentFilter filter1 = new IntentFilter(ConstAction.devicenotifyfinishaction);
-        getContext().registerReceiver(notifyfinishbroadcast, filter1);
+        updateFilter = new IntentFilter(ConstAction.devicenotifyfinishaction);
+        getContext().registerReceiver(notifyfinishbroadcast, updateFilter);
 
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
@@ -255,21 +257,31 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         window.setContentView(R.layout.alert_devicefragment_set_device_info);
 
         final EditText et_rename = (EditText) window.findViewById(R.id.et_rename);
+        final EditText et_readdress = (EditText) window.findViewById(R.id.et_readdress);
+
         LinearLayout ll_device_no = (LinearLayout) window.findViewById(R.id.ll_device_no);
         LinearLayout ll_device_sure = (LinearLayout) window.findViewById(R.id.ll_device_sure);
+
+        final List<SwitchInfo> findSwitchList = Select.from(SwitchInfo.class).where(Condition.prop("name").eq(re.getText()),Condition.prop("bindgiz").eq(device.getMacAddress())).list();
+        final SwitchInfo switchInfo = findSwitchList.get(0);
+        et_readdress.setText(switchInfo.getAddress());//显示当前设备Mac地址
 
         ll_device_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<SwitchInfo> findSwitchList = Select.from(SwitchInfo.class).where(Condition.prop("name").eq(re.getText())).list();
-                ;
-                SwitchInfo switchInfo = findSwitchList.get(0);
+
                 switchInfo.setName(String.valueOf(et_rename.getText()));
+                switchInfo.setAddress(String.valueOf(et_readdress.getText()));
                 Log.i("rename", switchInfo.toString());
                 SugarRecord.save(switchInfo);
                 re.setText(et_rename.getText());
-                ToastUtil.ToastShow(getActivity(), "改名成功");
+                ToastUtil.ToastShow(getActivity(), "修改成功");
                 dialog.cancel();
+
+                //通知DeviceShowAdapter更新界面
+                //发送DeviceShowAdapter界面更新广播
+                Intent intent = new Intent(ConstAction.devicenotifyfinishaction);
+                getContext().sendBroadcast(intent);
             }
         });
 
@@ -293,6 +305,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             if (action.equals(ConstAction.switchcontrolaction)) {
                 byte type = intent.getByteExtra("type", (byte) 0xff);
                 byte status = intent.getByteExtra("status", (byte) 0xff);
+                Log.i("addresss", String.valueOf(status));
 //                byte[] statu = intent.getByteArrayExtra("status");
                 try {
                     Log.i("address", address);

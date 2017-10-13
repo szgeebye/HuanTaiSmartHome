@@ -155,7 +155,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
 
   @Override
   public int getItemCount() {
-    return homeItemLists.size()+1;
+    return homeItemLists.size();
   }
 
   //接口暴露监听

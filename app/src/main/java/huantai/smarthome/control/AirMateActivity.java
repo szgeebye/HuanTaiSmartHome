@@ -39,7 +39,7 @@ import huantai.smarthome.utils.ToastUtil;
 
 public class AirMateActivity extends Activity {
 
-    private GizWifiDevice device = null;
+    private GizWifiDevice device;
     //          private DatabaseAdapter dbAdapter;
     private ImageButton ib_pre, ib_ceshi, ib_next;
     private TextView tv_pro, tv_brand;
@@ -113,6 +113,8 @@ public class AirMateActivity extends Activity {
     }
 
     private void initData() {
+        device = MainActivity.commandevice;//获取设备
+
         Intent intent = getIntent();
         min = intent.getIntExtra("min", 0);
         max = intent.getIntExtra("max", 1000);
@@ -279,6 +281,7 @@ public class AirMateActivity extends Activity {
                         switchInfo.setAddress(device_id);
                         switchInfo.setType(5);
                         switchInfo.setPicture(4);
+                        switchInfo.setBindgiz(device.getMacAddress());
                         SugarRecord.save(switchInfo);
 
                         Toast.makeText(getApplicationContext(), "添加完毕",

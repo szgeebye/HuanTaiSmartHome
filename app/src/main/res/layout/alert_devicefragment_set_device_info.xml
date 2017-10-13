@@ -62,9 +62,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray"
+        android:layout_height="60dp"
+        android:background="@color/white"
         android:orientation="vertical" >
+        <EditText
+            android:id="@+id/et_readdress"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:ems="10"
+            android:hint="输入地址码"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_gray_light"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout

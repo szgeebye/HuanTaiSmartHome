@@ -8,11 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.util.List;
 
 import huantai.smarthome.bean.SwitchInfo;
+import huantai.smarthome.control.MainActivity;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.DeviceHolder;
 
@@ -27,6 +31,7 @@ public class DeviceShowAdapter extends BaseAdapter{
     Handler handler = new Handler();
     protected static final int DEVICEDELETE = 99;//删除设备
     protected static final int DEVICERENAME = 100;//设备改名
+    private GizWifiDevice device;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
@@ -47,7 +52,8 @@ public class DeviceShowAdapter extends BaseAdapter{
     }
 
     public void UpdateData() {
-        this.switchInfoList = SugarRecord.listAll(SwitchInfo.class);
+        device = MainActivity.commandevice;
+        this.switchInfoList = Select.from(SwitchInfo.class).where(Condition.prop("bindgiz").eq(device.getMacAddress())).list();
         notifyDataSetChanged();
     }
 

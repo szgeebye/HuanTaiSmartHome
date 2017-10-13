@@ -46,7 +46,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     public static final int PAGE_TWO = 1;
     public static final int PAGE_THREE = 2;
     public static final int PAGE_FOUR = 3;
-
+    public static GizWifiDevice commandevice;//供其他界面调用的device
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     public void initDevice() {
         Intent intent = getIntent();
         device = (GizWifiDevice) intent.getParcelableExtra("GizWifiDevice");
+        commandevice = device;
     }
 
     private void sendJson(String key, Object value) throws JSONException {

@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
 import com.orm.SugarRecord;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.SwitchInfo;
+import huantai.smarthome.control.MainActivity;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ToastUtil;
 import razerdp.basepopup.BasePopupWindow;
@@ -163,6 +165,7 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
     //保存数据到数据库
     private void savaData() {
 
+        GizWifiDevice device = MainActivity.commandevice;
         SwitchInfo switchInfo = new SwitchInfo();
         regex = "^[A-Fa-f0-9]{8}$";
         macAddress = String.valueOf(et_deviceMac.getText());
@@ -171,7 +174,8 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
         if (macAddress.matches(regex) && !deviceName.isEmpty()) {
             switchInfo.setName(deviceName);
             switchInfo.setAddress(macAddress);
-
+            switchInfo.setBindgiz(device.getMacAddress());
+            Log.i("bindgiz",device.getMacAddress());
 
             if (deviceSort.equals(ConstantData.devicename[0])) {//一位开关
                 switchInfo.setType(1);

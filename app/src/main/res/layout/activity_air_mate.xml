@@ -110,7 +110,8 @@
             android:layout_marginBottom="13dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textColor="@color/background_gray"/>
+            android:textColor="@color/black"
+            android:textColorHint="@color/background_gray"/>
 
         <TextView
             android:id="@+id/tv_brand"
