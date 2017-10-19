@@ -81,13 +81,13 @@ public class ControlProtocol {
                     public static final byte COMMAND_DEVIC_REPORT_DATA=0x15;
                     //---------------------------窗帘-------------------------------------------
                     //窗帘开
-                    public final static byte CURTAIN_OPEN=0x10;
+                    public final static byte CURTAIN_OPEN=0x0a;
                     //窗帘停
-                    public final static byte CURTAIN_STOP=0x11;
+                    public final static byte CURTAIN_STOP=0x0b;
                     //窗帘关
-                    public final static byte CURTAIN_CLOSE=0x12;
+                    public final static byte CURTAIN_CLOSE=0x0c;
                     //窗帘转向
-                    public final static byte CURTAIN_REDIC=0x17;
+                    public final static byte CURTAIN_REDIC=0x11;
 
 
           }
