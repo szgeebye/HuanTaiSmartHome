@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.R;
-import huantai.smarthome.utils.CurtainControlUtils;
+import huantai.smarthome.utils.ControlProtocol;
 import razerdp.basepopup.BasePopupWindow;
 
 /**
@@ -27,16 +27,14 @@ public class PopupCurtain extends BasePopupWindow implements View.OnClickListene
     private TextView ok;
     private TextView cancel;
     private Button btn_redic, btn_colse, btn_open, btn_stop;
-    private String address;
     //UI更新广播
-    public static final String curtain_action = "com.device.control.curtain.action";
+//    public static final String curtain_action = "com.device.control.curtain.action";
 
     private Intent intent;
 
-    public PopupCurtain(Activity context,String address) {
+    public PopupCurtain(Activity context) {
         super(context);
         this.context = context;
-        this.address = address;
 
         intent = new Intent(ConstAction.curtaincontrolaction);
         ok = (TextView) findViewById(R.id.ok);
@@ -82,19 +80,19 @@ public class PopupCurtain extends BasePopupWindow implements View.OnClickListene
             case R.id.cancel:
                 break;
             case R.id.btn_show_colse:
-                intent.putExtra("control", CurtainControlUtils.CLOSE);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_CLOSE);
                 context.sendBroadcast(intent);
                 break;
             case R.id.btn_show_open:
-                intent.putExtra("control", CurtainControlUtils.OPEN);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_OPEN);
                 context.sendBroadcast(intent);
                 break;
             case R.id.btn_show_stop:
-                intent.putExtra("control", CurtainControlUtils.STOP);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_STOP);
                 context.sendBroadcast(intent);
                 break;
             case R.id.btn_show_redic:
-                intent.putExtra("control", CurtainControlUtils.REDIC);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_REDIC);
                 context.sendBroadcast(intent);
                 break;
             default:

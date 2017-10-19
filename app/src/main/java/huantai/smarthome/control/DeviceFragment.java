@@ -36,6 +36,7 @@ import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.ControlDataible;
 import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
+import huantai.smarthome.popWindow.PopupCurtain;
 import huantai.smarthome.popWindow.PopupSwitch;
 import huantai.smarthome.utils.ControlUtils;
 import huantai.smarthome.utils.ToastUtil;
@@ -155,6 +156,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
 
                 if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 6) {//如果是空调设备
 
@@ -172,11 +174,13 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     Log.i("getAddress",deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                     startActivity(intent);
 
-                } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {
+                } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {//如果是空调
+                    PopupCurtain popupCurtain = new PopupCurtain(getActivity());
+                    popupCurtain.showPopupWindow();
 
                 } else {
 
-                    address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
+//                    address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
                     PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                     //popup初始化事件
                     popupSwitch.init();
@@ -221,6 +225,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConstAction.switchcontrolaction);
+        filter.addAction(ConstAction.curtaincontrolaction);
         getContext().registerReceiver(receiver, filter);
     }
 
@@ -320,6 +325,14 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                 Message msg = new Message();
                 msg.what = SENDSUCCESS;
                 handler.sendMessage(msg);
+
+            } else if (action.equals(ConstAction.curtaincontrolaction)) {
+                byte CMD = intent.getByteExtra("control", (byte) 0xff);
+                try {
+                    sendJson("kuozhan", ControlUtils.getCurtainInstruction(address,CMD));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
 

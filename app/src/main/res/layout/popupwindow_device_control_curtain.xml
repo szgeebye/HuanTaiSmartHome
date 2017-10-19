@@ -18,7 +18,7 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="15dp"
             android:text="This is title"
-            android:textColor="#3dd1a5"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:visibility="gone"
         />
@@ -28,7 +28,10 @@
             android:id="@+id/ll_curtain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/title"
+            android:layout_toEndOf="@+id/title">
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -38,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btn_show_open"
                     android:layout_width="0dp"
@@ -48,7 +52,9 @@
                     android:gravity="center"
                     android:paddingBottom="16dp"
                     android:paddingTop="16dp"
-                    android:text="开启"/>
+                    android:text="开启"
+                    android:textColor="@color/black"/>
+
                 <View
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
@@ -64,7 +70,8 @@
                     android:gravity="center"
                     android:paddingBottom="16dp"
                     android:paddingTop="16dp"
-                    android:text="停止"/>
+                    android:text="停止"
+                    android:textColor="@color/black"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -85,7 +92,8 @@
                     android:gravity="center"
                     android:paddingBottom="16dp"
                     android:paddingTop="16dp"
-                    android:text="换向"/>
+                    android:text="换向"
+                    android:textColor="@color/black"/>
                 <View
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
@@ -100,7 +108,8 @@
                     android:gravity="center"
                     android:paddingBottom="16dp"
                     android:paddingTop="16dp"
-                    android:text="关闭"/>
+                    android:text="关闭"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
             <View
