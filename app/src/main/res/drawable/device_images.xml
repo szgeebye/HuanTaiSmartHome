@@ -1,8 +1,8 @@
 <level-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:maxLevel="0" android:drawable="@drawable/switch1" />
-    <item android:maxLevel="1" android:drawable="@drawable/switch2" />
-    <item android:maxLevel="2" android:drawable="@drawable/switch3" />
-    <item android:maxLevel="3" android:drawable="@drawable/socket" />
-    <item android:maxLevel="4" android:drawable="@drawable/curtain" />
+    <item android:maxLevel="0" android:drawable="@drawable/ic_one_switch" />
+    <item android:maxLevel="1" android:drawable="@drawable/ic_two_switch" />
+    <item android:maxLevel="2" android:drawable="@drawable/ic_three_switch" />
+    <item android:maxLevel="3" android:drawable="@drawable/ic_socket" />
+    <item android:maxLevel="4" android:drawable="@drawable/ic_curtain" />
     <item android:maxLevel="5" android:drawable="@drawable/device_air" />
 </level-list>

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="25dp"
-        android:background="@drawable/alert_top_shape">
+        android:background="@drawable/alert_shape">
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"

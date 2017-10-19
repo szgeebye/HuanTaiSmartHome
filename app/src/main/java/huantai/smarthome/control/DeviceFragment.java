@@ -38,6 +38,7 @@ import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.PopupCurtain;
 import huantai.smarthome.popWindow.PopupSwitch;
+import huantai.smarthome.utils.ControlProtocol;
 import huantai.smarthome.utils.ControlUtils;
 import huantai.smarthome.utils.ToastUtil;
 import huantai.smarthome.view.SlideListView;
@@ -332,6 +333,23 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     sendJson("kuozhan", ControlUtils.getCurtainInstruction(address,CMD));
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                //状态显示
+                switch (CMD) {
+                    case ControlProtocol.DevCMD.CURTAIN_CLOSE:
+                        ToastUtil.ToastShow(getActivity(),"关闭");
+                        break;
+                    case ControlProtocol.DevCMD.CURTAIN_OPEN:
+                        ToastUtil.ToastShow(getActivity(),"打开");
+                        break;
+                    case ControlProtocol.DevCMD.CURTAIN_STOP:
+                        ToastUtil.ToastShow(getActivity(),"停止");
+                        break;
+                    case ControlProtocol.DevCMD.CURTAIN_REDIC:
+                        ToastUtil.ToastShow(getActivity(),"换向");
+                        break;
+
                 }
 
             }
