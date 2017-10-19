@@ -279,8 +279,8 @@ public class AirMateActivity extends Activity {
                         switchInfo.setStatus1(brand);
                         switchInfo.setStatus2(22);
                         switchInfo.setAddress(device_id);
-                        switchInfo.setType(5);
-                        switchInfo.setPicture(4);
+                        switchInfo.setType(6);
+                        switchInfo.setPicture(5);
                         switchInfo.setBindgiz(device.getMacAddress());
                         SugarRecord.save(switchInfo);
 

@@ -156,7 +156,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {
+                if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 6) {//如果是空调设备
 
                     Intent intent = new Intent(getActivity(),SmartAirConditionActivity.class);
 

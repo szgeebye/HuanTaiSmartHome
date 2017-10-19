@@ -58,7 +58,7 @@ public class DeviceAddActivity extends Activity {
 
     private void initData() {
         addSwitchDeviceLists = new ArrayList<AddSwitchDevice>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
 
             addSwitchDevice = new AddSwitchDevice();
             addSwitchDevice.setDevicesort(ConstantData.devicename[i]);
@@ -80,7 +80,7 @@ public class DeviceAddActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position == 4) {
+                if (position == 5) { //如果是点击的是空调
                     Intent intent = new Intent(DeviceAddActivity.this, AirConBrandActivity.class);
                     startActivity(intent);
                 } else {

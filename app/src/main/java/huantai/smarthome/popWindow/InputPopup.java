@@ -193,6 +193,10 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
                 switchInfo.setType(4);
                 switchInfo.setPicture(3);
 
+            }else if (deviceSort.equals(ConstantData.devicename[4])) {//窗帘
+                switchInfo.setType(5);
+                switchInfo.setPicture(4);
+
             }
             SugarRecord.save(switchInfo);
             switchInfoList = SugarRecord.listAll(SwitchInfo.class);

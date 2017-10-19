@@ -25,7 +25,7 @@ public class SwitchInfo {
     //    @Expose
     public int flag;//留用
     //    @Expose
-    public int type;//开关类型（1：一位开关；2：二位开关；3：三位开关；4：插座；5：空调）
+    public int type;//开关类型（1：一位开关；2：二位开关；3：三位开关；4：插座；5：窗帘；6：空调）
     //    @Expose
     public int picture;//对应图片
     //    @Expose
