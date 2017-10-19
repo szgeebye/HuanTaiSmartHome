@@ -1,5 +1,7 @@
 package huantai.smarthome.utils;
 
+import static huantai.smarthome.utils.ConvertUtil.hexStringToByte;
+
 /**
  * Description: 发送数据Utils
  * Auther：luojie
@@ -44,7 +46,7 @@ public class ControlUtils {
                      * 填充设备ID
                      * @param address 8位16进制字符串（F1F2F3F4）
                      */
-                    byte[] devID = ConvertUtil.hexStringToByte(address);
+                    byte[] devID = hexStringToByte(address);
                     for (int i = 0; i < devID.length; i++) {
                               instruction[i + 1] = devID[i];
                     }
@@ -69,6 +71,27 @@ public class ControlUtils {
 
                     //返回控制命令
                     return instruction;
+          }
+
+
+          /**
+           *
+           * @param address 窗帘的MAC地址
+           * @param CMD 窗帘的控制命令
+           * @return 返回窗帘的控制命令
+           */
+          public static byte[] getCurtainInstruction(String address,byte CMD) {
+                    byte[] bytes = hexStringToByte(address);
+                    //指令模板
+                    byte[] BYTES_BESE = {(byte) 0x30,(byte) 0x30,(byte) 0x30,(byte) 0x30,(byte) 0x30,(byte) 0x00, (byte) 0x04, (byte) 0xE1,(byte) 0x0A,
+                         (byte) 0x00, (byte) 0xEF};
+                    //添加地址
+                    for (int i=0;i<4;i++) {
+                              BYTES_BESE[1+i]=bytes[i];
+                    }
+                    //添加控制命令
+                    BYTES_BESE[8]=CMD;
+                    return BYTES_BESE;
           }
 
 }

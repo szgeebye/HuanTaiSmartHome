@@ -35,6 +35,7 @@ public class ControlProtocol {
 
           //设备CMD
           public class DevCMD {
+                    //---------------------------开关-------------------------------------------
                     //正常控制
                     public static final byte NORMAL=0x00;
                     //一位开关——A——开
@@ -64,6 +65,7 @@ public class ControlProtocol {
                     //插座开
                     public static final byte PLUG_OPEN=0x0d;
                     //插座关
+                    //---------------------------设备-------------------------------------------
                     public static final byte PLUG_CLOSE=0x0e;
                     //添加新设备
                     public static final byte ADD_DEVICE=0x10;
@@ -77,7 +79,19 @@ public class ControlProtocol {
                     public static final byte DEVIC_REPORT_STATU=0x14;
                     //请求设备上报状态
                     public static final byte COMMAND_DEVIC_REPORT_DATA=0x15;
+                    //---------------------------窗帘-------------------------------------------
+                    //窗帘开
+                    public final static byte CURTAIN_OPEN=0x10;
+                    //窗帘停
+                    public final static byte CURTAIN_STOP=0x11;
+                    //窗帘关
+                    public final static byte CURTAIN_CLOSE=0x12;
+                    //窗帘转向
+                    public final static byte CURTAIN_REDIC=0x17;
+
+
           }
+
 
           //指令长度
           public class Instruction_Length{
