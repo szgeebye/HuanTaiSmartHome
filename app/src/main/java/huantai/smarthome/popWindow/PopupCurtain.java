@@ -29,7 +29,7 @@ public class PopupCurtain extends BasePopupWindow implements View.OnClickListene
     private Button btn_redic, btn_colse, btn_open, btn_stop;
     private String address;
     //UI更新广播
-//    public static final String curtain_action = "com.device.control.curtain.action";
+    public static final String curtain_action = "com.device.control.curtain.action";
 
     private Intent intent;
 
