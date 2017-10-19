@@ -172,6 +172,8 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     Log.i("getAddress",deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                     startActivity(intent);
 
+                } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {
+
                 } else {
 
                     address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
