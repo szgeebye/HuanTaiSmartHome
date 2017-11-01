@@ -21,5 +21,7 @@ public class ConstAction {
     public static final String curtaincontrolaction = "com.huantai.smarthome.popupcurtain.curtaincontrolaction.action";
     //发送device广播
     public static final String senddeviceaction = "com.huantai.smarthome.MainActivity.senddeviceaction.action";
+    //发送video广播
+    public static final String sendvideoaction = "com.huantai.smarthome.MainActivity.sendvideoaction.action";
 
 }

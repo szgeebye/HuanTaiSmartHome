@@ -34,4 +34,7 @@ public class GosConstant {
 	public static String Product_Key = "a5c5ddfdf47c4542ac23cd135cf55310";
 	public static String Product_Secret = "031e8d83352a4fa0ba7df040e86dca23";
 
+	// 存储器默认名称
+	public static final String SPF_Name = "set";
+
 }

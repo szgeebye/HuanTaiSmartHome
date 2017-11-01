@@ -9,6 +9,8 @@
         android:targetSdkVersion="22" />
 
 
+
+
     <!-- xutils-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -41,6 +43,7 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
+
     <!-- SDK 使用权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -62,6 +65,18 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <!--摄像头所要权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />-->
+
 
     <application
         android:name=".GosApplication"
@@ -150,6 +165,30 @@
         <activity
             android:name="huantai.smarthome.control.SmartAirConditionActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+
+        <!--摄像头-->
+        <activity
+            android:name="huantai.smarthome.video.AddDeviceConfigSearchActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="huantai.smarthome.video.AddDeviceSetNetworkActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="huantai.smarthome.video.AddDeviceUserEnsure"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="huantai.smarthome.video.AddDeviceUserTipClose"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="huantai.smarthome.video.ResetDeviceActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+
+
 
         <!-- 极光推送 -->
         <!-- Required SDK 核心功能 -->
@@ -275,6 +314,14 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="huantai.smarthome.bean" />
+        <!--摄像头-->
+        <meta-data
+            android:name="PW_CONFIG_SDK_IDENTIFIER_CODE"
+            android:value="6"/>
+        <meta-data
+            android:name="PW_CONFIG_SDK_IDENTIFIER_STRING"
+            android:value="" />
+
 
         <!-- 百度推送 -->
         <!-- push service start -->

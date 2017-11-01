@@ -18,15 +18,32 @@
             android:text="视频"
             android:textColor="@color/text_topbar"
             android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/iv_video_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/device_back"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentTop="true"
+            />
+        <ImageView
+            android:id="@+id/iv_vedio_add"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8sp"
+            android:background="@drawable/home_add_icon"
+            android:gravity="center" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txt_video"
+    <ListView
+        android:id="@+id/lv_vedio_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="呵呵"
-        android:textColor="@color/text_yellow"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
