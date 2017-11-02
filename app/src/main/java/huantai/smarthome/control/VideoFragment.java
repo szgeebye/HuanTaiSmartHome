@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -79,7 +81,28 @@ public class VideoFragment extends Fragment {
         return view;
     }
 
-//    @Override
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        init();
+        System.out.println(1);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println(2);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        init();
+//        initdata();
+
+    }
+
+    //    @Override
 //    public void onStart() {
 //        super.onStart();
 //        init();
@@ -103,8 +126,8 @@ public class VideoFragment extends Fragment {
 //        }
         xmSystem.registerOnMgrConnectChangeListener(onXmMgrConnectStateChangeListener);
         loginMgr();
-        manager = ActivityManager.getInstance();
-        manager.addActivity(getActivity());
+//        manager = ActivityManager.getInstance();
+//        manager.addActivity(getActivity());
     }
 
 //    private BroadcastReceiver videoReceiver = new BroadcastReceiver() {
@@ -118,12 +141,12 @@ public class VideoFragment extends Fragment {
         xmSystem.xmMgrSignin(new OnXmSimpleListener() {
             @Override
             public void onErr(XmErrInfo info) {
-//                Log.v("AAAAA", "MgrSignin fail!");
+                Log.v("loginMgr", info.discribe);
             }
 
             @Override
             public void onSuc() {
-//                Log.v("AAAAA", "MgrSignin suc!");
+                Log.v("loginMgr", "MgrSignin suc!");
             }
         });
     }
@@ -131,7 +154,7 @@ public class VideoFragment extends Fragment {
     OnXmMgrConnectStateChangeListener onXmMgrConnectStateChangeListener = new OnXmMgrConnectStateChangeListener() {
         @Override
         public void onChange(boolean connectState) {
-            Log.v("AAAAA", "OnXmMgrConnectStateChangeListener onChange is " + connectState);
+            Log.i("ConnectState", "OnXmMgrConnectStateChangeListener onChange is " + connectState);
         }
     };
 
@@ -142,7 +165,7 @@ public class VideoFragment extends Fragment {
         mlist = new ArrayList<XmDevice>();
         adapter = new MyAdapter(getContext());
         listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(itemListener);
+        listView.setOnItemClickListener(itemListener);
     }
 
     private void initdata() {
@@ -151,21 +174,6 @@ public class VideoFragment extends Fragment {
 //            account = (XmAccount) getIntent().getExtras().getSerializable("username");
 //        }
         getDevices();
-    }
-
-    private void setEvent() {
-        iv_vedio_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addDevice();
-            }
-        });
-        iv_video_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     private void getDevices() {
@@ -185,6 +193,21 @@ public class VideoFragment extends Fragment {
         });
     }
 
+    private void setEvent() {
+        iv_vedio_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addDevice();
+            }
+        });
+        iv_video_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
     //增加设备
     private void addDevice() {
         Intent in = new Intent(getActivity(), AddDeviceUserEnsure.class);
@@ -196,15 +219,17 @@ public class VideoFragment extends Fragment {
 
 
     //设备选择事件
-//    AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            int cameraId = mlist.get(position).getmCameraId();
-//            Intent in = new Intent(DeviceslistActivity.this, PlayActivity.class);
-//            in.putExtra("cameraId",cameraId);
+    AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            int cameraId = mlist.get(position).getmCameraId();
+            Intent in = new Intent(getActivity(), VideoPlayActivity.class);
+            in.putExtra("cameraId",cameraId);
+            startActivity(in);
 //            startActivityForResult(in,100);
-//        }
-//    };
+//            XmAccount acc = account;
+        }
+    };
 
     class MyAdapter extends BaseAdapter {
 

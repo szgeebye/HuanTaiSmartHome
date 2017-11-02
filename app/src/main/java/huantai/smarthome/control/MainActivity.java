@@ -93,15 +93,33 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        xmSystem.xmLogout();
+    protected void onStart() {
+        super.onStart();
+        loadVideo();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadVideo();
+//        loadVideo();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        xmSystem.xmLogout();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        xmSystem.xmLogout();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        xmSystem.xmLogout();
     }
 
     /**

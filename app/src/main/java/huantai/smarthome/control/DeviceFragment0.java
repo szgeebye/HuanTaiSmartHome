@@ -46,7 +46,7 @@ import huantai.smarthome.view.SlideListView;
 /**
  * Created by Jay on 2015/8/28 0028.
  */
-public class DeviceFragment extends Fragment implements ControlDataible {
+public class DeviceFragment0 extends Fragment implements ControlDataible {
 
     private View view;
     private SlideListView lv_device;
@@ -83,7 +83,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     private IntentFilter updateFilter;
 
 
-    public DeviceFragment() {
+    public DeviceFragment0() {
     }
 
     public void setSwitchInfoList(List<SwitchInfo> switchInfoList) {
@@ -307,10 +307,14 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+//            device = (GizWifiDevice) intent.getParcelableExtra("GizWifiDevice");
+
+//            Intent intent1 = getActivity().getIntent();
             if (action.equals(ConstAction.switchcontrolaction)) {
                 byte type = intent.getByteExtra("type", (byte) 0xff);
                 byte status = intent.getByteExtra("status", (byte) 0xff);
                 Log.i("addresss", String.valueOf(status));
+//                byte[] statu = intent.getByteArrayExtra("status");
                 try {
                     Log.i("address", address);
                     byte[] b = ControlUtils.getSwitchInstruction(type, status, address.toUpperCase());

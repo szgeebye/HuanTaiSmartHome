@@ -187,6 +187,10 @@
             android:name="huantai.smarthome.video.ResetDeviceActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="huantai.smarthome.control.VideoPlayActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
 
 
 

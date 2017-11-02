@@ -14,6 +14,6 @@ public class ResetDeviceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R        .layout.activity_reset);
+        setContentView(R.layout.activity_reset);
     }
 }

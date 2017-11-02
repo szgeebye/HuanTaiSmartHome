@@ -51,7 +51,7 @@ public class AddDeviceConfigSearchActivity extends Activity implements View.OnCl
         wifissid = getIntent().getExtras().getString("wifissid");
         wifipsw = getIntent().getExtras().getString("wifipsw");
      
-        xmBinderManager.beginWork(getApplicationContext(), wifissid, wifipsw);
+        xmBinderManager.beginWork(getApplication(), wifissid, wifipsw);
 
         sp = new spUtil(this);
     }
@@ -86,7 +86,7 @@ public class AddDeviceConfigSearchActivity extends Activity implements View.OnCl
         }
 
         @Override
-        public void addErr(String s, XmErrInfo xmErrInfo) {
+        public void addErr(String uuid,XmErrInfo errinfo) {
             finish();
             Log.v("AAAAA", "addErr");
         }
