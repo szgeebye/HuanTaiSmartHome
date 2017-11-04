@@ -23,5 +23,7 @@ public class ConstAction {
     public static final String senddeviceaction = "com.huantai.smarthome.MainActivity.senddeviceaction.action";
     //发送video广播
     public static final String sendvideoaction = "com.huantai.smarthome.MainActivity.sendvideoaction.action";
+    //弹吐司广播
+    public static final String showtoastaction = "com.huantai.smarthome.MainActivity.showtoastaction.action";
 
 }

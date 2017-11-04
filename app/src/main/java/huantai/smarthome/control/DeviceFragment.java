@@ -29,7 +29,6 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 import huantai.smarthome.adapter.DeviceShowAdapter;
 import huantai.smarthome.bean.ConstAction;
@@ -38,8 +37,6 @@ import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.PopupCurtain;
 import huantai.smarthome.popWindow.PopupSwitch;
-import huantai.smarthome.utils.ControlProtocol;
-import huantai.smarthome.utils.ControlUtils;
 import huantai.smarthome.utils.ToastUtil;
 import huantai.smarthome.view.SlideListView;
 
@@ -58,11 +55,11 @@ public class DeviceFragment extends Fragment implements ControlDataible {
     private TextView tv_rename;
     private ImageView bt_device_add;
     private GizWifiDevice device;//机智云设备
-    private String address;//点击条目的当前地址
+    public static String address;//点击条目的当前地址
 
-    private MyReceiver receiver = null;//自定义广播接收者
-
-    //    private ImageView bt_device_refresh;
+    private LinearLayout ll_add_device;
+    private List<SwitchInfo> initItemLists;
+    private IntentFilter updateFilter;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -78,9 +75,6 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             }
         }
     };
-    private LinearLayout ll_add_device;
-    private List<SwitchInfo> initItemLists;
-    private IntentFilter updateFilter;
 
 
     public DeviceFragment() {
@@ -112,7 +106,6 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     private void initData() {
 
-//        switchInfoList = InputPopup.getSwitchLists();
         //初始化显示未删除的设备
         initItemLists = Select.from(SwitchInfo.class)
                 .where(Condition.prop("isdelete").eq(0),Condition.prop("bindgiz").eq(device.getMacAddress()))
@@ -176,13 +169,12 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     startActivity(intent);
 
                 } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {//如果是空调
-                    PopupCurtain popupCurtain = new PopupCurtain(getActivity());
+                    PopupCurtain popupCurtain = new PopupCurtain(getActivity(),address);
                     popupCurtain.showPopupWindow();
 
                 } else {
 
-//                    address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
-                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
+                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), address);
                     //popup初始化事件
                     popupSwitch.init();
                     popupSwitch.showPopupWindow();
@@ -192,22 +184,10 @@ public class DeviceFragment extends Fragment implements ControlDataible {
             }
         });
 
-//        bt_device_refresh.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                deviceShowAdapter.notifyDataSetChanged();
-//                //发送DeviceShowAdapter界面更新广播
-//                Intent intent = new Intent(ConstAction.devicenotifyfinishaction);
-//                getContext().sendBroadcast(intent);
-//            }
-//        });
-
     }
 
     @Override
     public void initView() {
-//        bt_device_refresh = (ImageView) view.findViewById(R.id.bt_device_refresh);
         ll_add_device = (LinearLayout) view.findViewById(R.id.ll_add_device);
         bt_device_add = (ImageView) view.findViewById(R.id.bt_device_add);
         lv_device = (SlideListView) view.findViewById(R.id.lv_device);
@@ -218,16 +198,9 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     @Override
     public void initBroadreceive() {
-
         //注册界面更新广播接收者
         updateFilter = new IntentFilter(ConstAction.devicenotifyfinishaction);
         getContext().registerReceiver(notifyfinishbroadcast, updateFilter);
-
-        receiver = new MyReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ConstAction.switchcontrolaction);
-        filter.addAction(ConstAction.curtaincontrolaction);
-        getContext().registerReceiver(receiver, filter);
     }
 
     private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
@@ -248,15 +221,15 @@ public class DeviceFragment extends Fragment implements ControlDataible {
 
     @Override
     public void sendJson(String key, Object value) throws JSONException {
-
-        ConcurrentHashMap<String, Object> hashMap = new ConcurrentHashMap<String, Object>();
-        hashMap.put(key, value);
-        device.write(hashMap, 0);
-        Log.i("==", hashMap.toString());
+//        ConcurrentHashMap<String, Object> hashMap = new ConcurrentHashMap<String, Object>();
+//        hashMap.put(key, value);
+//        device.write(hashMap, 0);
+//        Log.i("==", hashMap.toString());
 
 
     }
 
+    //修改设备信息
     private void setDeviceInfo() {
         final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(new EditText(getActivity())).create();
         final TextView re = tv_rename;
@@ -301,57 +274,4 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         });
 
     }
-
-    //自定义广播接收者
-    public class MyReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(ConstAction.switchcontrolaction)) {
-                byte type = intent.getByteExtra("type", (byte) 0xff);
-                byte status = intent.getByteExtra("status", (byte) 0xff);
-                Log.i("addresss", String.valueOf(status));
-                try {
-                    Log.i("address", address);
-                    byte[] b = ControlUtils.getSwitchInstruction(type, status, address.toUpperCase());
-                    sendJson("kuozhan", ControlUtils.getSwitchInstruction(type, status, address.toUpperCase()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Message msg = new Message();
-                msg.what = SENDSUCCESS;
-                handler.sendMessage(msg);
-
-            } else if (action.equals(ConstAction.curtaincontrolaction)) {
-                byte CMD = intent.getByteExtra("control", (byte) 0xff);
-                try {
-                    sendJson("kuozhan", ControlUtils.getCurtainInstruction(address,CMD));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                //状态显示
-                switch (CMD) {
-                    case ControlProtocol.DevCMD.CURTAIN_CLOSE:
-                        ToastUtil.ToastShow(getActivity(),"关闭");
-                        break;
-                    case ControlProtocol.DevCMD.CURTAIN_OPEN:
-                        ToastUtil.ToastShow(getActivity(),"打开");
-                        break;
-                    case ControlProtocol.DevCMD.CURTAIN_STOP:
-                        ToastUtil.ToastShow(getActivity(),"停止");
-                        break;
-                    case ControlProtocol.DevCMD.CURTAIN_REDIC:
-                        ToastUtil.ToastShow(getActivity(),"换向");
-                        break;
-
-                }
-
-            }
-
-        }
-    }
-
-
 }

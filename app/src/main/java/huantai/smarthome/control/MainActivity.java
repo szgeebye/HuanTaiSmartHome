@@ -32,6 +32,7 @@ import huantai.smarthome.adapter.MyFragmentPagerAdapter;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
 import huantai.smarthome.initial.R;
+import huantai.smarthome.utils.ToastUtil;
 import huantai.smarthome.utils.spUtil;
 import huantai.smarthome.view.MainViewPager;
 
@@ -78,6 +79,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         }
     };
     private Intent sendDataBroadcastIntent;
+    private SendDataReceiver receiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +131,14 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
      */
     private void initBroadreceive() {
 
-        IntentFilter intentFilter = new IntentFilter(ConstAction.senddeviceaction);
-        MainActivity.this.registerReceiver(sendDataBroadcast, intentFilter);
+//        IntentFilter intentFilter = new IntentFilter(ConstAction.senddeviceaction);
+//        MainActivity.this.registerReceiver(sendDataBroadcast, intentFilter);
+
+        receiver = new SendDataReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConstAction.senddeviceaction);
+        intentFilter.addAction(ConstAction.showtoastaction);
+        registerReceiver(receiver,intentFilter);
 
         //发送video登陆信息广播
         sendDataBroadcastIntent = new Intent(ConstAction.sendvideoaction);
@@ -141,18 +149,39 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
 
     }
 
-    private BroadcastReceiver sendDataBroadcast = new BroadcastReceiver() {
+    public class SendDataReceiver extends BroadcastReceiver {
+
         @Override
         public void onReceive(Context context, Intent intent) {
-            String key = intent.getStringExtra("kuozhan");
-            byte[] value = intent.getByteArrayExtra("value");
-            try {
-                sendJson(key, value);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            String action = intent.getAction();
+            if (action.equals(ConstAction.senddeviceaction)) {
+//                String key = intent.getStringExtra("kuozhan");
+                String key = "kuozhan";
+                byte[] value = intent.getByteArrayExtra("value");
+                try {
+                    sendJson(key, value);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (action.equals(ConstAction.showtoastaction)) {
+                String message = intent.getStringExtra("message");
+                ToastUtil.ToastShow(MainActivity.this,message);
             }
+
         }
-    };
+    }
+//    private BroadcastReceiver sendDataBroadcast = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String key = intent.getStringExtra("kuozhan");
+//            byte[] value = intent.getByteArrayExtra("value");
+//            try {
+//                sendJson(key, value);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    };
 
     public void initDevice() {
         Intent intent = getIntent();

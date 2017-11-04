@@ -176,7 +176,7 @@ public class DeviceFragment0 extends Fragment implements ControlDataible {
                     startActivity(intent);
 
                 } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {//如果是空调
-                    PopupCurtain popupCurtain = new PopupCurtain(getActivity());
+                    PopupCurtain popupCurtain = new PopupCurtain(getActivity(),address);
                     popupCurtain.showPopupWindow();
 
                 } else {

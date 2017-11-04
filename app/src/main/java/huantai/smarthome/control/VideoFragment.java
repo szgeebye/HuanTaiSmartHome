@@ -44,8 +44,9 @@ public class VideoFragment extends Fragment {
     private ListView listView;
     private MyAdapter adapter;
     private List<XmDevice> mlist;
-
-
+    private View view;
+    private ImageView iv_vedio_add;
+    private ImageView iv_video_back;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -62,9 +63,7 @@ public class VideoFragment extends Fragment {
             }
         }
     };
-    private View view;
-    private ImageView iv_vedio_add;
-    private ImageView iv_video_back;
+    private List<String> nameLists;
 
     public VideoFragment() {
     }
@@ -75,9 +74,8 @@ public class VideoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_video, container, false);
         init();
         initview();
-        initdata();
+        initData();
         setEvent();
-//        loadVideo();
         return view;
     }
 
@@ -97,45 +95,17 @@ public class VideoFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-//        init();
-//        initdata();
 
     }
-
-    //    @Override
-//    public void onStart() {
-//        super.onStart();
-//        init();
-//        initview();
-//        initdata();
-//        setEvent();
-//    }
 
     ActivityManager manager;
 
     private void init() {
         xmSystem = XmSystem.getInstance();
-//        IntentFilter intentFilter = new IntentFilter(ConstAction.sendvideoaction);
-//        getContext().registerReceiver(videoReceiver,intentFilter);
-//        System.out.print(1);
         account = MainActivity.account;
-//        account = (XmAccount) getActivity().getIntent().getExtras().getSerializable("user");
-//        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            account = (XmAccount) bundle.getSerializable("user");
-//        }
         xmSystem.registerOnMgrConnectChangeListener(onXmMgrConnectStateChangeListener);
         loginMgr();
-//        manager = ActivityManager.getInstance();
-//        manager.addActivity(getActivity());
     }
-
-//    private BroadcastReceiver videoReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            account = (XmAccount) intent.getExtras().getSerializable("user");
-//        }
-//    };
 
     private void loginMgr() {
         xmSystem.xmMgrSignin(new OnXmSimpleListener() {
@@ -168,11 +138,7 @@ public class VideoFragment extends Fragment {
         listView.setOnItemClickListener(itemListener);
     }
 
-    private void initdata() {
-//        xmSystem = XmSystem.getInstance();
-//        if(!getIntent().getExtras().getBoolean("isDemo")) {
-//            account = (XmAccount) getIntent().getExtras().getSerializable("username");
-//        }
+    private void initData() {
         getDevices();
     }
 
@@ -191,6 +157,11 @@ public class VideoFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+        nameLists = new ArrayList<>();
+        for (int i = 0;i < mlist.size();i++) {
+            String videoName = "摄像头"+i+"号";
+            nameLists.add(videoName);
+        }
     }
 
     private void setEvent() {
@@ -225,9 +196,8 @@ public class VideoFragment extends Fragment {
             int cameraId = mlist.get(position).getmCameraId();
             Intent in = new Intent(getActivity(), VideoPlayActivity.class);
             in.putExtra("cameraId",cameraId);
+            in.putExtra("device",getActivity().getIntent().getParcelableExtra("GizWifiDevice"));//传网关设备
             startActivity(in);
-//            startActivityForResult(in,100);
-//            XmAccount acc = account;
         }
     };
 
@@ -265,7 +235,8 @@ public class VideoFragment extends Fragment {
             } else {
                 holer = (ViewHoler) convertView.getTag();
             }
-            holer.tv.setText(mlist.get(position).getmName());
+//            holer.tv.setText(mlist.get(position).getmName());
+            holer.tv.setText(nameLists.get(position));
             return convertView;
         }
 
@@ -275,48 +246,4 @@ public class VideoFragment extends Fragment {
     }
 
 
-//    IXmSystem xmSystem;
-//    private void initVideo() {
-//        //初始化爱小屏sdk
-//        xmSystem = XmSystem.getInstance();
-//        xmSystem.xmInit(getContext(), "CN", new OnXmSimpleListener() {
-//            @Override
-//            public void onErr(XmErrInfo info) {
-//                Log.v("AAAAA", "init Fail");
-//            }
-//
-//            @Override
-//            public void onSuc() {
-//                Log.v("AAAAA", "init Suc");
-//            }
-//        });
-//    }
-//    private void loadVideo() {
-//        ((MainActivity) getActivity()).showLoadingDialog();
-//        try {
-//            ((MainActivity) getActivity()).xmSystem.xmLogin("13135367953",
-//                    "chen162858", new OnXmListener<XmAccount>() {
-//                        @Override
-//                        public void onSuc(XmAccount outinfo) {
-//                            ((MainActivity) getActivity()).closeLoadingDialog();
-//                            handler.sendEmptyMessage(1);
-////                            ((MainActivity) getActivity()).sp.setUsername("13135367953");
-//                            System.out.print(1);
-//                            ((MainActivity) getActivity()).loginSuc(outinfo);
-//                        }
-//
-//                        @Override
-//                        public void onErr(XmErrInfo info) {
-//                            ((MainActivity) getActivity()).closeLoadingDialog();
-//                            handler.sendEmptyMessage(2);
-//                        }
-//                    });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            ((MainActivity) getActivity()).closeLoadingDialog();
-//            handler.sendEmptyMessage(2);
-//        } finally {
-//
-//        }
-//    }
 }

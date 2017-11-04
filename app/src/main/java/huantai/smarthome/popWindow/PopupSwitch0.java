@@ -18,7 +18,6 @@ import com.suke.widget.SwitchButton;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ControlProtocol;
-import huantai.smarthome.utils.ControlUtils;
 import razerdp.basepopup.BasePopupWindow;
 
 /**
@@ -26,7 +25,7 @@ import razerdp.basepopup.BasePopupWindow;
  * E-mail：joahluo@163.com
  * Time：2017/7/22 10:03
  */
-public class PopupSwitch extends BasePopupWindow implements View.OnClickListener {
+public class PopupSwitch0 extends BasePopupWindow implements View.OnClickListener {
 
     private int type;
     private Context context;
@@ -45,14 +44,14 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
     private String address;
     //flag防止开关状态更新触发数据发送
     private int flag_ui = 0;
-    private Intent sendDataBroadcastIntent;
-    private Intent sendToastMessageIntent;
 
-    public PopupSwitch(Activity context, int type, String address) {
+    public PopupSwitch0(Activity context, int type, String address) {
         super(context);
         this.context = context;
         this.type = type;
         this.address = address;
+        intent = new Intent(ConstAction.switchcontrolaction);//开关控制广播
+
 
     }
 
@@ -103,9 +102,6 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.device.status.update.action");
         context.registerReceiver(deviceStutasReceiver, filter);
-
-        sendDataBroadcastIntent = new Intent(ConstAction.senddeviceaction);//开关控制广播
-        sendToastMessageIntent = new Intent(ConstAction.showtoastaction);//弹吐司广播
     }
 
     @Override
@@ -193,45 +189,37 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
                     if (isChecked == true) {
                         switch (type) {
                             case 1:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_ONE_A_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_ONE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_ONE, ControlProtocol.DevCMD.SWITCH_ONE_A_OPEN, address));
-
+//                                byte[] b = {0x01,0x02};
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_ONE_A_OPEN);
+//                                intent.putExtra("status", b);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_ONE);
                                 break;
                             case 2:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_A_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO, ControlProtocol.DevCMD.SWITCH_TWO_A_OPEN, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_A_OPEN);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
                                 break;
                             case 3:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_A_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE, ControlProtocol.DevCMD.SWITCH_THREE_A_OPEN, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_A_OPEN);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","开关状态：open");
                     } else {
                         switch (type) {
                             case 1:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_ONE_A_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_ONE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_ONE, ControlProtocol.DevCMD.SWITCH_ONE_A_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_ONE_A_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_ONE);
                                 break;
                             case 2:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_A_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO, ControlProtocol.DevCMD.SWITCH_TWO_A_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_A_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
                                 break;
                             case 3:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_A_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE, ControlProtocol.DevCMD.SWITCH_THREE_A_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_A_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","开关状态：close");
                     }
-                    context.sendBroadcast(sendDataBroadcastIntent);
-                    context.sendBroadcast(sendToastMessageIntent);
+                    context.sendBroadcast(intent);
                 } else {
                     flag_ui--;
                 }
@@ -246,34 +234,27 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
                     if (isChecked == true) {
                         switch (type) {
                             case 2:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_B_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO, ControlProtocol.DevCMD.SWITCH_TWO_B_OPEN, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_B_OPEN);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
                                 break;
                             case 3:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_B_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE, ControlProtocol.DevCMD.SWITCH_THREE_B_OPEN, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_B_OPEN);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","开关状态：open");
                     } else {
                         switch (type) {
                             case 2:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_B_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_TWO, ControlProtocol.DevCMD.SWITCH_TWO_B_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_TWO_B_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_TWO);
                                 break;
                             case 3:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_B_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE, ControlProtocol.DevCMD.SWITCH_THREE_B_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_B_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","开关状态：close");
                     }
-                    context.sendBroadcast(sendDataBroadcastIntent);
-                    context.sendBroadcast(sendToastMessageIntent);
+                    context.sendBroadcast(intent);
                 } else {
                     flag_ui--;
                 }
@@ -288,24 +269,19 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
                     if (isChecked == true) {
                         switch (type) {
                             case 3:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_C_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE, ControlProtocol.DevCMD.SWITCH_THREE_C_OPEN, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_C_OPEN);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","开关状态：open");
                     } else {
                         switch (type) {
                             case 3:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_C_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.SWITCH_THREE, ControlProtocol.DevCMD.SWITCH_THREE_C_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.SWITCH_THREE_C_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.SWITCH_THREE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","开关状态：close");
                     }
-                    context.sendBroadcast(sendDataBroadcastIntent);
-                    context.sendBroadcast(sendToastMessageIntent);
+                    context.sendBroadcast(intent);
                 } else {
                     flag_ui--;
                 }
@@ -320,31 +296,24 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
                     if (isChecked == true) {
                         switch (type) {
                             case 4:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.PLUG_OPEN);
-//                                intent.putExtra("type", ControlProtocol.DevType.PLUG_FIVE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.PLUG_FIVE, ControlProtocol.DevCMD.PLUG_OPEN, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.PLUG_OPEN);
+                                intent.putExtra("type", ControlProtocol.DevType.PLUG_FIVE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","插座状态：open");
                     } else {
                         switch (type) {
                             case 4:
-//                                intent.putExtra("status", ControlProtocol.DevCMD.PLUG_CLOSE);
-//                                intent.putExtra("type", ControlProtocol.DevType.PLUG_FIVE);
-                                sendDataBroadcastIntent.putExtra("value", ControlUtils.getSwitchInstruction(ControlProtocol.DevType.PLUG_FIVE, ControlProtocol.DevCMD.PLUG_CLOSE, address));
+                                intent.putExtra("status", ControlProtocol.DevCMD.PLUG_CLOSE);
+                                intent.putExtra("type", ControlProtocol.DevType.PLUG_FIVE);
                                 break;
                         }
-                        sendToastMessageIntent.putExtra("message","插座状态：close");
                     }
-                    context.sendBroadcast(sendDataBroadcastIntent);
-                    context.sendBroadcast(sendToastMessageIntent);
+                    context.sendBroadcast(intent);
                 } else {
                     flag_ui--;
                 }
             }
         });
-
-
     }
 
     @Override

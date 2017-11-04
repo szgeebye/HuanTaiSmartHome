@@ -315,7 +315,7 @@ public class AirMateActivity extends Activity {
                 case 1:
                     try {
                         //机型信息
-                        sendDataBroadcastIntent.putExtra("kuozhan",KEY_Sendair);
+//                        sendDataBroadcastIntent.putExtra("kuozhan",KEY_Sendair);
                         sendDataBroadcastIntent.putExtra("value",AirControlUtil.getAirControlDate(CONTROL_HEAD, brand));
                         sendBroadcast(sendDataBroadcastIntent);
 //                        sendJson(KEY_Sendair, AirControlUtil.getAirControlDate(CONTROL_HEAD, brand));
@@ -331,7 +331,7 @@ public class AirMateActivity extends Activity {
                         // TODO: 2017/7/7  开启空调异或校验
                         MATE_OPEN[4] = (byte) (MATE_OPEN[0] ^ MATE_OPEN[1] ^ MATE_OPEN[2] ^ MATE_OPEN[3]);
 
-                        sendDataBroadcastIntent.putExtra("kuozhan",KEY_Sendair);
+//                        sendDataBroadcastIntent.putExtra("kuozhan",KEY_Sendair);
                         sendDataBroadcastIntent.putExtra("value",ConvertUtil.byteMerger(CONTROL_HEAD, MATE_OPEN));
                         sendBroadcast(sendDataBroadcastIntent);
 //                        sendJson(KEY_Sendair, ConvertUtil.byteMerger(CONTROL_HEAD, MATE_OPEN));
@@ -346,7 +346,7 @@ public class AirMateActivity extends Activity {
                         // TODO: 2017/7/7  关闭空调异或校验
                         MATE_CLOSE[4] = (byte) (MATE_CLOSE[0] ^ MATE_CLOSE[1] ^ MATE_CLOSE[2] ^ MATE_CLOSE[3]);
 
-                        sendDataBroadcastIntent.putExtra("kuozhan",KEY_Sendair);
+//                        sendDataBroadcastIntent.putExtra("kuozhan",KEY_Sendair);
                         sendDataBroadcastIntent.putExtra("value",ConvertUtil.byteMerger(CONTROL_HEAD, MATE_CLOSE));
                         sendBroadcast(sendDataBroadcastIntent);
 

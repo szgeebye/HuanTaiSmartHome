@@ -14,7 +14,6 @@ import android.widget.TextView;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ControlProtocol;
-import huantai.smarthome.utils.ControlUtils;
 import razerdp.basepopup.BasePopupWindow;
 
 /**
@@ -22,7 +21,7 @@ import razerdp.basepopup.BasePopupWindow;
  * E-mail：joahluo@163.com
  * Time：2017/7/22 10:03
  */
-public class PopupCurtain extends BasePopupWindow implements View.OnClickListener {
+public class PopupCurtain0 extends BasePopupWindow implements View.OnClickListener {
 
     private Context context;
     private TextView ok;
@@ -32,14 +31,10 @@ public class PopupCurtain extends BasePopupWindow implements View.OnClickListene
 //    public static final String curtain_action = "com.device.control.curtain.action";
 
     private Intent intent;
-    private String address;
-    private Intent sendDataBroadcastIntent;
-    private Intent sendToastMessageIntent;
 
-    public PopupCurtain(Activity context,String address) {
+    public PopupCurtain0(Activity context) {
         super(context);
         this.context = context;
-        this.address = address;
 
         intent = new Intent(ConstAction.curtaincontrolaction);
         ok = (TextView) findViewById(R.id.ok);
@@ -48,14 +43,7 @@ public class PopupCurtain extends BasePopupWindow implements View.OnClickListene
         btn_colse = (Button) findViewById(R.id.btn_show_colse);
         btn_open = (Button) findViewById(R.id.btn_show_open);
         btn_stop = (Button) findViewById(R.id.btn_show_stop);
-
-        initBroadcast();
         setViewClickListener(this, ok, cancel, btn_redic, btn_colse, btn_open, btn_stop);
-    }
-
-    private void initBroadcast() {
-        sendDataBroadcastIntent = new Intent(ConstAction.senddeviceaction);//开关控制广播
-        sendToastMessageIntent = new Intent(ConstAction.showtoastaction);//弹吐司广播
     }
 
     @Override
@@ -92,32 +80,20 @@ public class PopupCurtain extends BasePopupWindow implements View.OnClickListene
             case R.id.cancel:
                 break;
             case R.id.btn_show_colse:
-//                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_CLOSE);
-                sendDataBroadcastIntent.putExtra("value",ControlUtils.getCurtainInstruction(address,ControlProtocol.DevCMD.CURTAIN_CLOSE));
-                sendToastMessageIntent.putExtra("message","关闭");
-                context.sendBroadcast(sendDataBroadcastIntent);
-                context.sendBroadcast(sendToastMessageIntent);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_CLOSE);
+                context.sendBroadcast(intent);
                 break;
             case R.id.btn_show_open:
-//                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_OPEN);
-                sendDataBroadcastIntent.putExtra("value",ControlUtils.getCurtainInstruction(address,ControlProtocol.DevCMD.CURTAIN_OPEN));
-                sendToastMessageIntent.putExtra("message","打开");
-                context.sendBroadcast(sendDataBroadcastIntent);
-                context.sendBroadcast(sendToastMessageIntent);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_OPEN);
+                context.sendBroadcast(intent);
                 break;
             case R.id.btn_show_stop:
-//                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_STOP);
-                sendDataBroadcastIntent.putExtra("value",ControlUtils.getCurtainInstruction(address,ControlProtocol.DevCMD.CURTAIN_STOP));
-                sendToastMessageIntent.putExtra("message","停止");
-                context.sendBroadcast(sendDataBroadcastIntent);
-                context.sendBroadcast(sendToastMessageIntent);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_STOP);
+                context.sendBroadcast(intent);
                 break;
             case R.id.btn_show_redic:
-//                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_REDIC);
-                sendDataBroadcastIntent.putExtra("value",ControlUtils.getCurtainInstruction(address,ControlProtocol.DevCMD.CURTAIN_REDIC));
-                sendToastMessageIntent.putExtra("message","换向");
-                context.sendBroadcast(sendDataBroadcastIntent);
-                context.sendBroadcast(sendToastMessageIntent);
+                intent.putExtra("control", ControlProtocol.DevCMD.CURTAIN_REDIC);
+                context.sendBroadcast(intent);
                 break;
             default:
                 break;

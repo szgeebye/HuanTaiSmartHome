@@ -53,7 +53,10 @@ public class DeviceShowAdapter extends BaseAdapter{
 
     public void UpdateData() {
         device = MainActivity.commandevice;
-        this.switchInfoList = Select.from(SwitchInfo.class).where(Condition.prop("bindgiz").eq(device.getMacAddress())).list();
+//        this.switchInfoList = Select.from(SwitchInfo.class).where(Condition.prop("bindgiz").eq(device.getMacAddress())).list();
+        this.switchInfoList = Select.from(SwitchInfo.class)
+                .where(Condition.prop("isdelete").eq(0),Condition.prop("bindgiz").eq(device.getMacAddress()))
+                .list();
         notifyDataSetChanged();
     }
 
@@ -104,11 +107,15 @@ public class DeviceShowAdapter extends BaseAdapter{
             holder.getTv_delete().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SwitchInfo switchInfo = switchInfoList.get(position);
+                    switchInfo.setIsdelete(true);
+                    SugarRecord.save(switchInfo);
+
                     //列出数据库所有设备并标记item上的设备为已删除
-                    List<SwitchInfo> deleteSwitchInfoList = SugarRecord.listAll(SwitchInfo.class);
-                    SwitchInfo deleteSwich = deleteSwitchInfoList.get(position);
-                    deleteSwich.setIsdelete(true);
-                    SugarRecord.save(deleteSwich);
+//                    List<SwitchInfo> deleteSwitchInfoList = SugarRecord.listAll(SwitchInfo.class);
+//                    SwitchInfo deleteSwich = deleteSwitchInfoList.get(position);
+//                    deleteSwich.setIsdelete(true);
+//                    SugarRecord.save(deleteSwich);
 
                     //删除item
                     switchInfoList.remove(position);
