@@ -8,7 +8,7 @@ package huantai.smarthome.bean;
 public class ConstantData {
     //设备名称
     public static final String name[] = {
-            "温度", "湿度", "烟雾", "燃气", "门", "人体感应", "LED灯", "空调", "报警"
+            "温度", "湿度", "烟雾", "燃气", "门", "人体感应", "LED灯", "空调", "报警记录"
     };
 
     //设备值

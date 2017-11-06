@@ -191,7 +191,11 @@
             android:name="huantai.smarthome.control.VideoPlayActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             ></activity>
-
+        <!--报警记录-->
+        <activity
+            android:name="huantai.smarthome.control.ActivityAlertmes"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
 
 
         <!-- 极光推送 -->

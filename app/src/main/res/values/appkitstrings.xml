@@ -441,6 +441,8 @@
     <string name="device_alert">修改设备名称</string>
     <string name="device_add">添加设备</string>
     <string name="device_scan">扫描二维码添加设备</string>
+    <string name="device_nomal">正常</string>
+    <string name="device_change">状态改变</string>
     <!--popupString-->
     <string name="device_name_input">请输入设备名</string>
     <string name="device_mac_input">请输入设备地址（8位）</string>

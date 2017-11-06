@@ -91,7 +91,6 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         initDevice();
         initBroadreceive();
 
-//        initVideo();
     }
 
     @Override
@@ -125,7 +124,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     }
 
     /**
-     * description:注册震动广播
+     * description:注册广播
      * auther：xuewenliao
      * time：2017/9/10 17:02
      */
@@ -138,14 +137,12 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConstAction.senddeviceaction);
         intentFilter.addAction(ConstAction.showtoastaction);
+        intentFilter.addAction(ConstAction.vibratoraction);
         registerReceiver(receiver,intentFilter);
 
         //发送video登陆信息广播
         sendDataBroadcastIntent = new Intent(ConstAction.sendvideoaction);
 
-        //接收震动广播
-        IntentFilter filter = new IntentFilter(ConstAction.vibratoraction);
-        registerReceiver(vibratorBroadcast, filter);
 
     }
 
@@ -155,7 +152,6 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(ConstAction.senddeviceaction)) {
-//                String key = intent.getStringExtra("kuozhan");
                 String key = "kuozhan";
                 byte[] value = intent.getByteArrayExtra("value");
                 try {
@@ -166,22 +162,14 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
             } else if (action.equals(ConstAction.showtoastaction)) {
                 String message = intent.getStringExtra("message");
                 ToastUtil.ToastShow(MainActivity.this,message);
+            } else if (action.equals(ConstAction.vibratoraction)) {
+                Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+                long[] pattern = {800, 30, 10, 30};
+                vibrator.vibrate(pattern, -1);
             }
 
         }
     }
-//    private BroadcastReceiver sendDataBroadcast = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            String key = intent.getStringExtra("kuozhan");
-//            byte[] value = intent.getByteArrayExtra("value");
-//            try {
-//                sendJson(key, value);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    };
 
     public void initDevice() {
         Intent intent = getIntent();
@@ -197,15 +185,6 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         // Log.i("Apptest", hashMap.toString());
     }
 
-    //实现广播内容
-    private BroadcastReceiver vibratorBroadcast = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
-            long[] pattern = {800, 30, 10, 30};
-            vibrator.vibrate(pattern, -1);
-        }
-    };
 
     private void bindViews() {
         rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
@@ -287,9 +266,6 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
                         public void onSuc(XmAccount outinfo) {
                             closeLoadingDialog();
                             handler.sendEmptyMessage(1);
-//                            MainActivity.this.sp.setUsername("13135367953");
-//                            sendDataBroadcastIntent.putExtra("user", outinfo);
-//                            sendBroadcast(sendDataBroadcastIntent);
                             account = outinfo;
                             System.out.print(1);
 //                            loginSuc(outinfo);
@@ -325,20 +301,6 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
                 Log.v("AAAAA", "init Suc");
             }
         });
-    }
-
-    //登陆成功后跳转添加摄像头设备界面
-    public void loginSuc(XmAccount info) {
-        //登录成功的操作MainContentActivity.class
-//        Intent intent = new Intent(MainActivity.this, VideoFragment.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("user", info);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//        System.out.print(1);
-//        sendDataBroadcastIntent.putExtra("user", info);
-//        sendBroadcast(sendDataBroadcastIntent);
-        //finish();
     }
 
     ProgressDialog dialog;

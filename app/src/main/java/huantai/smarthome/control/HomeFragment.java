@@ -59,9 +59,16 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private ListPopup mListPopup;
     private List<HomeItem> allLists = new ArrayList<HomeItem>();//popList展示所有数据
 
-    public HomeFragment(){
+    public static final String DEVICENOMAL = "正常";
+    public static final String DEVICECHANGE = "状态改变";
+    public static final String ALERT = "可查看";
 
-    };
+    public HomeFragment() {
+
+    }
+
+    ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -210,31 +217,72 @@ public class HomeFragment extends Fragment implements ControlDataible {
                         //6、7为“开关”和“空调”没有接收的数据，“扩展”占一个字段（总共9个字段）
                         for (int i = 0; i < map.size(); i++) {
                             HomeItem item = new HomeItem();
+                            switch (i) {
+
+
+                                case 6:
+                                case 7:continue;
+                                case 8:
+                                    //获取报警数据
+                                    content = ALERT;//获取温度
+//                                    content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
+                                    //添加名称
+                                    item.setName(ConstantData.name[i]);
+                                    //添加数据
+                                    item.setContent(content);
+                                    //添加图片
+                                    item.setPicture(i);
+                                    SugarRecord.save(item);
+
+                                    break;
+                                case 2:
+                                case 3:
+                                case 4:
+                                case 5:
+//                                    if ("true".equals((String) map.get(ConstantData.key[i]))) {
+//                                        //如果报警
+////                                        ConstantData.name[i];
+//                                    }
+                                case 0:
+                                case 1:
+                                    //获取温度
+                                    content = String.valueOf(map.get(ConstantData.key[i]));
+                                    //添加名称
+                                    item.setName(ConstantData.name[i]);
+                                    //添加数据
+                                    item.setContent(content);
+                                    //添加图片
+                                    item.setPicture(i);
+                                    SugarRecord.save(item);
+                                    break;
+
+
+                            }
                             //LED和空调字段暂时不接数据
-                            if (i == 6 || i == 7) {
-                                continue;
-                            }
-                            if (i == 8) {
-                                //获取报警数据
-                                content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
-                                //添加名称
-                                item.setName(ConstantData.name[i]);
-                                //添加数据
-                                item.setContent(content);
-                                //添加图片
-                                item.setPicture(i);
-                                SugarRecord.save(item);
-                            } else {
-                                //获取温度
-                                content = String.valueOf(map.get(ConstantData.key[i]));
-                                //添加名称
-                                item.setName(ConstantData.name[i]);
-                                //添加数据
-                                item.setContent(content);
-                                //添加图片
-                                item.setPicture(i);
-                                SugarRecord.save(item);
-                            }
+//                            if (i == 6 || i == 7) {
+//                                continue;
+//                            }
+//                            if (i == 8) {
+//                                //获取报警数据
+//                                content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取温度
+//                                //添加名称
+//                                item.setName(ConstantData.name[i]);
+//                                //添加数据
+//                                item.setContent(content);
+//                                //添加图片
+//                                item.setPicture(i);
+//                                SugarRecord.save(item);
+//                            } else {
+//                                //获取温度
+//                                content = String.valueOf(map.get(ConstantData.key[i]));
+//                                //添加名称
+//                                item.setName(ConstantData.name[i]);
+//                                //添加数据
+//                                item.setContent(content);
+//                                //添加图片
+//                                item.setPicture(i);
+//                                SugarRecord.save(item);
+//                            }
                         }
 
                     } else {
@@ -247,12 +295,27 @@ public class HomeFragment extends Fragment implements ControlDataible {
                             if (i == 6 || i == 7) {
                                 continue;
                             }
+
+
                             for (HomeItem homeItem : homeItemLists) {
                                 if (homeItem.getName().equals(ConstantData.name[i])) {
                                     if (i == 8) {
-                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取警报
-                                    } else {
-                                        content = String.valueOf(map.get(ConstantData.key[i]));//获取温度
+                                        content = ALERT;//获取警报
+//                                        content = String.valueOf(alertmap.get(ConstantData.key[i]));//获取警报
+//                                        continue;
+                                    } else{
+
+                                        if ("true".equals(String.valueOf(map.get(ConstantData.key[i])))) {
+//                                            content = "状态改变";
+                                            content = DEVICECHANGE;
+
+
+                                        } else if ("false".equals(String.valueOf(map.get(ConstantData.key[i])))) {
+                                            content = DEVICENOMAL;
+//                                            content = "正常";
+                                        } else {
+                                            content = String.valueOf(map.get(ConstantData.key[i]));//获取除报警外数据
+                                        }
 
                                     }
                                     homeItem.setContent(content);
@@ -285,45 +348,44 @@ public class HomeFragment extends Fragment implements ControlDataible {
 
 
     public static final int TAG_CREATE = 0x01;
-//    List<Integer> tag = new ArrayList<Integer>();
+    //    List<Integer> tag = new ArrayList<Integer>();
     Integer[] tag;
-//    public static final int TAG_DELETE = 0x02;
+    //    public static final int TAG_DELETE = 0x02;
 //    public static final int TAG_MODIFY = 0x03;
     int i;
 
     private void bindPopWindowEvent() {
         ListPopup.Builder builder = new ListPopup.Builder(getActivity());
-        for (i = 0;i < allLists.size();i++){
-            builder.addItem(TAG_CREATE,allLists.get(i).getName());
+        for (i = 0; i < allLists.size(); i++) {
+            builder.addItem(TAG_CREATE, allLists.get(i).getName());
         }
         mListPopup = builder.build();
 
         mListPopup.setOnListPopupItemClickListener(new ListPopup.OnListPopupItemClickListener() {
             @Override
-            public void onItemClick(int what,int position) {
+            public void onItemClick(int what, int position) {
 //                ToastUtil.ToastShow(getActivity(),""+position);
 
 //                List<HomeItem> showLists = SugarRecord.listAll(HomeItem.class);
                 HomeItem homeItem = allLists.get(position);
                 if (homeItem.isdelete() == false) {
                     ToastUtil.ToastShow(getActivity(), "设备已存在，无法添加到主界面");
-                } else if (homeItem.isdelete() == true){
+                } else if (homeItem.isdelete() == true) {
                     homeItem.setDelete(false);
                     SugarRecord.save(homeItem);
 
                     List<HomeItem> addItemLists;
-                        addItemLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(0)).list();
-                        //更新数据
-                        addRemoveNumberedAdapter.setData(addItemLists);
-                        //通知适配器更新视图
-                        addRemoveNumberedAdapter.notifyDataSetChanged();
-                    ToastUtil.ToastShow(getActivity(),"添加成功");
+                    addItemLists = Select.from(HomeItem.class).where(Condition.prop("isdelete").eq(0)).list();
+                    //更新数据
+                    addRemoveNumberedAdapter.setData(addItemLists);
+                    //通知适配器更新视图
+                    addRemoveNumberedAdapter.notifyDataSetChanged();
+                    ToastUtil.ToastShow(getActivity(), "添加成功");
                     mListPopup.dismiss();
                 }
 
 
-
-                            //将该项值的isdelete置为false
+                //将该项值的isdelete置为false
 //                        HomeItem homeItem = SugarRecord.findById(HomeItem.class, allLists.get(position).getId());
 //                        homeItem.setDelete(false);
 //                        SugarRecord.save(homeItem);

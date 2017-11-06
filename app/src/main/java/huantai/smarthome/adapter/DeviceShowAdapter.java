@@ -104,6 +104,7 @@ public class DeviceShowAdapter extends BaseAdapter{
                     handler.sendMessage(msg);
                 }
             });
+
             holder.getTv_delete().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
