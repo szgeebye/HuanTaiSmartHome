@@ -11,6 +11,11 @@ public class Alertinfo {
     public String alertcontent;//报警记录内容
     public String alerttime;//报警记录时间
 
+    public Alertinfo(){
+
+    }
+
+
     public Alertinfo(String alertcontent, String alerttime) {
         this.alertcontent = alertcontent;
         this.alerttime = alerttime;

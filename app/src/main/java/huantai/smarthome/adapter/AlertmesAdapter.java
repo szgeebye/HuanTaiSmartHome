@@ -1,25 +1,29 @@
 package huantai.smarthome.adapter;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import huantai.smarthome.bean.Alertinfo;
+import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.R;
 
 
 public class AlertmesAdapter extends BaseAdapter {
 	private Context mContext;
-	private ArrayList<Alertinfo> mList;
+	private List<Alertinfo> mList;
 	
 	
 	
-	public AlertmesAdapter(Context mContext, ArrayList<Alertinfo> mList) {
+	public AlertmesAdapter(Context mContext, List<Alertinfo> mList) {
 		super();
 		this.mContext = mContext;
 		this.mList = mList;
@@ -61,9 +65,24 @@ public class AlertmesAdapter extends BaseAdapter {
 		viewHolder.alert_name.setText(mList.get(position).getAlertcontent());
 		
 		viewHolder.alert_time.setText(mList.get(position).getAlerttime());
-		
+
+
+		//注册界面更新广播接收者
+		IntentFilter filter = new IntentFilter(ConstAction.alertnotifyaction);
+		mContext.registerReceiver(notifyfinishbroadcast, filter);
+
 		return convertView;
 	}
+
+	//实现界面更新广播内容
+	private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			//刷新数据
+			notifyDataSetChanged();
+		}
+	};
+
 
 	class ViewHolder{
 		private TextView alert_name;

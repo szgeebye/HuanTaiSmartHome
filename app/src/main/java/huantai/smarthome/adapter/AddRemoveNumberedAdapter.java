@@ -16,6 +16,7 @@ import java.util.List;
 
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.bean.HomeItem;
+import huantai.smarthome.control.ActivityAlertmes;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.TextViewHolder;
 
@@ -112,6 +113,10 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
                 @Override
                 public void onClick(View v) {
                     // TODO: 2017/11/5 tag用来判断item点击的位置，若为最后一个跳转到报警表。
+                    if ((int)v.getTag() == homeItemLists.size()-1) {
+                        Intent intent = new Intent(context, ActivityAlertmes.class);
+                        context.startActivity(intent);
+                    }
                     System.out.println("click"+(int)v.getTag());
                 }
             });
