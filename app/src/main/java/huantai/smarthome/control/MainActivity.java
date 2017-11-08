@@ -28,6 +28,7 @@ import org.json.JSONException;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import huantai.smarthome.Service.ServiceNotify;
 import huantai.smarthome.adapter.MyFragmentPagerAdapter;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
@@ -80,6 +81,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     };
     private Intent sendDataBroadcastIntent;
     private SendDataReceiver receiver = null;
+    private StartServiceThread startServiceThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,8 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     @Override
     protected void onStart() {
         super.onStart();
+        startServiceThread = new StartServiceThread();
+        startServiceThread.start();
         loadVideo();
     }
 
@@ -120,9 +124,27 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Intent reIntent = new Intent(this, ServiceNotify.class);
+        stopService(reIntent);
         xmSystem.xmLogout();
     }
 
+    //开启报警通知服务
+    private class StartServiceThread extends Thread {
+        @Override
+        public void run() {
+            startservice();
+        }
+
+
+   void startservice() {
+       Intent intent = new Intent(MainActivity.this,ServiceNotify.class);
+       Bundle bundle = new Bundle();
+       bundle.putParcelable("GizWifiDevice", (GizWifiDevice) device);
+       intent.putExtras(bundle);
+       startService(intent);
+    }
+}
     /**
      * description:注册广播
      * auther：xuewenliao

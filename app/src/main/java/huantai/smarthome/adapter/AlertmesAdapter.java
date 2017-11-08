@@ -10,17 +10,23 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gizwits.gizwifisdk.api.GizWifiDevice;
+import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
 import java.util.List;
 
 import huantai.smarthome.bean.Alertinfo;
 import huantai.smarthome.bean.ConstAction;
+import huantai.smarthome.control.MainActivity;
 import huantai.smarthome.initial.R;
 
 
 public class AlertmesAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<Alertinfo> mList;
-	
+	private GizWifiDevice device;
 	
 	
 	public AlertmesAdapter(Context mContext, List<Alertinfo> mList) {
@@ -29,6 +35,29 @@ public class AlertmesAdapter extends BaseAdapter {
 		this.mList = mList;
 	}
 
+	public void UpdateData() {
+		device = MainActivity.commandevice;
+//        this.switchInfoList = Select.from(SwitchInfo.class).where(Condition.prop("bindgiz").eq(device.getMacAddress())).list();
+//		this.mList = Select.from(Alertinfo.class)
+//				.where(Condition.prop("bindgiz").eq(device.getMacAddress()))
+//				.list();
+		this.mList = Select.from(Alertinfo.class)
+				.where(Condition.prop("bindgiz").eq(device.getMacAddress()))
+				.list();
+		notifyDataSetChanged();
+	}
+
+	public boolean DeleteItem(int position) {
+		Alertinfo alertinfo = mList.get(position);
+		boolean delete = SugarRecord.delete(alertinfo);
+		return delete;
+	}
+
+	public int DeleteALl() {
+//		Alertinfo alertinfo = mList.get(position);
+		int delete = SugarRecord.deleteAll(Alertinfo.class);
+		return delete;
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -79,7 +108,8 @@ public class AlertmesAdapter extends BaseAdapter {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			//刷新数据
-			notifyDataSetChanged();
+			UpdateData();
+//			notifyDataSetChanged();
 		}
 	};
 

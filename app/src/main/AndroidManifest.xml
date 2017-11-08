@@ -268,6 +268,13 @@
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false"></service>
+
+        <!--报警通知-->
+        <service
+            android:name="huantai.smarthome.Service.ServiceNotify"
+          ></service>
+
+
         <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 

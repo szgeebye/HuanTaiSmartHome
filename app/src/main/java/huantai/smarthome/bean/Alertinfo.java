@@ -10,15 +10,34 @@ public class Alertinfo {
 
     public String alertcontent;//报警记录内容
     public String alerttime;//报警记录时间
-
+    public String bindgiz;//绑定的网关
+    public Long id;
     public Alertinfo(){
 
     }
 
 
-    public Alertinfo(String alertcontent, String alerttime) {
+    public Alertinfo(String alertcontent, String alerttime, String bindgiz, Long id) {
         this.alertcontent = alertcontent;
         this.alerttime = alerttime;
+        this.bindgiz = bindgiz;
+        this.id = id;
+    }
+
+    public String getBindgiz() {
+        return bindgiz;
+    }
+
+    public void setBindgiz(String bindgiz) {
+        this.bindgiz = bindgiz;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAlertcontent() {
@@ -42,6 +61,8 @@ public class Alertinfo {
         return "Alertinfo{" +
                 "alertcontent='" + alertcontent + '\'' +
                 ", alerttime='" + alerttime + '\'' +
+                ", bindgiz='" + bindgiz + '\'' +
+                ", id=" + id +
                 '}';
     }
 }
