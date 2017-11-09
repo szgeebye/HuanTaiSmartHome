@@ -27,5 +27,9 @@ public class ConstAction {
     public static final String showtoastaction = "com.huantai.smarthome.MainActivity.showtoastaction.action";
     //报警界面更新广播
     public static final String alertnotifyaction = "com.huantai.smarthome.alertmesadaper.alertnotifyaction.action";
+    //服务发数据广播
+    public static final String servicedatanotifyaction = "huantai.smarthome.Service.ServiceNotify.alertnotifyaction.action";
+    //服务发数据广播
+    public static final String exitappnotifyaction = "huantai.smarthome.control.MineFragment.exitappnotifyaction.action";
 
 }

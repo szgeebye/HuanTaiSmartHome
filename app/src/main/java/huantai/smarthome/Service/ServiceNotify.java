@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -17,7 +19,10 @@ import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import huantai.smarthome.bean.ConstAction;
+import huantai.smarthome.initial.CommonModule.GosConstant;
 import huantai.smarthome.initial.R;
+import huantai.smarthome.utils.SerializableMap;
 
 /**
  * Created by lj_xwl on 2017/11/8.
@@ -30,6 +35,7 @@ public class ServiceNotify extends Service {
     private static final String KEY_Body = "body1";
     private ConcurrentHashMap<String, Object> deviceMap;
     private GizWifiDevice device;
+    private SharedPreferences spf;
     /**
      * 各项数据点
      */
@@ -44,14 +50,14 @@ public class ServiceNotify extends Service {
     private Intent dataIntent;
     protected static final int RESP = 1;
 
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case RESP:
                     if (deviceMap != null) {
-                        for (String datakey:deviceMap.keySet()){
+                        for (String datakey : deviceMap.keySet()) {
                             switch (datakey) {
                                 case KEY_Gate:
                                     gatestua = (boolean) deviceMap.get(KEY_Gate);
@@ -75,35 +81,47 @@ public class ServiceNotify extends Service {
     };
 
     private void showNotify() {
-        if (lastgasstua != gasstua) {
-            lastgasstua = gasstua;
-            if (lastgasstua) {
-                notifbulid("燃气报警器发出警报!!", R.drawable.ic_gas_a, 0x010,
-                        "燃气");
-            }
-        }
-        if (lastgatestua != gatestua) {
-            lastgatestua = gatestua;
-            if (lastgatestua) {
-                notifbulid("门磁触发了!!", R.drawable.ic_gate_a, 0x011, "门磁");
-            }
-        }
+        if (spf.getBoolean("issafe", true)) {
 
-        if (lastbodystua != bodystua) {
-            lastbodystua = bodystua;
-            if (lastbodystua) {
-                notifbulid("人体红外移动监测到有人经过!!", R.drawable.ic_body_a,
-                        0x012, "人体移动");
+            if (lastgasstua != gasstua) {
+                lastgasstua = gasstua;
+                if (lastgasstua) {
+                    notifbulid("燃气报警器发出警报!!", R.drawable.ic_gas_a, 0x010,
+                            "燃气");
+                }
             }
-        }
+            if (lastgatestua != gatestua) {
+                lastgatestua = gatestua;
+                if (lastgatestua) {
+                    notifbulid("门磁触发了!!", R.drawable.ic_gate_a, 0x011, "门磁");
+                }
+            }
+
+            if (lastbodystua != bodystua) {
+                lastbodystua = bodystua;
+                if (lastbodystua) {
+                    notifbulid("人体红外移动监测到有人经过!!", R.drawable.ic_body_a,
+                            0x012, "人体移动");
+                }
+            }
 
 
-        if (lastsmokestua != smokestua) {
-            lastsmokestua = smokestua;
-            if (lastsmokestua) {
-                notifbulid("烟雾报警器发出警报!!", R.drawable.ic_smoke_a, 0x013,
-                        "烟雾");
+            if (lastsmokestua != smokestua) {
+                lastsmokestua = smokestua;
+                if (lastsmokestua) {
+                    notifbulid("烟雾报警器发出警报!!", R.drawable.ic_smoke_a, 0x013,
+                            "烟雾");
+                }
             }
+        } else {
+            gasstua = false;
+            smokestua = false;
+            gatestua = false;
+            bodystua = false;
+            lastgasstua = false;
+            lastsmokestua = false;
+            lastgatestua = false;
+            lastbodystua = false;
         }
     }
 
@@ -115,37 +133,12 @@ public class ServiceNotify extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        initData();
+        spf = getSharedPreferences(GosConstant.SPF_Name, Context.MODE_PRIVATE);
         dataIntent = intent;
         ConnetGIZThread initThread = new ConnetGIZThread();
         initThread.start();
         return START_REDELIVER_INTENT;
     }
-
-
-
-    // 设备监听者及相关回调
-    protected GizWifiDeviceListener gizWifiDeviceListener = new GizWifiDeviceListener() {
-
-        /** 用于设备状态 */
-        public void didReceiveData(GizWifiErrorCode arg0, GizWifiDevice arg1,
-                                   ConcurrentHashMap<String, Object> arg2, int arg3) {
-            ServiceNotify.this.didReceiveData(arg0, arg1, arg2, arg3);
-        }
-
-    };
-
-    private void didReceiveData(GizWifiErrorCode result, GizWifiDevice arg1,
-                                ConcurrentHashMap<String, Object> dataMap, int arg3) {
-        if (dataMap.get("data") != null) {
-            deviceMap = (ConcurrentHashMap<String, Object>) dataMap.get("data");
-            Message msg = new Message();
-            msg.obj = deviceMap;
-            msg.what = RESP;
-            handler.sendMessage(msg);
-        }
-    }
-
 
     //连接机智云
     private class ConnetGIZThread extends Thread {
@@ -163,34 +156,44 @@ public class ServiceNotify extends Service {
         device.setListener(gizWifiDeviceListener);
     }
 
-//    private GizWifiDeviceListener gizWifideviceMapener = new GizWifiDeviceListener(){
-//        @Override
-//        public void didReceiveData(GizWifiErrorCode result, GizWifiDevice device, ConcurrentHashMap<String, Object> dataMap, int sn) {
-//            if (dataMap.get("data") != null) {
-//                deviceMap = (ConcurrentHashMap<String, Object>) dataMap.get("data");
-//                Message msg = new Message();
-//                msg.obj = deviceMap;
-//                msg.what = RESP;
-//                handler.sendMessage(msg);
-//            }
-//        }
-//    };
-    private void initData() {
+    private GizWifiDeviceListener gizWifiDeviceListener = new GizWifiDeviceListener() {
+        @Override
+        public void didReceiveData(GizWifiErrorCode result, GizWifiDevice device, ConcurrentHashMap<String, Object> dataMap, int sn) {
+            if (dataMap.get("data") != null) {
+                deviceMap = (ConcurrentHashMap<String, Object>) dataMap.get("data");
+                Message msg = new Message();
+                msg.obj = deviceMap;
+                msg.what = RESP;
+                handler.sendMessage(msg);
+                sendData();
+            }
+        }
+    };
+
+    private void sendData() {
+        Intent intent = new Intent(ConstAction.servicedatanotifyaction);
+        SerializableMap serializableMap = new SerializableMap();
+        serializableMap.setMap(deviceMap);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("deviceMap", serializableMap);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
 
     }
+
     private void notifbulid(String mes, int icon, int id, String mestit) {
 //        if (spf.getBoolean("issafe", true)) {
-            NotificationCompat.Builder bulider = new NotificationCompat.Builder(
-                    this);
-            bulider.setSmallIcon(icon);
-            bulider.setContentTitle("接收到" + mestit + "报警消息");
-            bulider.setTicker("接到环泰智能家居提示消息");
-            bulider.setDefaults(Notification.DEFAULT_ALL);
-            bulider.setAutoCancel(true);
-            bulider.setContentText(mes);
-            Notification notification = bulider.build();
-            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.notify(id, notification);
+        NotificationCompat.Builder bulider = new NotificationCompat.Builder(
+                this);
+        bulider.setSmallIcon(icon);
+        bulider.setContentTitle("接收到" + mestit + "报警消息");
+        bulider.setTicker("接到环泰智能家居提示消息");
+        bulider.setDefaults(Notification.DEFAULT_ALL);
+        bulider.setAutoCancel(true);
+        bulider.setContentText(mes);
+        Notification notification = bulider.build();
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(id, notification);
 //        }
     }
 

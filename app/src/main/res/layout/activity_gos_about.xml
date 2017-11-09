@@ -20,7 +20,14 @@
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"
             android:contentDescription=""
-            android:src="@drawable/about_icon" />
+            android:src="@drawable/logo" />
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:text="环泰智能家居"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
 
         <LinearLayout
             android:layout_width="match_parent"

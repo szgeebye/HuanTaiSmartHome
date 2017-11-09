@@ -1,20 +1,11 @@
 package huantai.smarthome.initial.CommonModule;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
-import huantai.smarthome.initial.MessageCenter;
-import huantai.smarthome.initial.R;
-
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.PermissionListener;
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
@@ -33,8 +24,20 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gizwits.gizwifisdk.enumration.GizWifiErrorCode;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
+
 import org.xutils.BuildConfig;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import huantai.smarthome.bean.ConstAction;
+import huantai.smarthome.initial.MessageCenter;
+import huantai.smarthome.initial.R;
+import huantai.smarthome.utils.ExitAppReceiver;
 
 public class GosBaseActivity extends FragmentActivity {
 
@@ -63,6 +66,7 @@ public class GosBaseActivity extends FragmentActivity {
 	public static Handler baseHandler;
 
 	public static boolean isclean = false;
+	private ExitAppReceiver exitReceiver;
 
 	public void setBaseHandler(Handler basehandler) {
 		if (null != basehandler) {
@@ -89,10 +93,19 @@ public class GosBaseActivity extends FragmentActivity {
 		MessageCenter.getInstance(this);
 		// 初始化
 		setProgressDialog();
+		//退出APP
+		exitReceiver = new ExitAppReceiver();
+		IntentFilter filter=new IntentFilter();
+		filter.addAction(ConstAction.exitappnotifyaction);
+		registerReceiver(exitReceiver,filter);
 	}
-	
-	
-	
+
+
+	@Override
+	protected void onDestroy() {
+		unregisterReceiver(exitReceiver);
+		super.onDestroy();
+	}
 
 	/**
 	 * 添加ProductKeys
