@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,10 @@ import com.orm.SugarRecord;
 import java.util.List;
 
 import huantai.smarthome.bean.ConstAction;
+import huantai.smarthome.bean.ConstantData;
 import huantai.smarthome.bean.HomeItem;
 import huantai.smarthome.control.ActivityAlertmes;
+import huantai.smarthome.initial.CommonModule.GosConstant;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.view.TextViewHolder;
 
@@ -33,6 +36,9 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
     private Intent vintent;
     public static final String DEVICENOMAL = "正常";
     public static final String DEVICECHANGE = "状态改变";
+    private SharedPreferences spf;
+    private boolean isCheck;
+
     public AddRemoveNumberedAdapter(List<HomeItem> homeItemLists, Context context) {
         this.homeItemLists = homeItemLists;
         this.context = context;
@@ -44,14 +50,17 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
     }
 
 
+
     @Override
     public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 viewType == ITEM_VIEW_TYPE_ADD ? R.layout.item_add : R.layout.activity_item, parent, false);
 
         TextViewHolder textViewHolder = new TextViewHolder(view);
-        //为每一个item设置点击监听
-//    textViewHolder.itemLayout.setOnClickListener(this);
+
+        spf = context.getSharedPreferences(GosConstant.SPF_Name, Context.MODE_PRIVATE);
+        isCheck = spf.getBoolean("issafe", true);
+
         view.setOnClickListener(this);
 
         return textViewHolder;
@@ -59,6 +68,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
 
     @Override
     public void onBindViewHolder(final TextViewHolder holder, final int position) {
+
 
         vintent = new Intent(ConstAction.vibratoraction);
 
@@ -94,7 +104,7 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
             IntentFilter filter = new IntentFilter(ConstAction.notifyfinishaction);
             context.registerReceiver(notifyfinishbroadcast, filter);
 
-
+            //判断是否删除
             if (iv_delete_gone) {
                 holder.iv_edit.setVisibility(View.GONE);
                 holder.iv_edit.setEnabled(false);
@@ -109,24 +119,31 @@ public class AddRemoveNumberedAdapter extends RecyclerView.Adapter<TextViewHolde
                 });
             }
 
-            holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO: 2017/11/5 tag用来判断item点击的位置，若为最后一个跳转到报警表。
-                    if ((int)v.getTag() == homeItemLists.size()-1) {
-                        Intent intent = new Intent(context, ActivityAlertmes.class);
-                        context.startActivity(intent);
+            //判断是否开启了监听
+            if (isCheck && ConstantData.name[8].equals(homeItemLists.get(position).getName())) {
+                holder.llf_itemLayout.setBackgroundResource(R.drawable.home_item_alert_use);
+            } else if (!isCheck && ConstantData.name[8].equals(homeItemLists.get(position).getName())){
+                holder.llf_itemLayout.setBackgroundResource(R.drawable.home_item_alert_nouse);
+            }
+
+                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //用来判断item点击的位置，若为最后一个跳转到报警表。
+                        if ((int) v.getTag() == homeItemLists.size() - 1) {
+
+                            Intent intent = new Intent(context, ActivityAlertmes.class);
+                            context.startActivity(intent);
+                        }
+                        System.out.println("click" + (int) v.getTag());
                     }
-                    System.out.println("click"+(int)v.getTag());
-                }
-            });
+                });
             //将position保存在itemView的Tag中，以便点击时进行获取
             holder.itemView.setTag(position);
         }
 
 
         holder.itemLayout.setOnLongClickListener(new View.OnLongClickListener() {
-
 
 
             @Override

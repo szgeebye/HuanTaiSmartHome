@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/video_background"
+        android:gravity="center"
         android:padding="10dp"
         android:text="网络设置"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:background="#cccccc"
-        android:gravity="center"/>
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <TextView
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:text="在下面输入框输入wifi和密码"/>
-    <EditText
         android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="在下面输入框输入wifi和密码"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <EditText
         android:id="@+id/et_wifissid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:hint="输入wifi"
-        />
+        android:textColor="@color/black"
+        android:textColorHint="@color/background_gray"/>
+
     <EditText
         android:id="@+id/et_wifipsw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="输入密码"
-        android:password="true"
-        />
+        android:textColor="@color/black"
+        android:textColorHint="@color/background_gray"
+        android:password="true" />
+
     <Button
-        android:layout_marginTop="10dp"
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="下一步"/>
+        android:layout_marginTop="10dp"
+        android:text="下一步"
+        android:textColor="@color/black"
+        style="@style/LoginButtonStyle"/>
 </LinearLayout>

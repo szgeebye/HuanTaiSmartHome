@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/video_background"
+        android:gravity="center"
         android:padding="10dp"
         android:text="网络设置"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:background="#cccccc"
-        android:gravity="center"/>
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <TextView
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:textSize="18sp"
-        android:text="将手机音量调高，并靠近摄像机"/>
+        android:text="将手机音量调高，并靠近摄像机"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
         android:text="下一步"
-        android:layout_marginTop="50dp"/>
+       style="@style/LoginButtonStyle"/>
 </LinearLayout>

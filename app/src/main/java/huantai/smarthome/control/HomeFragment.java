@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements ControlDataible {
     private SharedPreferences spf;
     public static final String DEVICENOMAL = "正常";
     public static final String DEVICECHANGE = "状态改变";
-    public static final String ALERT = "可查看";
+    public static final String ALERT = "安防监听已启用";
     public static final String NOALERT = "安防监听未启用";
     private ConcurrentHashMap<String, Object> dataMap;
 
