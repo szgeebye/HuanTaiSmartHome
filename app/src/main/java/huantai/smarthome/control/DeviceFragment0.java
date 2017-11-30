@@ -182,7 +182,7 @@ public class DeviceFragment0 extends Fragment implements ControlDataible {
                 } else {
 
 //                    address = deviceShowAdapter.getSwitchInfoLists().get(position).getAddress(); //获取所点击设备的当前地址
-                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
+                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position));
                     //popup初始化事件
                     popupSwitch.init();
                     popupSwitch.showPopupWindow();

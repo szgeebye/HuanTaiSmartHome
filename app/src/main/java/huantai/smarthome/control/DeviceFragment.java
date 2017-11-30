@@ -111,6 +111,7 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                 .where(Condition.prop("isdelete").eq(0),Condition.prop("bindgiz").eq(device.getMacAddress()))
                 .list();
         deviceShowAdapter = new DeviceShowAdapter(initItemLists, getContext());
+        // FIXME: 2017/11/30 两次设置？？？
         deviceShowAdapter.setData(initItemLists);
         if (initItemLists.size() != 0) {
             //更新数据
@@ -168,13 +169,12 @@ public class DeviceFragment extends Fragment implements ControlDataible {
                     Log.i("getAddress",deviceShowAdapter.getSwitchInfoLists().get(position).getAddress());
                     startActivity(intent);
 
-                } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {//如果是空调
+                } else if (deviceShowAdapter.getSwitchInfoLists().get(position).getType() == 5) {//如果是窗帘
                     PopupCurtain popupCurtain = new PopupCurtain(getActivity(),address);
                     popupCurtain.showPopupWindow();
 
                 } else {
-
-                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(), deviceShowAdapter.getSwitchInfoLists().get(position).getType(), address);
+                    PopupSwitch popupSwitch = new PopupSwitch(getActivity(),deviceShowAdapter.getSwitchInfoLists().get(position));
                     //popup初始化事件
                     popupSwitch.init();
                     popupSwitch.showPopupWindow();

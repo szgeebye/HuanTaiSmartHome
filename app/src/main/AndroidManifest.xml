@@ -85,8 +85,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UserModule.GosUserLoginActivity"
+            android:name="huantai.smarthome.initial.UserModule.GosUserLoginActivity"
             android:label="@string/app_name"
+            android:exported="true"
             android:theme="@style/My_Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

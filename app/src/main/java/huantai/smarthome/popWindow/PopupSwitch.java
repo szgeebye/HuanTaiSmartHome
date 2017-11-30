@@ -16,10 +16,13 @@ import android.widget.TextView;
 import com.suke.widget.SwitchButton;
 
 import huantai.smarthome.bean.ConstAction;
+import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ControlProtocol;
 import huantai.smarthome.utils.ControlUtils;
 import razerdp.basepopup.BasePopupWindow;
+
+import static huantai.smarthome.bean.ConstAction.popupnotifyaction;
 
 /**
  * Auther：joahluo
@@ -48,12 +51,15 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
     private Intent sendDataBroadcastIntent;
     private Intent sendToastMessageIntent;
 
-    public PopupSwitch(Activity context, int type, String address) {
+    public PopupSwitch(Activity context, SwitchInfo switchInfo) {
         super(context);
         this.context = context;
-        this.type = type;
-        this.address = address;
-
+        this.type = switchInfo.getType();
+        this.address = switchInfo.getAddress();
+        checked1=(switchInfo.getStatus1()==1?true : false);
+        checked2=(switchInfo.getStatus2()==1?true : false);
+        checked3=(switchInfo.getStatus3()==1?true : false);
+        checked4=(switchInfo.getStatus4()==1?true : false);
     }
 
     //初始化
@@ -101,7 +107,7 @@ public class PopupSwitch extends BasePopupWindow implements View.OnClickListener
     private void initReceiver() {
         deviceStutasReceiver = new DeviceStutasReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.device.status.update.action");
+        filter.addAction(popupnotifyaction);
         context.registerReceiver(deviceStutasReceiver, filter);
 
         sendDataBroadcastIntent = new Intent(ConstAction.senddeviceaction);//开关控制广播

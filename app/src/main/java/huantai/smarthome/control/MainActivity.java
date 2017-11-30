@@ -164,8 +164,8 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
 
         //发送video登陆信息广播
         sendDataBroadcastIntent = new Intent(ConstAction.sendvideoaction);
-
-
+        // TODO: 2017/11/30
+//        device.setListener(mListener);
     }
 
     public class SendDataReceiver extends BroadcastReceiver {
@@ -337,4 +337,6 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     public void closeLoadingDialog() {
         dialog.dismiss();
     }
+
+
 }

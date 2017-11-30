@@ -192,7 +192,7 @@ public class VideoPlayActivity extends Activity implements View.OnClickListener{
 
                 } else {
 
-                    PopupSwitch popupSwitch = new PopupSwitch(VideoPlayActivity.this, deviceShowAdapter.getSwitchInfoLists().get(position).getType(), address);
+                    PopupSwitch popupSwitch = new PopupSwitch(VideoPlayActivity.this, deviceShowAdapter.getSwitchInfoLists().get(position));
                     //popup初始化事件
                     popupSwitch.init();
                     popupSwitch.showPopupWindow();

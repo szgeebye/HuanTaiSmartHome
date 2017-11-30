@@ -11,7 +11,7 @@ public class ConstAction {
     public static final String deletefinishaction = "com.huantai.smarthome.homefragment.deletefinish.action";
     //完成(更新)广播
     public static final String notifyfinishaction = "com.huantai.smarthome.addremoveadpter.notifyfinish.action";
-    //inputPopup向DeviceShowAdapter发送界面更新广播
+    //DeviceListView更新广播
     public static final String devicenotifyfinishaction = "com.huantai.smarthome.deviceshowadapter.devicenotifyfinish.action";
     //inputPopup接收DeviceAddActivity传递的数据
     public static final String deviceaddaction = "com.huantai.smarthome.deviceaddactivity.deviceaddaction.action";
@@ -31,5 +31,8 @@ public class ConstAction {
     public static final String servicedatanotifyaction = "huantai.smarthome.Service.ServiceNotify.alertnotifyaction.action";
     //服务发数据广播
     public static final String exitappnotifyaction = "huantai.smarthome.control.MineFragment.exitappnotifyaction.action";
+
+    //Popup UI 更新广播
+    public static final String popupnotifyaction = "com.device.status.update.action";
 
 }

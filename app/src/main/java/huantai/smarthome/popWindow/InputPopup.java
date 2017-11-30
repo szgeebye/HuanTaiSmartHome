@@ -168,7 +168,8 @@ public class InputPopup extends BasePopupWindow implements View.OnClickListener 
         GizWifiDevice device = MainActivity.commandevice;
         SwitchInfo switchInfo = new SwitchInfo();
         regex = "^[A-Fa-f0-9]{8}$";
-        macAddress = String.valueOf(et_deviceMac.getText());
+        //大写
+        macAddress = String.valueOf(et_deviceMac.getText()).toUpperCase();
         deviceName = String.valueOf(et_deviceName.getText());
         //判断Mac是否为8位16进制数
         if (macAddress.matches(regex) && !deviceName.isEmpty()) {
