@@ -10,8 +10,7 @@ import static huantai.smarthome.utils.ConvertUtil.hexStringToByte;
  */
 public class ControlUtils {
           //通知网关上报设备状态
-          public static final byte[] STATUS_UP_DATA = {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x15};
-
+          public static byte[] STATUS_UP_DATA = {(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x15};
 
           /*
           *    SWITCH_ONE_A_OPEN	00f1f2f3f40100
@@ -29,6 +28,7 @@ public class ControlUtils {
           *    PLUG_OPEN		10f1f2f3f40d00
           *    PLUG_CLOSE		10f1f2f3f40e00
           **/
+
 
           /***
            * @param DevType 开关的类型

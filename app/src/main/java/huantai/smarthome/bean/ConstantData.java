@@ -20,4 +20,6 @@ public class ConstantData {
     public static final String devicename[] = {
             "一位开关", "二位开关", "三位开关", "插座","窗帘","空调"
     };
+
+
 }

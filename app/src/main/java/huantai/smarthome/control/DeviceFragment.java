@@ -37,6 +37,7 @@ import huantai.smarthome.bean.SwitchInfo;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.popWindow.PopupCurtain;
 import huantai.smarthome.popWindow.PopupSwitch;
+import huantai.smarthome.utils.ControlUtils;
 import huantai.smarthome.utils.ToastUtil;
 import huantai.smarthome.view.SlideListView;
 
@@ -201,6 +202,11 @@ public class DeviceFragment extends Fragment implements ControlDataible {
         //注册界面更新广播接收者
         updateFilter = new IntentFilter(ConstAction.devicenotifyfinishaction);
         getContext().registerReceiver(notifyfinishbroadcast, updateFilter);
+        Intent sendDataBroadcastIntent;
+        sendDataBroadcastIntent = new Intent(ConstAction.senddeviceaction);
+        //状态同步广播
+        sendDataBroadcastIntent.putExtra("value",ControlUtils.STATUS_UP_DATA);
+        getContext().sendBroadcast(sendDataBroadcastIntent);
     }
 
     private BroadcastReceiver notifyfinishbroadcast = new BroadcastReceiver() {
