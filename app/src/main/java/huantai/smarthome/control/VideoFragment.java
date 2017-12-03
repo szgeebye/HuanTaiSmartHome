@@ -1,5 +1,6 @@
 package huantai.smarthome.control;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class VideoFragment extends Fragment {
     private View view;
     private ImageView iv_vedio_add;
     private ImageView iv_video_back;
+    private ProgressDialog dialog;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,6 +74,8 @@ public class VideoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_video, container, false);
+//        init();
+//        loadVideo();
         init();
         initview();
         initData();
@@ -79,23 +83,27 @@ public class VideoFragment extends Fragment {
         return view;
     }
 
+    //创建Fragment时回调，只会调用一次
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        init();
+//        loadVideo();
+//        init();
+//        initData();
         System.out.println(1);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+//        xmSystem.xmLogout();
         System.out.println(2);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     ActivityManager manager;
@@ -245,5 +253,14 @@ public class VideoFragment extends Fragment {
         }
     }
 
+    //加载视频提示
+    public void showLoadingDialog() {
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("请稍后...");
+        dialog.show();
+    }
 
+    public void closeLoadingDialog() {
+        dialog.dismiss();
+    }
 }

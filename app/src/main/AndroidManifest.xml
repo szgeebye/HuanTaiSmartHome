@@ -198,6 +198,18 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"></activity>
 
+        <!--视频注册1-->
+        <activity
+            android:name="huantai.smarthome.video.RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+
+        <!--视频注册2-->
+        <activity
+            android:name="huantai.smarthome.video.RegisterActivity2"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+
 
         <!-- 极光推送 -->
         <!-- Required SDK 核心功能 -->

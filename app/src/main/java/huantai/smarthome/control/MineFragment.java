@@ -24,7 +24,7 @@ import huantai.smarthome.utils.ShareDeviceUtils;
 /**
  * Created by Jay on 2015/8/28 0028.
  */
-public class MineFragment extends Fragment {
+    public class MineFragment extends Fragment {
 
     private LinearLayout ll_share,llAbout,llexit;
     private View view;

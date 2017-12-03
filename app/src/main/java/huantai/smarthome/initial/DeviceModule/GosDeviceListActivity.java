@@ -3,7 +3,9 @@ package huantai.smarthome.initial.DeviceModule;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +38,7 @@ import com.gizwits.gizwifisdk.listener.GizDeviceSharingListener;
 import com.gizwits.gizwifisdk.listener.GizWifiDeviceListener;
 
 import huantai.smarthome.control.MainActivity;
+import huantai.smarthome.initial.CommonModule.GosConstant;
 import huantai.smarthome.initial.CommonModule.GosDeploy;
 import huantai.smarthome.initial.CommonModule.TipsDialog;
 import huantai.smarthome.initial.ConfigModule.GosAirlinkChooseDeviceWorkWiFiActivity;
@@ -45,6 +48,7 @@ import huantai.smarthome.initial.PushModule.GosPushManager;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.initial.SettingsModule.GosSettiingsActivity;
 import huantai.smarthome.initial.sharingdevice.gosZxingDeviceSharingActivity;
+import huantai.smarthome.popWindow.VideoRegisPopup;
 import huantai.smarthome.utils.NetUtils;
 import huantai.smarthome.initial.view.SlideListView2;
 import huantai.smarthome.initial.view.VerticalSwipeRefreshLayout;
@@ -129,6 +133,8 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 	boolean isFrist = true;
 
+	String videoUser;//视频用户名
+	String videoPsw;//视频密码
 	// boolean isLogout = false;
 	//
 	// public static boolean isAnonymousLoging = false;
@@ -177,6 +183,7 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 	 * 修改名字的设备
 	 */
 	private GizWifiDevice rndevice;
+	private SharedPreferences sp;
 
 
 	Handler handler = new Handler() {
@@ -222,12 +229,19 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 
 			case TOCONTROL:
 //				intent = new Intent(GosDeviceListActivity.this, GosDeviceControlActivity.class);
-				intent = new Intent(GosDeviceListActivity.this, MainActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("GizWifiDevice", (GizWifiDevice) msg.obj);
-				intent.putExtras(bundle);
-				// startActivity(intent);
-				startActivityForResult(intent, 1);
+
+				if (videoUser.isEmpty()) {
+					// TODO: 2017/12/2 弹出提示是否激活视频功能框
+					VideoRegisPopup videoRegisPopup = new VideoRegisPopup(GosDeviceListActivity.this);
+					videoRegisPopup.showPopupWindow();
+				}
+//				else {
+					intent = new Intent(GosDeviceListActivity.this, MainActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putParcelable("GizWifiDevice", (GizWifiDevice) msg.obj);
+					intent.putExtras(bundle);
+					startActivityForResult(intent, 1);
+//				}
 				break;
 
 			case TOAST:
@@ -509,6 +523,10 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 		ProductKeyList = GosDeploy.setProductKeyList();
 		uid = spf.getString("Uid", "");
 		token = spf.getString("Token", "");
+
+		sp = getSharedPreferences(GosConstant.SPF_Name, Context.MODE_PRIVATE);
+		videoUser = sp.getString("videoUser","");
+		videoPsw = sp.getString("videoPsw","");
 
 		if (uid.isEmpty() && token.isEmpty()) {
 			loginStatus = 0;

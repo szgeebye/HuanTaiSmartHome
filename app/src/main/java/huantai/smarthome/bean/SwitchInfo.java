@@ -33,13 +33,13 @@ public class SwitchInfo {
     //    @Expose
     public int status1;//共用字段1（对应开关：状态1--对应空调：brand品牌）
     //    @Expose
-    public int status2;//共用字段1（对应开关：状态2--对应空调：temperature温度）
+    public int status2;//共用字段2（对应开关：状态2--对应空调：temperature温度）
     //    @Expose
-    public int status3;//共用字段1（对应开关：状态3--对应空调：mode模式）
+    public int status3;//共用字段3（对应开关：状态3--对应空调：mode模式）
     //    @Expose
-    public int status4;//共用字段1（对应开关：无--对应空调：speed速度）
+    public int status4;//共用字段4（对应开关：无--对应空调：speed速度）
     //    @Expose
-    public int status5;//共用字段1（对应开关：无--对应空调：direction风向）
+    public int status5;//共用字段5（对应开关：无--对应空调：direction风向）
 
 
     public SwitchInfo() {

@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,9 +33,9 @@ import huantai.smarthome.Service.ServiceNotify;
 import huantai.smarthome.adapter.MyFragmentPagerAdapter;
 import huantai.smarthome.bean.ConstAction;
 import huantai.smarthome.initial.CommonModule.GosBaseActivity;
+import huantai.smarthome.initial.CommonModule.GosConstant;
 import huantai.smarthome.initial.R;
 import huantai.smarthome.utils.ToastUtil;
-import huantai.smarthome.utils.spUtil;
 import huantai.smarthome.view.MainViewPager;
 
 
@@ -53,6 +54,9 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     private MainViewPager vpager;
 
     private MyFragmentPagerAdapter mAdapter;
+    String videoUser = null;
+    String videoPsw = null;
+    private SharedPreferences sp;
 
     //几个代表页面的常量
     public static final int PAGE_ONE = 0;
@@ -61,7 +65,7 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
     public static final int PAGE_FOUR = 3;
     public static GizWifiDevice commandevice;//供其他界面调用的device
     private IXmSystem xmSystem;
-    spUtil sp;
+//    spUtil sp;
     public static  XmAccount account = null;
     private Handler handler = new Handler() {
         @Override
@@ -92,6 +96,9 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         rb_channel.setChecked(true);
         initDevice();
         initBroadreceive();
+
+//        IXmAccountManager iXmAccountManager = xmSystem.xmGetAccountManager();
+//        iXmAccountManager.xmRegisterAccount()
 
     }
 
@@ -167,6 +174,11 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
         // TODO: 2017/11/30
 //        device.setListener(mListener);
     }
+
+
+
+
+
 
     public class SendDataReceiver extends BroadcastReceiver {
 
@@ -279,50 +291,55 @@ public class MainActivity extends GosBaseActivity implements RadioGroup.OnChecke
 
 
     private void loadVideo() {
-        initVideo();
-        showLoadingDialog();
-        try {
-            xmSystem.xmLogin("13135367953",
-                    "chen162858", new OnXmListener<XmAccount>() {
-                        @Override
-                        public void onSuc(XmAccount outinfo) {
-                            closeLoadingDialog();
-                            handler.sendEmptyMessage(1);
-                            account = outinfo;
-                            System.out.print(1);
+            initVideo();
+            showLoadingDialog();
+        sp = getSharedPreferences(GosConstant.SPF_Name, Context.MODE_PRIVATE);
+        videoUser = sp.getString("videoUser","");
+        videoPsw = sp.getString("videoPsw","");
+
+            try {
+                xmSystem.xmLogin(videoUser,
+                        videoPsw, new OnXmListener<XmAccount>() {
+                            @Override
+                            public void onSuc(XmAccount outinfo) {
+                                closeLoadingDialog();
+                                handler.sendEmptyMessage(1);
+                                account = outinfo;
+                                System.out.print(1);
 //                            loginSuc(outinfo);
-                        }
+                            }
 
-                        @Override
-                        public void onErr(XmErrInfo info) {
-                            closeLoadingDialog();
-                            handler.sendEmptyMessage(2);
-                        }
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
-            closeLoadingDialog();
-            handler.sendEmptyMessage(2);
-        } finally {
+                            @Override
+                            public void onErr(XmErrInfo info) {
+                                closeLoadingDialog();
+                                handler.sendEmptyMessage(2);
+                            }
+                        });
+            } catch (Exception e) {
+                e.printStackTrace();
+                closeLoadingDialog();
+                handler.sendEmptyMessage(2);
+            } finally {
 
-        }
+            }
     }
 
     //初始化视频
     private void initVideo() {
         //初始化爱小屏sdk
-        xmSystem = XmSystem.getInstance();
-        xmSystem.xmInit(MainActivity.this, "CN", new OnXmSimpleListener() {
-            @Override
-            public void onErr(XmErrInfo info) {
-                Log.v("AAAAA", "init Fail");
-            }
 
-            @Override
-            public void onSuc() {
-                Log.v("AAAAA", "init Suc");
-            }
-        });
+            xmSystem = XmSystem.getInstance();
+            xmSystem.xmInit(MainActivity.this, "CN", new OnXmSimpleListener() {
+                @Override
+                public void onErr(XmErrInfo info) {
+                    Log.v("AAAAA", "init Fail");
+                }
+
+                @Override
+                public void onSuc() {
+                    Log.v("AAAAA", "init Suc");
+                }
+            });
     }
 
     ProgressDialog dialog;
