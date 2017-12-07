@@ -235,13 +235,13 @@ public class GosDeviceListActivity extends GosDeviceModuleBaseActivity implement
 					VideoRegisPopup videoRegisPopup = new VideoRegisPopup(GosDeviceListActivity.this);
 					videoRegisPopup.showPopupWindow();
 				}
-//				else {
+				else {
 					intent = new Intent(GosDeviceListActivity.this, MainActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putParcelable("GizWifiDevice", (GizWifiDevice) msg.obj);
 					intent.putExtras(bundle);
 					startActivityForResult(intent, 1);
-//				}
+				}
 				break;
 
 			case TOAST:

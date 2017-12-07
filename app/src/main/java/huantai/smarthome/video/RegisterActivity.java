@@ -55,7 +55,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
         spf = getSharedPreferences(GosConstant.SPF_Name, Context.MODE_PRIVATE);
         et_username = (EditText)findViewById(R.id.et_username);
-        et_username.setText(spf.getString("UserName",""));
+//        et_username.setText(spf.getString("UserName",""));
         Log.i("UserName",spf.getString("UserName",""));
 
         et_code = (EditText)findViewById(R.id.et_code);
@@ -112,7 +112,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
             }
         },0,1000);
 
-        isExistAccount(account);//判断账号是否已被注册
+//        isExistAccount(account);//判断账号是否已被注册
     }
 
     private void isExistAccount(final String account){
@@ -121,6 +121,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
             @Override
             public void onErr(XmErrInfo info) {
                 mHandler.sendEmptyMessage(0x124);
+                Log.i("XmErrInfo", String.valueOf(info));
             }
 
             @Override
